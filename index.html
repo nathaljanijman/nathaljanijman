@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathalja Nijman - Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hero-simple.css">
+    <link rel="stylesheet" href="css/contact-choice-modal.css">
+    <link rel="stylesheet" href="css/professional-identity.css">
+    <link rel="stylesheet" href="css/innovative-services.css">
+    <!-- Raleway Typography Strategy -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Enhanced Navigation Bar -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <!-- Main Navigation Menu -->
+            <nav class="nav-menu" role="navigation" aria-label="Main navigation">
+                <a href="#home" class="nav-link active" aria-label="Home section" data-translate="navHome">Home</a>
+                <a href="#personas" class="nav-link" aria-label="Services section" data-translate="navServices">Voor jou</a>
+                <a href="#impact-theater" class="nav-link" aria-label="Impact section" data-translate="navImpact">Impact</a>
+                <a href="#projects" class="nav-link" aria-label="Projects section" data-translate="navProjects">Resultaten</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Language Toggle -->
+                <div class="language-toggle-wrapper">
+                    <button class="language-toggle" id="languageToggle" aria-label="Switch language">
+                        <span class="lang-current">NL</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6,9 12,15 18,9"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="lang-option" data-lang="nl">
+                            <span class="lang-flag">🇳🇱</span>
+                            <span>Nederlands</span>
+                        </button>
+                        <button class="lang-option" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span>
+                            <span>English</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Prominent Contact Button -->
+                <a href="#contact" class="contact-button" aria-label="Contact Nathalja" data-translate="navContact">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>Contact</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <nav class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+                <a href="#home" class="mobile-nav-link active" data-translate="navHome">Home</a>
+                <a href="#personas" class="mobile-nav-link" data-translate="navServices">Voor jou</a>
+                <a href="#impact-theater" class="mobile-nav-link" data-translate="navImpact">Impact</a>
+                <a href="#projects" class="mobile-nav-link" data-translate="navProjects">Resultaten</a>
+                <a href="#contact" class="mobile-nav-link contact" data-translate="navContact">Contact</a>
+
+                <div class="mobile-toggles">
+                    <button class="mobile-theme-toggle" aria-label="Toggle theme">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M16.24 7.76l-1.42 1.42M8.18 16.82l-1.42-1.42M21 12h-2M5 12H3M16.24 16.24l-1.42-1.42M8.18 7.18L6.76 5.76"/>
+                        </svg>
+                        <span data-translate="themeToggle">Thema</span>
+                    </button>
+                    <button class="mobile-lang-toggle" aria-label="Switch language">
+                        <span class="lang-flag">🇳🇱</span>
+                        <span data-translate="languageToggle">Taal</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-simple" role="main" aria-label="Nathalja Nijman introduction">
+        <!-- Background Image -->
+        <div class="hero-background">
+            <img src="images/nathalja-work.jpg" alt="Nathalja Nijman - Product Owner" class="hero-bg-image">
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Portfolio Offer Sticker -->
+        <a href="portfolio-website.html" class="portfolio-sticker" aria-label="Laat mij jouw portfolio website bouwen">
+            <div class="sticker-content">
+                <span class="sticker-question">Wil je ook zo'n portfolio website?</span>
+                <span class="sticker-answer">Ik maak hem voor je! →</span>
+            </div>
+        </a>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <!-- Personal Branding -->
+            <div class="hero-branding">
+                <h1 class="hero-name">Nathalja Nijman</h1>
+                <p class="hero-tagline">Jij krijgt snellere groei, betere resultaten, en minder stress</p>
+            </div>
+
+            <!-- Conversational Interface -->
+            <div class="hero-conversation">
+                <form class="hero-input-form" id="heroConversationForm" onsubmit="return false;">
+                    <div class="input-container">
+                        <input
+                            type="text"
+                            id="heroInput"
+                            placeholder="Vertel me over je idee, project of vraag..."
+                            autocomplete="off"
+                            maxlength="500"
+                        />
+                        <button type="submit" class="send-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quick Suggestions -->
+                <div class="conversation-suggestions">
+                    <button class="suggestion-pill" data-message="Ik wil sneller groeien zonder chaos">Snellere groei</button>
+                    <button class="suggestion-pill" data-message="Ik wil betere resultaten met minder stress">Betere resultaten</button>
+                    <button class="suggestion-pill" data-message="Ik wil meer impact maken in mijn werk">Meer impact</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Identity Section -->
+    <section id="identity" class="professional-identity">
+        <div class="container">
+
+            <div class="identity-pillars">
+                <!-- ABN AMRO Product Owner -->
+                <div class="pillar-card corporate" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 17l4-4 4 4 8-8"/>
+                            <path d="M18 9h4v4"/>
+                        </svg>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Snellere Beslissingen</h3>
+                        <p class="pillar-subtitle">Jij krijgt duidelijkheid waar anderen twijfelen</p>
+                        <div class="pillar-description">
+                            <p>Van maanden naar weken doorlooptijd. Ik help je complexe keuzes maken gebaseerd op data in plaats van gevoelens, zodat jouw team snel vooruit kan.</p>
+                        </div>
+                        <div class="pillar-metrics">
+                            <div class="metric">
+                                <span class="metric-number">15+</span>
+                                <span class="metric-label">Complexe projecten</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-number">95%</span>
+                                <span class="metric-label">Stakeholder satisfaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vibe Coder -->
+                <div class="pillar-card creative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+                        </svg>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Sterkere Positie</h3>
+                        <p class="pillar-subtitle">Jij valt op waar anderen verdwijnen</p>
+                        <div class="pillar-description">
+                            <p>Van onzichtbaar naar onmisbaar. Ik bouw digitale tools die jouw expertise laten zien, zodat klanten en partners jou vinden in plaats van andersom.</p>
+                        </div>
+                        <div class="pillar-metrics">
+                            <div class="metric">
+                                <span class="metric-number">25+</span>
+                                <span class="metric-label">Web applicaties</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-number">100%</span>
+                                <span class="metric-label">Custom solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Football Agent -->
+                <div class="pillar-card sports" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8.5 8.5l7 7"/>
+                            <path d="M8.5 15.5l7-7"/>
+                        </svg>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Succesvollere Carrière</h3>
+                        <p class="pillar-subtitle">Jij maakt de juiste moves op het juiste moment</p>
+                        <div class="pillar-description">
+                            <p>Van talent naar topspeler. Ik help je strategische keuzes maken die jouw carrière versnellen, zodat jij focust op presteren terwijl ik de rest regel.</p>
+                        </div>
+                        <div class="pillar-metrics">
+                            <div class="metric">
+                                <span class="metric-number">10+</span>
+                                <span class="metric-label">Spelers begeleid</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-number">3</span>
+                                <span class="metric-label">Jaar ervaring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Benefits Bridge Section -->
+    <section id="benefits" class="benefits-bridge">
+        <div class="container">
+            <div class="benefits-header">
+                <h2>Concreet voor jou betekent dit:</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Sneller van idee naar resultaat</h3>
+                    <p>Geen maanden wikken en wegen. In weken heb je duidelijkheid en een plan dat werkt.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Minder stress, meer focus</h3>
+                    <p>Jij focust op waar je goed in bent. Ik regel de rest en zorg dat alles soepel loopt.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Meetbare groei die blijft</h3>
+                    <p>Geen tijdelijke fixes. We bouwen iets dat blijft groeien, ook als ik er niet meer ben.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Persona-Driven Showcase Section -->
+    <section id="personas" class="persona-showcase">
+        <div class="container">
+            <div class="showcase-header">
+                <h2>Wie ben jij?</h2>
+                <p>Ontdek hoe ik jouw specifieke uitdagingen kan oplossen</p>
+            </div>
+
+            <div class="persona-grid">
+                <div class="persona-card" data-persona="startup">
+                    <div class="persona-avatar">
+                        <div class="avatar-icon startup-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
+                            </svg>
+                        </div>
+                        <h3>Startup Founder</h3>
+                    </div>
+                    <div class="persona-content">
+                        <p class="persona-challenge">"Ik heb een geweldig idee maar weet niet hoe ik het tot een product maak"</p>
+                        <div class="persona-solution">
+                            <div class="solution-item">
+                                <span class="solution-icon">📊</span>
+                                <span>Product strategie & roadmap</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">⚡</span>
+                                <span>MVP development</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">🎯</span>
+                                <span>Go-to-market positionering</span>
+                            </div>
+                        </div>
+                        <div class="persona-result">
+                            <strong>Resultaat:</strong> Van idee naar werkende app in 12 weken
+                        </div>
+                    </div>
+                </div>
+
+                <div class="persona-card" data-persona="scaleup">
+                    <div class="persona-avatar">
+                        <div class="avatar-icon scaleup-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                                <path d="M8 21h8"/>
+                                <path d="M12 5v8"/>
+                                <path d="M10 9l2-2 2 2"/>
+                            </svg>
+                        </div>
+                        <h3>Scale-up CMO</h3>
+                    </div>
+                    <div class="persona-content">
+                        <p class="persona-challenge">"We groeien snel maar onze systemen kunnen het niet bijhouden"</p>
+                        <div class="persona-solution">
+                            <div class="solution-item">
+                                <span class="solution-icon">📈</span>
+                                <span>Scalable product architecture</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">🔄</span>
+                                <span>Process optimization</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">👥</span>
+                                <span>Team leadership coaching</span>
+                            </div>
+                        </div>
+                        <div class="persona-result">
+                            <strong>Resultaat:</strong> 300% groei zonder extra hoofdpijn
+                        </div>
+                    </div>
+                </div>
+
+                <div class="persona-card" data-persona="corporate">
+                    <div class="persona-avatar">
+                        <div class="avatar-icon corporate-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18"/>
+                                <path d="M5 21V7l8-4v18"/>
+                                <path d="M19 21V11l-6-4"/>
+                            </svg>
+                        </div>
+                        <h3>Corporate Innovator</h3>
+                    </div>
+                    <div class="persona-content">
+                        <p class="persona-challenge">"We moeten innoveren maar weten niet hoe we snel kunnen bewegen"</p>
+                        <div class="persona-solution">
+                            <div class="solution-item">
+                                <span class="solution-icon">🚀</span>
+                                <span>Innovation lab setup</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">📊</span>
+                                <span>Data-driven decision making</span>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-icon">💡</span>
+                                <span>Agile transformation</span>
+                            </div>
+                        </div>
+                        <div class="persona-result">
+                            <strong>Resultaat:</strong> Van maanden naar weken doorlooptijd
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Theater Section -->
+    <section id="impact-theater" class="impact-theater">
+        <div class="container">
+            <div class="theater-header">
+                <h2>Impact Theater</h2>
+                <p>Echte uitdagingen, meetbare resultaten</p>
+            </div>
+
+            <div class="theater-stage">
+                <div class="scenario-nav">
+                    <button class="scenario-btn active" data-scenario="0">Product Launch Crisis</button>
+                    <button class="scenario-btn" data-scenario="1">Scale-up Chaos</button>
+                    <button class="scenario-btn" data-scenario="2">Corporate Innovation Block</button>
+                </div>
+
+                <div class="scenario-container">
+                    <div class="scenario active" data-scenario="0">
+                        <div class="scenario-split">
+                            <div class="scenario-before">
+                                <h3>Voor</h3>
+                                <div class="scenario-problem">
+                                    <div class="problem-title">🔥 Startup Crisis</div>
+                                    <ul>
+                                        <li>App crashes bij 100+ gebruikers</li>
+                                        <li>Team werkt 80 uur per week</li>
+                                        <li>Investeerders worden ongeduldig</li>
+                                        <li>Geen duidelijke product roadmap</li>
+                                    </ul>
+                                    <div class="metric negative">
+                                        <span class="metric-number">25%</span>
+                                        <span class="metric-label">User retention</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scenario-after">
+                                <h3>Na</h3>
+                                <div class="scenario-solution">
+                                    <div class="solution-title">✨ Nathalja's Approach</div>
+                                    <ul>
+                                        <li><strong>Week 1-2:</strong> Technical debt assessment + prioritized backlog</li>
+                                        <li><strong>Week 3-6:</strong> Rebuild critical components + monitoring</li>
+                                        <li><strong>Week 7-8:</strong> Team process optimization</li>
+                                        <li><strong>Week 9-12:</strong> Scalable architecture + roadmap</li>
+                                    </ul>
+                                    <div class="metric positive">
+                                        <span class="metric-number">85%</span>
+                                        <span class="metric-label">User retention</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-impact">
+                            <div class="impact-stat">
+                                <span class="impact-number">12</span>
+                                <span class="impact-label">weken</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">€2.5M</span>
+                                <span class="impact-label">funding secured</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">10,000+</span>
+                                <span class="impact-label">active users</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scenario" data-scenario="1">
+                        <div class="scenario-split">
+                            <div class="scenario-before">
+                                <h3>Voor</h3>
+                                <div class="scenario-problem">
+                                    <div class="problem-title">📈 Scale-up Overload</div>
+                                    <ul>
+                                        <li>Groei van 50 naar 500 klanten</li>
+                                        <li>Support team overspoeld</li>
+                                        <li>Manuele processen breken</li>
+                                        <li>Kwaliteit daalt, churn stijgt</li>
+                                    </ul>
+                                    <div class="metric negative">
+                                        <span class="metric-number">35%</span>
+                                        <span class="metric-label">Monthly churn</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scenario-after">
+                                <h3>Na</h3>
+                                <div class="scenario-solution">
+                                    <div class="solution-title">⚡ Smart Automation</div>
+                                    <ul>
+                                        <li><strong>Month 1:</strong> Process mapping + automation roadmap</li>
+                                        <li><strong>Month 2:</strong> Self-service portal + chatbot</li>
+                                        <li><strong>Month 3:</strong> Predictive analytics dashboard</li>
+                                        <li><strong>Month 4:</strong> Team training + optimization</li>
+                                    </ul>
+                                    <div class="metric positive">
+                                        <span class="metric-number">8%</span>
+                                        <span class="metric-label">Monthly churn</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-impact">
+                            <div class="impact-stat">
+                                <span class="impact-number">4</span>
+                                <span class="impact-label">maanden</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">300%</span>
+                                <span class="impact-label">efficiency gain</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">€1.2M</span>
+                                <span class="impact-label">cost savings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scenario" data-scenario="2">
+                        <div class="scenario-split">
+                            <div class="scenario-before">
+                                <h3>Voor</h3>
+                                <div class="scenario-problem">
+                                    <div class="problem-title">🏢 Corporate Slow-mo</div>
+                                    <ul>
+                                        <li>Beslissingen duren maanden</li>
+                                        <li>Teams werken in silo's</li>
+                                        <li>Innovatie projecten falen</li>
+                                        <li>Concurrenten lopen voor</li>
+                                    </ul>
+                                    <div class="metric negative">
+                                        <span class="metric-number">8</span>
+                                        <span class="metric-label">maanden TTM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scenario-after">
+                                <h3>Na</h3>
+                                <div class="scenario-solution">
+                                    <div class="solution-title">🎯 Agile Transformation</div>
+                                    <ul>
+                                        <li><strong>Phase 1:</strong> Cross-functional team setup</li>
+                                        <li><strong>Phase 2:</strong> Data-driven decision framework</li>
+                                        <li><strong>Phase 3:</strong> Rapid prototyping lab</li>
+                                        <li><strong>Phase 4:</strong> Culture shift + training</li>
+                                    </ul>
+                                    <div class="metric positive">
+                                        <span class="metric-number">6</span>
+                                        <span class="metric-label">weken TTM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-impact">
+                            <div class="impact-stat">
+                                <span class="impact-number">6</span>
+                                <span class="impact-label">maanden</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">10x</span>
+                                <span class="impact-label">faster delivery</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-number">85%</span>
+                                <span class="impact-label">team satisfaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Choice Modal -->
+    <div class="contact-choice-modal" id="contactChoiceModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-avatar">
+                    <img src="images/nathalja-about.jpg" alt="Nathalja">
+                    <div class="status-indicator"></div>
+                </div>
+                <div class="modal-intro">
+                    <h3>Perfect! Hoe zullen we dit aanpakken?</h3>
+                    <p class="user-message-preview"></p>
+                </div>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+
+            <div class="contact-options">
+                <button class="contact-option whatsapp-option" id="chooseWhatsApp">
+                    <div class="option-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </div>
+                    <div class="option-content">
+                        <h4>Whatsapp chat</h4>
+                        <p>Direct en persoonlijk bespreken</p>
+                        <span class="response-time">Antwoord binnen 2 uur</span>
+                    </div>
+                    <div class="option-arrow">→</div>
+                </button>
+
+                <button class="contact-option email-option" id="chooseEmail">
+                    <div class="option-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="option-content">
+                        <h4>Email contact</h4>
+                        <p>Uitgebreide briefing en planning</p>
+                        <span class="response-time">Antwoord binnen 24 uur</span>
+                    </div>
+                    <div class="option-arrow">→</div>
+                </button>
+
+                <button class="contact-option chat-option" id="chooseChatContinue">
+                    <div class="option-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+                        </svg>
+                    </div>
+                    <div class="option-content">
+                        <h4>Direct doorpakken</h4>
+                        <p>Interactieve Q&A chat</p>
+                        <span class="response-time">Direct antwoord</span>
+                    </div>
+                    <div class="option-arrow">→</div>
+                </button>
+            </div>
+
+            <div class="modal-footer">
+                <p>Kies de manier die het beste bij je past</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conversational Dialogue Interface (Global Overlay) -->
+    <div class="conversation-dialogue" id="conversationDialogue" style="display: none;">
+                        <div class="dialogue-header">
+                            <div class="dialogue-avatar">
+                                <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                <div class="online-indicator"></div>
+                            </div>
+                            <div class="dialogue-intro">
+                                <span class="dialogue-greeting">Hi! Waar kan ik je mee helpen?</span>
+                                <span class="dialogue-subtitle">Kies een van de opties hieronder</span>
+                            </div>
+                            <button class="close-dialogue" id="closeDialogue">×</button>
+                        </div>
+
+                        <div class="dialogue-content">
+                            <!-- Organic Chat Interface -->
+                            <div class="dialogue-screen" id="mainScreen">
+                                <div class="chat-conversation" id="chatConversation">
+                                    <div class="chat-message nathalja-message">
+                                        <div class="message-avatar">
+                                            <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                        </div>
+                                        <div class="message-content">
+                                            <p>Hey! Waar kan ik je mee helpen? Vertel me gerust wat je op je hart hebt.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="chat-input-area">
+                                    <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                                        <div class="message-avatar">
+                                            <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                        </div>
+                                        <div class="typing-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+
+                                    <form class="chat-form" id="chatForm">
+                                        <div class="chat-input-container">
+                                            <input
+                                                type="text"
+                                                id="chatInput"
+                                                placeholder="Type je bericht hier..."
+                                                autocomplete="off"
+                                                maxlength="500"
+                                            >
+                                            <button type="submit" class="send-button" id="sendButton">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="quick-suggestions" id="quickSuggestions">
+                                        <p class="suggestions-label">Of kies een van deze onderwerpen:</p>
+                                        <div class="suggestion-chips">
+                                            <button class="suggestion-chip" data-message="Ik wil meer over je weten">Over jou</button>
+                                            <button class="suggestion-chip" data-message="Hoe kan ik contact met je opnemen?">Contact</button>
+                                            <button class="suggestion-chip" data-message="Ik heb een project idee">Project bespreken</button>
+                                            <button class="suggestion-chip" data-message="Wat zijn je tarieven?">Tarieven</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Response Screens -->
+                            <div class="dialogue-screen response-screen" id="aboutScreen" style="display: none;">
+                                <div class="response-content">
+                                    <div class="response-text">
+                                        <p>Ik ben <strong>Nathalja Nijman</strong>, Product Owner bij ABN AMRO met een passie voor het creëren van gebruiksvriendelijke digitale producten.</p>
+                                        <p>Met 3+ jaar ervaring help ik teams bij het ontwikkelen van producten die écht waarde toevoegen voor gebruikers. Mijn expertise ligt in:</p>
+                                        <ul>
+                                            <li>Product Strategy & Roadmapping</li>
+                                            <li>User Experience Design</li>
+                                            <li>Agile Product Development</li>
+                                            <li>Stakeholder Management</li>
+                                        </ul>
+                                    </div>
+                                    <div class="response-actions">
+                                        <button class="back-btn" onclick="showMainScreen()">← Terug naar opties</button>
+                                        <button class="action-btn" onclick="showContactScreen()">Laten we in contact komen</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dialogue-screen response-screen" id="contactScreen" style="display: none;">
+                                <div class="response-content">
+                                    <div class="response-text">
+                                        <p>Geweldig! Er zijn verschillende manieren om contact met me op te nemen:</p>
+                                    </div>
+                                    <div class="contact-options">
+                                        <a href="mailto:nathalja.nijman@example.com" class="contact-option">
+                                            <div class="contact-icon">📧</div>
+                                            <div class="contact-details">
+                                                <strong>Email</strong>
+                                                <small>nathalja.nijman@example.com</small>
+                                            </div>
+                                        </a>
+                                        <a href="https://linkedin.com/in/nathalja-nijman-86410389" class="contact-option">
+                                            <div class="contact-icon">💼</div>
+                                            <div class="contact-details">
+                                                <strong>LinkedIn</strong>
+                                                <small>Professioneel netwerken</small>
+                                            </div>
+                                        </a>
+                                        <button class="contact-option" onclick="showProjectScreen()">
+                                            <div class="contact-icon">💬</div>
+                                            <div class="contact-details">
+                                                <strong>Project gesprek plannen</strong>
+                                                <small>Laten we je project bespreken</small>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="response-actions">
+                                        <button class="back-btn" onclick="showMainScreen()">← Terug naar opties</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dialogue-screen response-screen" id="projectScreen" style="display: none;">
+                                <div class="response-content">
+                                    <div class="response-text">
+                                        <p>Fantastisch! Ik zou graag meer willen weten over je project.</p>
+                                    </div>
+                                    <form class="project-form" id="projectForm">
+                                        <div class="field-group">
+                                            <label for="projectName">Je naam</label>
+                                            <input type="text" id="projectName" required>
+                                        </div>
+                                        <div class="field-group">
+                                            <label for="projectEmail">Email</label>
+                                            <input type="email" id="projectEmail" required>
+                                        </div>
+                                        <div class="field-group">
+                                            <label for="projectType">Type project</label>
+                                            <select id="projectType" required>
+                                                <option value="">Selecteer type</option>
+                                                <option value="product-strategy">Product Strategy</option>
+                                                <option value="ux-design">UX Design</option>
+                                                <option value="consultation">Consultancy</option>
+                                                <option value="training">Training/Workshop</option>
+                                            </select>
+                                        </div>
+                                        <div class="field-group">
+                                            <label for="projectDescription">Beschrijf je project</label>
+                                            <textarea id="projectDescription" rows="3" placeholder="Vertel me meer over wat je voor ogen hebt..."></textarea>
+                                        </div>
+                                        <div class="response-actions">
+                                            <button type="button" class="back-btn" onclick="showMainScreen()">← Terug naar opties</button>
+                                            <button type="submit" class="action-btn">Verstuur aanvraag</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="dialogue-screen response-screen" id="expertiseScreen" style="display: none;">
+                                <div class="response-content">
+                                    <div class="response-text">
+                                        <p>Ik help organisaties met verschillende aspecten van productbeheer:</p>
+                                    </div>
+                                    <div class="expertise-grid">
+                                        <div class="expertise-item">
+                                            <h4>Product Strategy</h4>
+                                            <p>Van visie tot roadmap - ik help bij het definiëren van productrichting</p>
+                                        </div>
+                                        <div class="expertise-item">
+                                            <h4>User Experience</h4>
+                                            <p>Gebruikersonderzoek en UX design voor betere producten</p>
+                                        </div>
+                                        <div class="expertise-item">
+                                            <h4>Agile Development</h4>
+                                            <p>Scrum en Kanban implementatie voor efficiënte teams</p>
+                                        </div>
+                                        <div class="expertise-item">
+                                            <h4>Stakeholder Management</h4>
+                                            <p>Afstemming tussen business, techniek en design</p>
+                                        </div>
+                                    </div>
+                                    <div class="response-actions">
+                                        <button class="back-btn" onclick="showMainScreen()">← Terug naar opties</button>
+                                        <button class="action-btn" onclick="showProjectScreen()">Laten we samenwerken</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dialogue-screen response-screen" id="ratesScreen" style="display: none;">
+                                <div class="response-content">
+                                    <div class="response-text">
+                                        <p>Mijn tarieven zijn afhankelijk van het type project en de duur van de samenwerking:</p>
+                                    </div>
+                                    <div class="rates-info">
+                                        <div class="rate-item">
+                                            <strong>Consultancy & Strategy</strong>
+                                            <span>€95 - €125 per uur</span>
+                                        </div>
+                                        <div class="rate-item">
+                                            <strong>UX Design Projects</strong>
+                                            <span>Vanaf €2.500 per project</span>
+                                        </div>
+                                        <div class="rate-item">
+                                            <strong>Workshops & Training</strong>
+                                            <span>€750 - €1.250 per dag</span>
+                                        </div>
+                                        <div class="rate-note">
+                                            <p><em>Voor langere samenwerkingen bespreek ik graag aangepaste tarieven. Laten we je specifieke situatie bespreken!</em></p>
+                                        </div>
+                                    </div>
+                                    <div class="response-actions">
+                                        <button class="back-btn" onclick="showMainScreen()">← Terug naar opties</button>
+                                        <button class="action-btn" onclick="showProjectScreen()">Laten we het bespreken</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="projects-header fade-in">
+                <h2 class="section-title slide-in-left">Featured Work</h2>
+                <p class="section-subtitle slide-in-right">Een selectie van projecten waar ik trots op ben - van concept tot implementatie</p>
+            </div>
+
+            <!-- Project Filter -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">Alle projecten</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card featured" data-category="web">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                    Live Demo
+                                </a>
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                    </svg>
+                                    Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">Full-Stack Development</span>
+                        </div>
+                        <h3>SustainLife Dashboard</h3>
+                        <p>Een complete dashboard applicatie voor duurzaamheidsmonitoring met real-time data visualisatie en gebruikersbeheer.</p>
+                        <div class="project-impact">
+                            <div class="impact-item">
+                                <span class="impact-number">40%</span>
+                                <span class="impact-text">Sneller data inzicht</span>
+                            </div>
+                            <div class="impact-item">
+                                <span class="impact-number">500+</span>
+                                <span class="impact-text">Actieve gebruikers</span>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="design">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                    Prototype
+                                </a>
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                                        <polyline points="14,2 14,8 20,8"/>
+                                    </svg>
+                                    Case Study
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">UX/UI Design</span>
+                        </div>
+                        <h3>FinTech Mobile App</h3>
+                        <p>Gebruiksvriendelijke mobile banking app met focus op toegankelijkheid en security. Complete redesign van user journey.</p>
+                        <div class="project-impact">
+                            <div class="impact-item">
+                                <span class="impact-number">85%</span>
+                                <span class="impact-text">User satisfaction</span>
+                            </div>
+                            <div class="impact-item">
+                                <span class="impact-number">60%</span>
+                                <span class="impact-text">Minder support tickets</span>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">User Research</span>
+                            <span class="tag">Prototyping</span>
+                            <span class="tag">Design System</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                        <polyline points="15,3 21,3 21,9"/>
+                                        <line x1="10" y1="14" x2="21" y2="3"/>
+                                    </svg>
+                                    Live Site
+                                </a>
+                                <a href="#" class="project-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                    </svg>
+                                    Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-meta">
+                            <span class="project-year">2023</span>
+                            <span class="project-type">Frontend Development</span>
+                        </div>
+                        <h3>Creative Studio Website</h3>
+                        <p>Award-winning website voor creatieve studio met geavanceerde animaties en interactive portfolio showcase.</p>
+                        <div class="project-impact">
+                            <div class="impact-item">
+                                <span class="impact-number">200%</span>
+                                <span class="impact-text">Meer leads</span>
+                            </div>
+                            <div class="impact-item">
+                                <span class="impact-number">4.2s</span>
+                                <span class="impact-text">Gemiddelde sessietijd</span>
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">GSAP</span>
+                            <span class="tag">Nuxt.js</span>
+                            <span class="tag">Headless CMS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Contact Section -->
+    <section id="contact" class="contact-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Klaar voor resultaten?</h2>
+                <p>Stop met twijfelen. Start met groeien.</p>
+                <div class="cta-options">
+                    <a href="https://wa.me/31612345678?text=Hoi%20Nathalja,%20ik%20wil%20graag%20sneller%20groeien!"
+                       class="cta-primary" target="_blank">
+                        <span class="cta-icon">💬</span>
+                        <span>WhatsApp direct</span>
+                        <span class="cta-subtitle">Antwoord binnen 2 uur</span>
+                    </a>
+                    <a href="mailto:nathalja@example.com?subject=Laten%20we%20praten%20over%20groei"
+                       class="cta-secondary">
+                        <span class="cta-icon">📧</span>
+                        <span>Email voor uitgebreid gesprek</span>
+                        <span class="cta-subtitle">Antwoord binnen 24 uur</span>
+                    </a>
+                </div>
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-number">2 uur</span>
+                        <span class="trust-label">Gemiddelde responstijd</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">Gratis</span>
+                        <span class="trust-label">Eerste gesprek</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number">100%</span>
+                        <span class="trust-label">Duidelijkheid gegarandeerd</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer class="simple-footer">
+        <div class="container">
+            <div class="simple-footer-content">
+                <p>&copy; 2024 Nathalja Nijman</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/nathalja-nijman-86410389" target="_blank">LinkedIn</a>
+                    <a href="mailto:nathalja@example.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="js/script.js"></script>
+    <script src="js/hero-whatsapp.js"></script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+/* ===== PROFESSIONAL IDENTITY SECTION ===== */
+
+.professional-identity {
+    padding: var(--spacing-3xl) 0;
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+.professional-identity::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23000000" fill-opacity="0.02"><circle cx="30" cy="30" r="1"/></g></svg>') repeat;
+    pointer-events: none;
+}
+
+/* Identity Header - Clean Dark Mode */
+.identity-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+    z-index: 2;
+    padding: var(--spacing-2xl) 0;
+    background: #000000;
+    border-radius: 16px;
+}
+
+.identity-header h2 {
+    font-family: var(--font-family-primary);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-bold);
+    color: white;
+    margin: 0 0 var(--spacing-base) 0;
+    line-height: 1.2;
+}
+
+.identity-header .highlight {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.identity-header p {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Identity Pillars - Dark Mode */
+.identity-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+    z-index: 2;
+}
+
+.pillar-card {
+    background: #000000;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pillar-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Pillar Icon - Dark Mode */
+.pillar-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    transition: all 0.3s ease;
+}
+
+.corporate .pillar-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.creative .pillar-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.sports .pillar-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.pillar-card:hover .pillar-icon {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Pillar Content - Dark Mode */
+.pillar-content h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 var(--spacing-xs) 0;
+    line-height: 1.3;
+}
+
+.pillar-subtitle {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 var(--spacing-base) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pillar-description p {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+/* Pillar Metrics - Dark Mode */
+.pillar-metrics {
+    display: flex;
+    gap: var(--spacing-lg);
+    padding-top: var(--spacing-base);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+}
+
+.metric-number {
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.metric-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Core Value Proposition */
+.core-value {
+    background: #000000;
+    border-radius: 24px;
+    padding: var(--spacing-3xl) var(--spacing-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.core-value::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.value-content {
+    position: relative;
+    z-index: 2;
+}
+
+.value-content h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: white;
+    margin: 0 0 var(--spacing-base) 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.value-statement {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 800px;
+    margin: 0 auto;
+    font-style: italic;
+}
+
+.value-statement strong {
+    color: white;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .professional-identity {
+        padding: var(--spacing-2xl) 0;
+    }
+
+    .identity-header {
+        padding: var(--spacing-xl) var(--spacing-base);
+        border-radius: 24px;
+    }
+
+    .identity-header h2 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        margin-bottom: var(--spacing-base);
+    }
+
+    .identity-header p {
+        font-size: var(--font-size-base);
+    }
+
+    .identity-pillars {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .pillar-card {
+        padding: var(--spacing-lg);
+    }
+
+    .pillar-metrics {
+        gap: var(--spacing-base);
+    }
+
+    .core-value {
+        padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    .value-statement {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .identity-pillars {
+        grid-template-columns: 1fr;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .pillar-card {
+        padding: var(--spacing-base);
+        border-radius: 16px;
+    }
+
+    .pillar-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .pillar-metrics {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .metric {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* Dark Theme Support */
+[data-theme="dark"] .professional-identity {
+    background: #000000;
+}
+
+[data-theme="dark"] .pillar-card {
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .pillar-content h3 {
+    color: white;
+}
+
+[data-theme="dark"] .pillar-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .pillar-description p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="dark"] .metric-number {
+    color: white;
+}
+
+[data-theme="dark"] .metric-label {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .identity-header h2 {
+    color: white;
+}
+
+[data-theme="dark"] .identity-header p {
+    color: rgba(255, 255, 255, 0.7);
+}
