@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initDynamicViewport();
     initProjectFiltering();
+    initProjectCardAnimations();
+    initShowMoreProjects();
     // initThemeToggle(); // Disabled - theme toggle removed
     initLanguageToggle();
     initMobileMenu();
@@ -101,11 +103,16 @@ document.addEventListener('DOMContentLoaded', function() {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
+
+                // Skip empty hash links
+                if (targetId === '#' || !targetId) return;
+
                 const targetSection = document.querySelector(targetId);
 
                 if (targetSection) {
-                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    const header = document.querySelector('.header');
+                    const headerHeight = header ? header.offsetHeight : 80;
+                    const targetPosition = targetSection.offsetTop - headerHeight;
 
                     window.scrollTo({
                         top: targetPosition,
@@ -197,7 +204,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (statsAnimated) return;
             statsAnimated = true;
 
-            const statNumbers = document.querySelectorAll('.stat-number');
+            // Only animate stat-numbers that have data-target attribute and NOT stat-static class
+            const statNumbers = document.querySelectorAll('.stat-number[data-target]:not(.stat-static)');
 
             statNumbers.forEach(stat => {
                 const target = parseInt(stat.getAttribute('data-target'));
@@ -596,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!message) return;
 
                 // Create WhatsApp URL with pre-filled message
-                const phoneNumber = '+31612345678'; // Nathalja's WhatsApp number - update with actual number
+                const phoneNumber = '+31657591440'; // Nathalja's WhatsApp number - update with actual number
                 const encodedMessage = encodeURIComponent(message);
                 const whatsappURL = `https://wa.me/${phoneNumber.replace('+', '')}?text=${encodedMessage}`;
 
@@ -835,7 +843,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const quickContactBtns = document.querySelectorAll('.quick-contact-btn');
 
         // Your WhatsApp number (replace with actual number)
-        const whatsappNumber = '31612345678'; // Replace with your actual WhatsApp number
+        const whatsappNumber = '31657591440'; // Replace with your actual WhatsApp number
 
         if (!whatsappInput || !whatsappSend) return;
 
@@ -940,7 +948,7 @@ Groeten!`;
         const heroInput = document.getElementById('heroWhatsappInput');
         const heroSend = document.getElementById('heroWhatsappSend');
 
-        const whatsappNumber = '31612345678'; // Replace with your actual number
+        const whatsappNumber = '31657591440'; // Replace with your actual number
 
         if (!heroInput || !heroSend) return;
 
@@ -1022,90 +1030,13 @@ Groeten!`;
         }, 2000); // Show after 2 seconds
     }
 
-    // Language Toggle functionality - NL/EN Support
+    // Language Toggle functionality - Uses LanguageManager from translations.js
     function initLanguageToggle() {
         const languageToggle = document.getElementById('languageToggle');
         const languageDropdown = document.getElementById('languageDropdown');
-        const langCurrent = document.querySelector('.lang-current');
         const langOptions = document.querySelectorAll('.lang-option');
 
         if (!languageToggle || !languageDropdown) return;
-
-        // Get current language from localStorage or default to 'nl'
-        let currentLang = localStorage.getItem('portfolio-language') || 'nl';
-
-        // Translations object
-        const translations = {
-            nl: {
-                navHome: 'Home',
-                navServices: 'Voor jou',
-                navImpact: 'Impact',
-                navProjects: 'Resultaten',
-                navContact: 'Contact',
-                heroTitle: 'Product Owner @ ABN AMRO',
-                heroSubtitle: 'Van strategie tot uitvoering - ik zorg ervoor dat digitale producten écht waarde toevoegen voor gebruikers en business.',
-                ctaTitle: 'Waar kan ik je mee helpen?',
-                ctaSubtitle: 'Vertel me waar je mee bezig bent',
-                ctaPlaceholder: 'Beschrijf je project...',
-                ctaButton: 'Start gesprek',
-                whatsappNote: 'Direct naar WhatsApp',
-                themeToggle: 'Thema',
-                languageToggle: 'Taal',
-                aboutTitle: 'Over Nathalja',
-                projectsTitle: 'Projecten',
-                contactTitle: 'Contact'
-            },
-            en: {
-                navHome: 'Home',
-                navServices: 'For you',
-                navImpact: 'Impact',
-                navProjects: 'Results',
-                navContact: 'Contact',
-                heroTitle: 'Product Owner @ ABN AMRO',
-                heroSubtitle: 'From strategy to execution - I ensure digital products truly add value for users and business.',
-                ctaTitle: 'How can I help you?',
-                ctaSubtitle: 'Tell me what you\'re working on',
-                ctaPlaceholder: 'Describe your project...',
-                ctaButton: 'Start conversation',
-                whatsappNote: 'Direct to WhatsApp',
-                themeToggle: 'Theme',
-                languageToggle: 'Language',
-                aboutTitle: 'About Nathalja',
-                projectsTitle: 'Projects',
-                contactTitle: 'Contact'
-            }
-        };
-
-        // Update language display
-        function updateLanguageDisplay(lang) {
-            langCurrent.textContent = lang.toUpperCase();
-
-            // Update translations on page
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-
-            // Update placeholder translations
-            const placeholderElements = document.querySelectorAll('[data-translate-placeholder]');
-            placeholderElements.forEach(element => {
-                const key = element.getAttribute('data-translate-placeholder');
-                if (translations[lang] && translations[lang][key]) {
-                    element.placeholder = translations[lang][key];
-                }
-            });
-
-            // Update current language styling
-            langOptions.forEach(option => {
-                option.classList.toggle('active', option.dataset.lang === lang);
-            });
-        }
-
-        // Initialize with current language
-        updateLanguageDisplay(currentLang);
 
         // Toggle dropdown visibility
         languageToggle.addEventListener('click', (e) => {
@@ -1119,10 +1050,9 @@ Groeten!`;
                 e.stopPropagation();
                 const selectedLang = option.dataset.lang;
 
-                if (selectedLang !== currentLang) {
-                    currentLang = selectedLang;
-                    updateLanguageDisplay(currentLang);
-                    localStorage.setItem('portfolio-language', currentLang);
+                // Use LanguageManager to change language
+                if (window.languageManager) {
+                    window.languageManager.setLanguage(selectedLang);
 
                     // Add feedback animation
                     languageToggle.style.transform = 'scale(0.95)';
@@ -1369,7 +1299,7 @@ Groeten!`;
 Via je portfolio: ${message}
 
 Groeten!`;
-                const whatsappNumber = '31640506504';
+                const whatsappNumber = '31657591440';
                 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formattedMessage)}`;
                 window.open(whatsappUrl, '_blank');
                 closeModal();
@@ -1490,6 +1420,81 @@ Groeten!`;
             element.style.transform = 'translateY(20px)';
             element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(element);
+        });
+    }
+
+    // Project Card Staggered Animations (Option B)
+    function initProjectCardAnimations() {
+        const projectCards = document.querySelectorAll('.project-card');
+
+        if (projectCards.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -80px 0px'
+        });
+
+        projectCards.forEach(card => {
+            observer.observe(card);
+        });
+    }
+
+    // Show More Projects functionality
+    function initShowMoreProjects() {
+        const showMoreBtn = document.getElementById('showMoreProjects');
+        const hiddenProjects = document.querySelectorAll('.project-card.hidden-project');
+
+        if (!showMoreBtn || hiddenProjects.length === 0) return;
+
+        let isExpanded = false;
+
+        showMoreBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+
+            if (isExpanded) {
+                // Show hidden projects
+                hiddenProjects.forEach(project => {
+                    project.classList.add('revealed');
+                });
+
+                // Update button text and ARIA
+                const btnText = showMoreBtn.querySelector('span');
+                const currentLang = window.languageManager?.getCurrentLanguage() || 'nl';
+                btnText.textContent = currentLang === 'nl' ? 'Toon minder' : 'Show less';
+                showMoreBtn.setAttribute('aria-expanded', 'true');
+                showMoreBtn.classList.add('expanded');
+            } else {
+                // Hide projects again
+                hiddenProjects.forEach(project => {
+                    project.classList.remove('revealed');
+                });
+
+                // Update button text and ARIA
+                const btnText = showMoreBtn.querySelector('span');
+                const currentLang = window.languageManager?.getCurrentLanguage() || 'nl';
+                btnText.textContent = currentLang === 'nl' ? 'Toon meer projecten' : 'Show more projects';
+                showMoreBtn.setAttribute('aria-expanded', 'false');
+                showMoreBtn.classList.remove('expanded');
+
+                // Scroll to projects section smoothly
+                const projectsSection = document.querySelector('#projects');
+                if (projectsSection) {
+                    const offset = 100;
+                    const elementPosition = projectsSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
         });
     }
 

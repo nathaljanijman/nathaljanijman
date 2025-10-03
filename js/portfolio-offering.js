@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Construct WhatsApp message
             const message = `Hoi Nathalja, ik wil graag meer weten over het ${packageName} package (${price})`;
-            const whatsappUrl = `https://wa.me/31612345678?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/31657591440?text=${encodeURIComponent(message)}`;
 
             // Open WhatsApp
             window.open(whatsappUrl, '_blank');

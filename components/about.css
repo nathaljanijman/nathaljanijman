@@ -1,0 +1,210 @@
+/* ===== ABOUT ME SECTION ===== */
+/* 2025 Minimal bio design */
+
+.about-section {
+    padding: clamp(60px, 10vh, 100px) 0;
+    background: linear-gradient(180deg, #000 0%, rgba(0, 10, 20, 0.95) 100%);
+    position: relative;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Section Header - Match Featured Work styling */
+.about-header {
+    max-width: 1200px;
+    margin: 0 auto var(--spacing-2xl);
+    padding: 0 var(--spacing-xl);
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-lg);
+}
+
+.about-header h2 {
+    font-family: var(--font-family-primary);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.about-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #0047AB 0%, transparent 100%);
+    border-radius: 2px;
+}
+
+.about-tagline {
+    font-family: var(--font-family-primary);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.01em;
+}
+
+/* Responsive header */
+@media (max-width: 768px) {
+    .about-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .about-header h2 {
+        white-space: normal;
+    }
+}
+
+/* About Content - Two Column */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--spacing-3xl);
+    align-items: start;
+    padding: 0 var(--spacing-xl);
+}
+
+/* About Image */
+.about-image {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: none;
+    transition: all 0.6s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.02);
+}
+
+/* About Text */
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.about-text p {
+    font-family: var(--font-family-primary);
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.about-text p:first-of-type {
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+/* Stats Grid */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-2xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--font-family-primary);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-number.stat-text {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #0047AB;
+}
+
+/* Static stats - no animation */
+.stat-number.stat-static {
+    /* Inherits default stat-number styling */
+}
+
+/* Location text - same size as numbers for alignment */
+.stat-number.stat-location {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: var(--font-family-primary);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+    }
+
+    .about-image {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-base);
+    }
+}
+
+@media (max-width: 640px) {
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .stat-item {
+        text-align: left;
+        display: flex;
+        align-items: baseline;
+        gap: var(--spacing-sm);
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}

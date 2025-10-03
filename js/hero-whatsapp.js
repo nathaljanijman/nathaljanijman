@@ -115,7 +115,7 @@ function initConversationalDialogue() {
         if (message.includes('contact') || message.includes('bereiken') || message.includes('email') || message.includes('telefoon')) {
             return `Leuk dat je contact wilt! Je kunt me bereiken via:
 
-Email: nathalja.nijman@example.com
+Email: nathaljanijman@hotmail.com
 LinkedIn: linkedin.com/in/nathalja-nijman-86410389
 Voor urgente zaken kun je ook WhatsApp gebruiken
 

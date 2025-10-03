@@ -185,6 +185,12 @@
 .package-pricing {
     margin-bottom: 32px;
     display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.package-pricing > div:first-child {
+    display: flex;
     align-items: baseline;
     gap: 12px;
 }
@@ -202,6 +208,26 @@
     font-size: 1rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.5);
+}
+
+.price-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #25D366 0%, #1EBE57 100%);
+    border-radius: 20px;
+    font-family: var(--font-family-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* Price Info Trigger */
@@ -369,6 +395,73 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
+/* Section Headers - Match homepage styling */
+.section-header {
+    max-width: 1200px;
+    margin: 0 auto var(--spacing-2xl);
+    padding: 0 var(--spacing-xl);
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-lg);
+}
+
+.section-header.centered {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-xs);
+}
+
+.section-header h2 {
+    font-family: var(--font-family-primary);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #0047AB 0%, transparent 100%);
+    border-radius: 2px;
+}
+
+.section-header.centered h2 {
+    white-space: normal;
+}
+
+.section-subtitle {
+    font-family: var(--font-family-primary);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.01em;
+}
+
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .section-header h2 {
+        white-space: normal;
+    }
+}
+
 /* Add-ons Section */
 .support-addon-section {
     padding: 80px 0;
@@ -377,20 +470,22 @@
 
 .addons-title {
     font-family: var(--font-family-primary);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: white;
-    text-align: center;
-    margin: 0 0 16px 0;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+    margin: 0;
 }
 
 .addons-subtitle {
     font-family: var(--font-family-primary);
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
-    text-align: center;
-    margin: 0 0 60px 0;
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.01em;
 }
 
 .addons-grid {
@@ -406,6 +501,8 @@
     border-radius: 24px;
     padding: 40px;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .addon-badge {
@@ -468,6 +565,7 @@
     gap: 16px;
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
 }
 
 .addon-price-options {
@@ -524,20 +622,24 @@
     text-align: center;
 }
 
+/* Add-on Info Text (replaces pricing) */
+.addon-info-text {
+    font-family: var(--font-family-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    line-height: 1.5;
+    text-align: center;
+}
+
 /* Process Section */
 .process-section {
     padding: 100px 0;
     background: rgba(255, 255, 255, 0.02);
 }
 
-.process-section h2 {
-    font-family: var(--font-family-primary);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: white;
-    text-align: center;
-    margin: 0 0 60px 0;
-}
+/* Process section header handled by .section-header */
 
 .process-grid {
     display: grid;
@@ -588,23 +690,12 @@
 /* Final CTA Section */
 .final-cta {
     padding: 100px 0;
+}
+
+/* Final CTA header handled by .section-header.centered */
+
+.cta-content {
     text-align: center;
-}
-
-.final-cta h2 {
-    font-family: var(--font-family-primary);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: white;
-    margin: 0 0 16px 0;
-}
-
-.final-cta p {
-    font-family: var(--font-family-primary);
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 40px 0;
 }
 
 .cta-buttons {

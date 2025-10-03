@@ -9,9 +9,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #000;
 }
 
-/* Portfolio Sticker - Clear Communication */
+/* Background - helderder, levendig */
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.4;
+}
+
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    filter: grayscale(0%) brightness(1.1);
+}
+
+/* Geen overlay */
+.hero-overlay {
+    display: none;
+}
+
+/* Portfolio Sticker - original style */
 .portfolio-sticker {
     position: absolute;
     top: 100px;
@@ -101,148 +127,75 @@
     transition: transform 0.3s ease;
 }
 
-/* Background Image */
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.hero-bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    display: block;
-}
-
-/* Overlay for better text readability */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(0, 0, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0.2) 50%,
-        rgba(0, 0, 0, 0.6) 100%
-    );
-    z-index: 2;
-}
-
-/* Hero Content - Split Layout */
+/* Hero Content Container */
 .hero-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: relative;
     z-index: 10;
-    padding: 0 var(--spacing-lg);
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 var(--spacing-xl);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
 }
 
-/* Personal Branding - Left Positioned */
+/* Branding - links gepositioneerd */
 .hero-branding {
-    position: absolute;
-    left: calc(var(--spacing-lg) + 60px);
-    top: 40%;
-    transform: translateY(-50%);
-    text-align: left;
-    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-base);
+    align-self: flex-start;
+    max-width: 800px;
 }
 
 .hero-name {
     font-family: var(--font-family-primary);
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: var(--font-weight-extrabold);
-    color: #0047AB;
-    margin: 0 0 var(--spacing-sm) 0;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    position: relative;
-    display: inline-block;
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: #fff;
+
+    /* Subtle fade in only */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: minimalFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
-.hero-name::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(135deg, #0047AB 0%, #0066FF 100%);
-    border-radius: 2px;
+@keyframes minimalFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-tagline {
     font-family: var(--font-family-primary);
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    font-weight: var(--font-weight-regular);
-    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
     margin: 0;
-    line-height: 1.4;
-    max-width: 500px;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+
+    opacity: 0;
+    animation: minimalFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
 }
 
-/* Conversational Interface - Centered */
+/* Conversational Interface - centered bottom */
 .hero-conversation {
     position: absolute;
-    bottom: 15vh;
+    bottom: clamp(60px, 10vh, 100px);
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: calc(100% - var(--spacing-xl) * 2);
     max-width: 600px;
-    text-align: center;
-}
 
-/* Introduction Text */
-.conversation-intro {
-    margin-bottom: var(--spacing-lg);
-}
-
-.intro-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 900;
-    color: white;
-    margin: 0 0 var(--spacing-xs) 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    line-height: 1.1;
-    text-align: center;
-    letter-spacing: -0.02em;
-}
-
-.intro-tagline {
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0 0 var(--spacing-lg) 0;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    font-style: italic;
-}
-
-.intro-text {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    color: white;
-    margin: 0 0 var(--spacing-xs) 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.intro-subtext {
-    font-size: var(--font-size-base);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    font-weight: 500;
+    opacity: 0;
+    animation: minimalFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
 }
 
 /* Input Form */
@@ -261,7 +214,7 @@
     padding: 6px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    height: 48px;
+    height: 56px;
 }
 
 .input-container:focus-within {
@@ -293,11 +246,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     background: linear-gradient(135deg, #0047AB 0%, #0066FF 100%);
     border: none;
-    border-radius: 18px;
+    border-radius: 22px;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -358,15 +311,32 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
+    .hero-content {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .hero-branding {
+        max-width: 100%;
+    }
+
+    .hero-conversation {
+        bottom: clamp(50px, 8vh, 80px);
+        width: calc(100% - var(--spacing-lg) * 2);
+    }
+
+    .hero-name {
+        font-size: clamp(3rem, 13vw, 7rem);
+    }
+
+    .hero-tagline {
+        font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    }
+
     .portfolio-sticker {
         top: 90px;
         right: 20px;
         padding: 16px 20px;
-    }
-
-    .sticker-content {
-        gap: 8px;
     }
 
     .sticker-question {
@@ -376,56 +346,39 @@
     .sticker-answer {
         font-size: 1rem;
     }
+}
 
+@media (max-width: 768px) {
     .hero-content {
         padding: 0 var(--spacing-base);
     }
 
-    .hero-branding {
-        left: calc(var(--spacing-base) + 30px);
-        top: 35%;
-        max-width: calc(100% - var(--spacing-xl));
+    .hero-conversation {
+        bottom: clamp(40px, 6vh, 60px);
+        width: calc(100% - var(--spacing-base) * 2);
     }
 
     .hero-name {
-        font-size: clamp(2.5rem, 9vw, 3.5rem);
-        margin-bottom: var(--spacing-base);
+        font-size: clamp(2.5rem, 14vw, 5rem);
     }
 
     .hero-tagline {
-        font-size: clamp(1.1rem, 4vw, 1.4rem);
-    }
-
-    .hero-conversation {
-        bottom: 12vh;
-        max-width: calc(100% - var(--spacing-xl));
-    }
-
-    .hero-bg-image {
-        object-position: 40% 20%;
-    }
-
-    .intro-text {
-        font-size: clamp(1.2rem, 4vw, 1.6rem);
-    }
-
-    .intro-subtext {
-        font-size: var(--font-size-sm);
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        max-width: 100%;
     }
 
     .input-container {
-        height: 44px;
+        height: 52px;
     }
 
     #heroInput {
-        font-size: 0.9rem;
-        padding: 0 var(--spacing-base);
+        font-size: 1rem;
     }
 
     .send-button {
-        width: 32px;
-        height: 32px;
-        border-radius: 16px;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
     }
 
     .send-button svg {
@@ -442,70 +395,34 @@
         font-size: var(--font-size-xs);
         padding: 6px 12px;
     }
+
+    .portfolio-sticker {
+        top: 90px;
+        right: 20px;
+        padding: 16px 20px;
+    }
 }
 
 @media (max-width: 480px) {
-    .portfolio-sticker {
-        top: 80px;
-        right: 15px;
-        left: 15px;
-        padding: 14px 18px;
-    }
-
-    .sticker-content {
-        gap: 6px;
-    }
-
-    .sticker-question {
-        font-size: 0.85rem;
-    }
-
-    .sticker-answer {
-        font-size: 0.95rem;
-    }
-
-    .hero-branding {
-        left: calc(var(--spacing-sm) + 20px);
-        top: 30%;
-        max-width: calc(100% - var(--spacing-base));
+    .hero-content {
+        padding: 0 var(--spacing-base);
     }
 
     .hero-conversation {
-        bottom: 10vh;
-        max-width: calc(100% - var(--spacing-base));
-        padding: 0 var(--spacing-sm);
+        bottom: clamp(30px, 5vh, 50px);
+        width: calc(100% - var(--spacing-base) * 2);
     }
 
-    .hero-bg-image {
-        object-position: 45% 15%;
-    }
-
-    .intro-text {
-        font-size: clamp(1.1rem, 5vw, 1.4rem);
-    }
-
-    .intro-subtext {
-        font-size: var(--font-size-xs);
+    .hero-name {
+        font-size: clamp(2rem, 15vw, 3.5rem);
     }
 
     .input-container {
-        height: 40px;
+        height: 48px;
     }
 
     #heroInput {
-        font-size: 0.85rem;
-        padding: 0 var(--spacing-sm);
-    }
-
-    .send-button {
-        width: 28px;
-        height: 28px;
-        border-radius: 14px;
-    }
-
-    .send-button svg {
-        width: 14px;
-        height: 14px;
+        font-size: 0.95rem;
     }
 
     .conversation-suggestions {
@@ -519,25 +436,19 @@
         padding: 6px 16px;
         min-width: 120px;
     }
-}
 
-/* Light Theme Adjustments */
-[data-theme="light"] .input-container {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
+    .portfolio-sticker {
+        top: 80px;
+        right: 15px;
+        left: 15px;
+        padding: 14px 18px;
+    }
 
-[data-theme="light"] .input-container:focus-within {
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 12px 40px rgba(0, 71, 171, 0.15);
-    border-color: rgba(0, 71, 171, 0.3);
-}
+    .sticker-question {
+        font-size: 0.85rem;
+    }
 
-[data-theme="light"] #heroInput {
-    color: #333;
-}
-
-[data-theme="light"] #heroInput::placeholder {
-    color: rgba(0, 0, 0, 0.6);
+    .sticker-answer {
+        font-size: 0.95rem;
+    }
 }

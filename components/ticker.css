@@ -1,0 +1,88 @@
+/* ===== INFINITE SCROLL TICKER ===== */
+/* 2025 Minimal marquee design - Partner logos */
+
+.ticker-section {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: clamp(20px, 3vh, 30px) 0;
+    position: relative;
+}
+
+.ticker-section.stats {
+    background: linear-gradient(180deg, rgba(0, 71, 171, 0.03) 0%, rgba(0, 10, 20, 0.4) 100%);
+}
+
+.ticker-wrapper {
+    display: flex;
+    width: fit-content;
+    animation: scroll 60s linear infinite;
+    will-change: transform;
+}
+
+.ticker-wrapper:hover {
+    animation-play-state: paused;
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    gap: clamp(60px, 8vw, 100px);
+    white-space: nowrap;
+    padding-right: clamp(60px, 8vw, 100px);
+}
+
+/* Stats ticker styling */
+.ticker-stat {
+    font-family: var(--font-family-primary);
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.ticker-separator {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.6rem;
+}
+
+/* Scroll animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .ticker-wrapper {
+        animation: none;
+    }
+
+    .ticker-section {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ticker-stat {
+        font-size: 0.85rem;
+    }
+
+    .ticker-wrapper {
+        animation-duration: 45s;
+    }
+
+    .ticker-content {
+        gap: clamp(40px, 6vw, 60px);
+        padding-right: clamp(40px, 6vw, 60px);
+    }
+}

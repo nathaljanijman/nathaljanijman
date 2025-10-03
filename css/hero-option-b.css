@@ -1,0 +1,477 @@
+/* ===== HERO OPTION B: ASYMMETRIC POWER LAYOUT ===== */
+/* Editorial, Magazine-style met diagonal layout en gradient text */
+
+.hero-option-b {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background */
+.hero-option-b .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-option-b .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+}
+
+/* Dramatic gradient overlay */
+.hero-option-b .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(60deg,
+            rgba(0, 0, 0, 0.85) 0%,
+            rgba(0, 0, 0, 0.4) 40%,
+            rgba(0, 71, 171, 0.3) 70%,
+            rgba(0, 0, 0, 0.6) 100%
+        );
+    z-index: 2;
+}
+
+/* Content Container */
+.hero-option-b .hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 var(--spacing-lg);
+}
+
+/* Diagonal Name Layout */
+.hero-option-b .hero-branding {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-option-b .hero-name {
+    font-family: var(--font-family-primary);
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 0;
+
+    /* Diagonal transformation */
+    transform: rotate(-2deg) translateX(-20px);
+    transform-origin: left center;
+
+    /* Gradient text effect: white to blue */
+    background: linear-gradient(
+        120deg,
+        #ffffff 0%,
+        #f0f0f0 30%,
+        #0066FF 70%,
+        #0047AB 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Layered shadows for 3D depth */
+    filter:
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6))
+        drop-shadow(0 8px 16px rgba(0, 71, 171, 0.4))
+        drop-shadow(0 16px 32px rgba(0, 71, 171, 0.2));
+
+    /* Animation */
+    opacity: 0;
+    transform: rotate(-2deg) translateX(-100px);
+    animation: slideInDiagonal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+
+    position: relative;
+    display: inline-block;
+}
+
+@keyframes slideInDiagonal {
+    to {
+        opacity: 1;
+        transform: rotate(-2deg) translateX(-20px);
+    }
+}
+
+/* Animated underline that "writes" */
+.hero-option-b .hero-name::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #0047AB 0%, #0066FF 50%, transparent 100%);
+    border-radius: 3px;
+    box-shadow: 0 2px 12px rgba(0, 71, 171, 0.6);
+    animation: writeUnderline 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+}
+
+@keyframes writeUnderline {
+    to {
+        width: 60%;
+    }
+}
+
+/* Small caps tracked tagline */
+.hero-option-b .hero-tagline {
+    font-family: var(--font-family-primary);
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.95);
+    margin: clamp(50px, 8vh, 80px) 0 0 40px;
+    line-height: 1.6;
+    max-width: 600px;
+
+    /* Subtle text effects */
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(0, 71, 171, 0.3);
+
+    /* Animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSlideUp 0.8s ease-out 1.5s forwards;
+
+    position: relative;
+}
+
+@keyframes fadeSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Editorial accent line */
+.hero-option-b .hero-tagline::before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0066FF 100%);
+}
+
+/* Conversational Interface */
+.hero-option-b .hero-conversation {
+    position: absolute;
+    bottom: 10vh;
+    right: 5vw;
+    width: 100%;
+    max-width: 500px;
+
+    opacity: 0;
+    transform: translateX(50px);
+    animation: slideInRight 0.8s ease-out 2s forwards;
+}
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Input with editorial flair */
+.hero-option-b .input-container {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 0;
+    border: none;
+    border-left: 4px solid #0066FF;
+    padding: 8px 8px 8px 20px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    height: 60px;
+}
+
+.hero-option-b .input-container:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-left-color: #0047AB;
+    box-shadow:
+        0 16px 48px rgba(0, 71, 171, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+}
+
+.hero-option-b #heroInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 var(--spacing-base);
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 400;
+    height: 100%;
+}
+
+.hero-option-b #heroInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    font-style: italic;
+}
+
+.hero-option-b .send-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #0047AB 0%, #0066FF 100%);
+    border: none;
+    border-radius: 0;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-option-b .send-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.hero-option-b .send-button:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+.hero-option-b .send-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(0, 71, 171, 0.5);
+}
+
+.hero-option-b .send-button:active {
+    transform: scale(0.95);
+}
+
+.hero-option-b .send-button svg {
+    position: relative;
+    z-index: 1;
+}
+
+/* Suggestions with editorial style */
+.hero-option-b .conversation-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-base);
+    align-items: flex-start;
+}
+
+.hero-option-b .suggestion-pill {
+    font-family: var(--font-family-primary);
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 0;
+}
+
+.hero-option-b .suggestion-pill::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    color: #0066FF;
+    font-weight: 700;
+}
+
+.hero-option-b .suggestion-pill:hover {
+    color: white;
+    border-bottom-color: #0066FF;
+    padding-left: 20px;
+}
+
+.hero-option-b .suggestion-pill:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Portfolio Sticker */
+.hero-option-b .portfolio-sticker {
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    padding: 18px 24px;
+    border-radius: 0;
+    border-left: 3px solid #0066FF;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-decoration: none;
+}
+
+.hero-option-b .portfolio-sticker:hover {
+    transform: translateX(-5px);
+    background: rgba(0, 0, 0, 0.8);
+    border-left-color: #0047AB;
+}
+
+.hero-option-b .sticker-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hero-option-b .sticker-question {
+    font-family: var(--font-family-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.hero-option-b .sticker-answer {
+    font-family: var(--font-family-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0066FF;
+    transition: transform 0.3s ease;
+}
+
+.hero-option-b .portfolio-sticker:hover .sticker-answer {
+    transform: translateX(-4px);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .hero-option-b .hero-name {
+        font-size: clamp(3rem, 10vw, 6rem);
+        transform: rotate(-1deg) translateX(-10px);
+    }
+
+    .hero-option-b .hero-tagline {
+        margin: 40px 0 0 20px;
+        letter-spacing: 0.2em;
+    }
+
+    .hero-option-b .hero-conversation {
+        right: var(--spacing-base);
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-option-b .hero-name {
+        transform: rotate(0) translateX(0);
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .hero-option-b .hero-name::after {
+        bottom: -10px;
+        height: 4px;
+    }
+
+    .hero-option-b .hero-tagline {
+        margin: 30px 0 0 0;
+        letter-spacing: 0.15em;
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+    }
+
+    .hero-option-b .hero-tagline::before {
+        display: none;
+    }
+
+    .hero-option-b .hero-conversation {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 40px;
+        max-width: 100%;
+    }
+
+    .hero-option-b .input-container {
+        height: 52px;
+    }
+
+    .hero-option-b .portfolio-sticker {
+        top: 90px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-option-b .hero-content {
+        padding: 0 var(--spacing-base);
+    }
+
+    .hero-option-b .hero-conversation {
+        margin-top: 30px;
+    }
+
+    .hero-option-b .input-container {
+        height: 48px;
+        padding: 6px 6px 6px 15px;
+    }
+
+    .hero-option-b .send-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hero-option-b .portfolio-sticker {
+        top: 80px;
+        right: 15px;
+        left: 15px;
+    }
+}
