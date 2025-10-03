@@ -2,6 +2,47 @@
 
 Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HTML5 en CSS3. De website presenteert Nathalja's ervaring als Product Owner en digital product leader met een focus op storytelling en directe conversie.
 
+**🌐 Live:** [nathaljanijman.com](https://nathaljanijman.com)
+
+---
+
+## 🚀 Tech Stack
+
+### Core Technologies
+- **HTML5** - Semantic markup, accessibility-first
+- **CSS3** - Modern styling, animations, custom properties
+- **Vanilla JavaScript** - Zero dependencies, optimaal performance
+- **Google Fonts** - Raleway typography
+
+### Deployment & Hosting
+- **Cloudflare Pages** - Global CDN, automatic deployments
+- **GitHub** - Version control, CI/CD integration
+- **Cloudflare DNS** - DNS management, SSL certificates
+
+### Analytics & Tracking
+- **Google Analytics 4** (GA4) - User behavior tracking
+- **Custom Event Tracking** - Conversie monitoring:
+  - WhatsApp clicks
+  - Email clicks
+  - LinkedIn interactions
+  - Project link clicks
+  - Package selections (portfolio offering)
+  - Language switches
+  - Scroll depth (25%, 50%, 75%, 100%)
+  - Page load performance
+
+### Features & Functionaliteiten
+- ✅ **Tweetalig** - Nederlands & Engels met auto-detectie
+- ✅ **Fully Responsive** - Mobile-first design
+- ✅ **Dark Theme** - Minimalistisch zwart met cobalt blue accenten
+- ✅ **WhatsApp Integration** - Direct contact via WhatsApp
+- ✅ **Contact Modal** - Meerdere contact opties
+- ✅ **Project Showcase** - Filtering & expandable project grid
+- ✅ **Smooth Animations** - Intersection Observer API
+- ✅ **SEO Ready** - Semantic HTML, meta tags
+- ✅ **Performance Optimized** - Lazy loading, optimized assets
+- ✅ **Accessibility** - ARIA labels, keyboard navigation
+
 ---
 
 ## 🎨 Brand Styling
@@ -458,19 +499,32 @@ Alle functionaliteiten werken zoals verwacht.
 - [ ] No console errors
 
 ### Deployment
-Upload alle bestanden naar webserver via FTP/SFTP of gebruik:
-- **GitHub Pages**: Gratis hosting
-- **Netlify**: Drag-and-drop deployment
-- **Vercel**: Automatic deployments
+
+**Huidige Setup: Cloudflare Pages**
+
+De website is gedeployed via Cloudflare Pages met automatische deployments:
+
+1. **Push naar GitHub**: `git push origin master`
+2. **Cloudflare Pages detecteert automatisch** de nieuwe commit
+3. **Build & Deploy**: Binnen 2-3 minuten live op production
+4. **Custom Domain**: nathaljanijman.com (via Cloudflare DNS)
+5. **SSL**: Automatisch via Cloudflare Universal SSL
+
+**Alternative Options:**
+- **GitHub Pages**: Gratis hosting via GitHub
+- **Netlify**: Drag-and-drop deployment met CI/CD
+- **Vercel**: Automatic deployments met preview URLs
 
 ---
 
 ## 📞 Contact & Support
 
 **Nathalja Nijman**
+- **Website**: [nathaljanijman.com](https://nathaljanijman.com)
 - **WhatsApp**: +31 657591440
-- **Email**: nathalja@example.com
+- **Email**: nathaljanijman@hotmail.com
 - **LinkedIn**: [linkedin.com/in/nathalja-nijman-86410389](https://linkedin.com/in/nathalja-nijman-86410389)
+- **GitHub**: [github.com/nathaljanijman](https://github.com/nathaljanijman)
 
 ---
 
