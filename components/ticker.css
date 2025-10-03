@@ -4,15 +4,18 @@
 .ticker-section {
     width: 100%;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: clamp(20px, 3vh, 30px) 0;
+    background: linear-gradient(180deg, rgba(0, 71, 171, 0.08) 0%, rgba(0, 10, 20, 0.6) 100%);
+    border-top: 2px solid rgba(0, 71, 171, 0.3);
+    border-bottom: 2px solid rgba(0, 71, 171, 0.3);
+    padding: clamp(30px, 4vh, 40px) 0;
     position: relative;
+    box-shadow:
+        0 -10px 40px rgba(0, 71, 171, 0.1),
+        0 10px 40px rgba(0, 71, 171, 0.1);
 }
 
 .ticker-section.stats {
-    background: linear-gradient(180deg, rgba(0, 71, 171, 0.03) 0%, rgba(0, 10, 20, 0.4) 100%);
+    background: linear-gradient(180deg, rgba(0, 71, 171, 0.08) 0%, rgba(0, 10, 20, 0.6) 100%);
 }
 
 .ticker-wrapper {
@@ -37,16 +40,18 @@
 /* Stats ticker styling */
 .ticker-stat {
     font-family: var(--font-family-primary);
-    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    letter-spacing: 0.01em;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.02em;
     white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .ticker-separator {
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 0.6rem;
+    color: rgba(0, 71, 171, 0.6);
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 /* Scroll animation */
