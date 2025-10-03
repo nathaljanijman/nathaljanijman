@@ -521,7 +521,6 @@ De website is gedeployed via Cloudflare Pages met automatische deployments:
 
 **Nathalja Nijman**
 - **Website**: [nathaljanijman.com](https://nathaljanijman.com)
-- **WhatsApp**: +31 657591440
 - **Email**: nathaljanijman@hotmail.com
 - **LinkedIn**: [linkedin.com/in/nathalja-nijman-86410389](https://linkedin.com/in/nathalja-nijman-86410389)
 - **GitHub**: [github.com/nathaljanijman](https://github.com/nathaljanijman)
