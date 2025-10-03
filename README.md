@@ -148,7 +148,7 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 #### 6. **Contact Section** (`#contact`)
 - **Type**: 3-column grid (1-column mobile)
 - **Opties**:
-  1. **WhatsApp** - +31 657591440
+  1. **WhatsApp** - Direct contact button
      - Green accent on hover
      - "Responstijd: ~2 uur"
   2. **Email** - nathalja@example.com
@@ -184,13 +184,13 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 - **Active State**: Scroll position tracking voor active nav link
 
 ### 3. **WhatsApp Integratie**
-- **Nummer**: +31 657591440
+- **Functionaliteit**: Direct contact via WhatsApp buttons
 - **Locaties**:
   - Hero input field
   - Contact sectie direct link
   - Contact modal optie
   - Portfolio offering pagina
-- **Format**: `https://wa.me/31657591440?text=...`
+- **Format**: `https://wa.me/[NUMBER]?text=...`
 - **Pre-fill**: Context-aware messages
 
 ### 4. **Scroll Animations**
