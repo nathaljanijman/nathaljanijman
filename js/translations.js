@@ -108,7 +108,7 @@ const translations = {
         modalEmailTime: 'Antwoord binnen 24 uur',
         modalChatTitle: 'Direct doorpakken',
         modalChatDescription: 'Interactieve Q&A chat',
-        modalChatTime: 'Direct antwoord',
+        modalChatTime: 'Binnenkort beschikbaar',
         modalFooter: 'Kies de manier die het beste bij je past'
     },
     en: {
@@ -219,7 +219,7 @@ const translations = {
         modalEmailTime: 'Response within 24 hours',
         modalChatTitle: 'Continue directly',
         modalChatDescription: 'Interactive Q&A chat',
-        modalChatTime: 'Immediate response',
+        modalChatTime: 'Coming soon',
         modalFooter: 'Choose the way that suits you best'
     }
 };

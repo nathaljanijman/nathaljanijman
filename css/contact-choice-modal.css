@@ -208,6 +208,27 @@
     color: #9333EA;
 }
 
+/* Disabled State */
+.contact-option:disabled,
+.contact-option[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.contact-option:disabled::before,
+.contact-option[disabled]::before {
+    display: none;
+}
+
+.contact-option:disabled:hover,
+.contact-option[disabled]:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Option Icon */
 .option-icon {
     width: 48px;
