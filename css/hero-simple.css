@@ -356,10 +356,13 @@
     .hero-conversation {
         bottom: clamp(40px, 6vh, 60px);
         width: calc(100% - var(--spacing-base) * 2);
+        opacity: 1 !important;
+        animation: none;
+        z-index: 20;
     }
 
     .hero-name {
-        font-size: clamp(2.5rem, 14vw, 5rem);
+        font-size: clamp(2.2rem, 12vw, 4.5rem);
     }
 
     .hero-tagline {
@@ -411,10 +414,18 @@
     .hero-conversation {
         bottom: clamp(30px, 5vh, 50px);
         width: calc(100% - var(--spacing-base) * 2);
+        opacity: 1 !important;
+        animation: none;
     }
 
     .hero-name {
-        font-size: clamp(2rem, 15vw, 3.5rem);
+        font-size: clamp(1.8rem, 11vw, 3rem);
+        line-height: 1.1;
+    }
+
+    .hero-tagline {
+        font-size: clamp(0.85rem, 2.8vw, 1rem);
+        margin-top: var(--spacing-sm);
     }
 
     .input-container {
