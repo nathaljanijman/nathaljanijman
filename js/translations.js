@@ -253,6 +253,27 @@ class LanguageManager {
     init() {
         this.applyTranslations();
         this.updateLanguageToggle();
+        this.attachEventListeners();
+    }
+
+    attachEventListeners() {
+        // Header dropdown language options
+        const langOptions = document.querySelectorAll('.lang-option');
+        langOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                const lang = option.getAttribute('data-lang');
+                this.setLanguage(lang);
+            });
+        });
+
+        // Footer language buttons
+        const footerLangBtns = document.querySelectorAll('.footer-lang-btn');
+        footerLangBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = btn.getAttribute('data-lang');
+                this.setLanguage(lang);
+            });
+        });
     }
 
     setLanguage(lang) {
@@ -301,6 +322,17 @@ class LanguageManager {
                 option.classList.add('active');
             } else {
                 option.classList.remove('active');
+            }
+        });
+
+        // Update active state in footer buttons
+        const footerLangBtns = document.querySelectorAll('.footer-lang-btn');
+        footerLangBtns.forEach(btn => {
+            const lang = btn.getAttribute('data-lang');
+            if (lang === this.currentLanguage) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
             }
         });
     }
