@@ -256,7 +256,15 @@
 
 /* Mobile & Tablet Navigation - Hide header completely, use bottom nav */
 @media (max-width: 1024px) {
-    .header {
+    .header,
+    .header-container,
+    .nav-menu,
+    .header-actions {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        top: -9999px !important;
     }
 }
