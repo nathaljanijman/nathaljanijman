@@ -1019,23 +1019,30 @@ Groeten!`;
         const languageToggle = document.getElementById('languageToggle');
         const languageDropdown = document.getElementById('languageDropdown');
         const langOptions = document.querySelectorAll('.lang-option');
-        const mobileLangBtn = document.getElementById('mobileLangBtn');
+        const footerLangBtns = document.querySelectorAll('.footer-lang-btn');
 
         if (!languageToggle || !languageDropdown) return;
 
-        // Toggle dropdown visibility (desktop)
+        // Toggle dropdown visibility (desktop header)
         languageToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             languageDropdown.classList.toggle('show');
         });
 
-        // Mobile language button triggers desktop dropdown
-        if (mobileLangBtn) {
-            mobileLangBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                languageDropdown.classList.toggle('show');
+        // Footer language buttons
+        footerLangBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const selectedLang = btn.dataset.lang;
+
+                if (window.languageManager) {
+                    window.languageManager.setLanguage(selectedLang);
+
+                    // Update active state
+                    footerLangBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                }
             });
-        }
+        });
 
         // Language option selection
         langOptions.forEach(option => {
@@ -1047,13 +1054,13 @@ Groeten!`;
                 if (window.languageManager) {
                     window.languageManager.setLanguage(selectedLang);
 
-                    // Update mobile language flag
-                    if (mobileLangBtn) {
-                        const mobileLangFlag = mobileLangBtn.querySelector('.mobile-lang-flag');
-                        if (mobileLangFlag) {
-                            mobileLangFlag.textContent = selectedLang === 'nl' ? '🇳🇱' : '🇬🇧';
+                    // Update footer language buttons
+                    footerLangBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.lang === selectedLang) {
+                            btn.classList.add('active');
                         }
-                    }
+                    });
 
                     // Add feedback animation
                     languageToggle.style.transform = 'scale(0.95)';

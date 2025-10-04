@@ -254,56 +254,6 @@
     transform: scale(1.1);
 }
 
-/* Mobile Header Language Toggle - Only visible on mobile */
-.mobile-header-language {
-    display: none;
-}
-
-.mobile-lang-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 6px 10px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: var(--font-size-sm);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.mobile-lang-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.mobile-lang-flag {
-    font-size: 16px;
-    line-height: 1;
-}
-
-.mobile-lang-btn svg {
-    opacity: 0.6;
-    transition: transform 0.3s ease;
-}
-
-.mobile-lang-btn:hover svg {
-    opacity: 1;
-}
-
-[data-theme="light"] .mobile-lang-btn {
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.7);
-}
-
-[data-theme="light"] .mobile-lang-btn:hover {
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
 /* Mobile Navigation Media Query */
 @media (max-width: 968px) {
     .header {
@@ -343,28 +293,15 @@
         display: none; /* Hide header actions on mobile */
     }
 
-    /* Show mobile language toggle */
-    .mobile-header-language {
-        display: block;
-        position: relative;
-    }
-
-    /* Position dropdown relative to mobile language button */
-    .language-dropdown {
-        position: fixed;
-        top: 65px;
-        right: 20px;
-        left: auto;
-    }
-
     .header-container {
         padding: 0 var(--spacing-lg);
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .header {
         top: 15px;
-        width: calc(100% - 30px);
+        width: auto;
+        min-width: 100px;
         height: 40px;
         padding: 0 var(--spacing-base);
     }
