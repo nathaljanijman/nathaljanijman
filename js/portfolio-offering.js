@@ -117,87 +117,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Mobile Timeline Expand functionality
+    // Mobile Timeline Accordion functionality
     const milestones = document.querySelectorAll('.timeline-milestone');
 
     // Only proceed if timeline exists on page
     if (milestones.length === 0) return;
 
-    let mobileListenersAttached = false;
+    console.log('Timeline found, milestones:', milestones.length);
 
-    function initMobileTimeline() {
-        const isMobile = window.innerWidth <= 768;
+    milestones.forEach((milestone, index) => {
+        milestone.addEventListener('click', function(e) {
+            console.log('Clicked milestone', index + 1, 'Width:', window.innerWidth);
 
-        console.log('initMobileTimeline - Width:', window.innerWidth, 'isMobile:', isMobile, 'listeners attached:', mobileListenersAttached);
+            // Only on mobile
+            if (window.innerWidth > 768) {
+                console.log('Desktop mode - hover only');
+                return;
+            }
 
-        if (isMobile && !mobileListenersAttached) {
-            // Attach mobile listeners
-            milestones.forEach(milestone => {
-                const dot = milestone.querySelector('.milestone-dot');
-                if (dot) {
-                    dot.addEventListener('click', handleMilestoneClick);
-                    console.log('Mobile listener attached to:', milestone.querySelector('.milestone-title')?.textContent);
-                }
-            });
+            e.preventDefault();
+            e.stopPropagation();
 
-            // Close when clicking outside
-            document.addEventListener('click', handleOutsideClick);
-            mobileListenersAttached = true;
-            console.log('Mobile mode activated');
+            const isExpanded = this.classList.contains('mobile-expanded');
+            console.log('Was expanded:', isExpanded);
 
-        } else if (!isMobile && mobileListenersAttached) {
-            // Remove mobile listeners and classes on desktop
-            milestones.forEach(milestone => {
-                const dot = milestone.querySelector('.milestone-dot');
-                dot.removeEventListener('click', handleMilestoneClick);
-                milestone.classList.remove('mobile-expanded');
-            });
-
-            document.removeEventListener('click', handleOutsideClick);
-            mobileListenersAttached = false;
-        }
-    }
-
-    function handleMilestoneClick(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const milestone = e.currentTarget.closest('.timeline-milestone');
-        if (!milestone) {
-            console.error('Milestone not found');
-            return;
-        }
-
-        const isExpanded = milestone.classList.contains('mobile-expanded');
-
-        // Close all others
-        milestones.forEach(m => m.classList.remove('mobile-expanded'));
-
-        // Toggle current
-        if (!isExpanded) {
-            milestone.classList.add('mobile-expanded');
-            console.log('Milestone expanded:', milestone.querySelector('.milestone-title').textContent);
-        } else {
-            console.log('Milestone collapsed');
-        }
-    }
-
-    function handleOutsideClick(e) {
-        if (!e.target.closest('.timeline-milestone')) {
+            // Close all
             milestones.forEach(m => m.classList.remove('mobile-expanded'));
-        }
-    }
 
-    // Init on load
-    initMobileTimeline();
-
-    // Re-init on resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            initMobileTimeline();
-        }, 250);
+            // Toggle this one
+            if (!isExpanded) {
+                this.classList.add('mobile-expanded');
+                console.log('Now expanded!');
+            }
+        });
     });
 
 });

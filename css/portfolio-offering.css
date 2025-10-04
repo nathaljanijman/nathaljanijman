@@ -909,131 +909,162 @@
         padding: 16px;
     }
 
-    /* Timeline - vertical on mobile */
+    /* Timeline - accordion on mobile */
     .timeline-journey {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 32px 0;
+        display: block;
+        padding: 20px 0;
     }
 
-    /* Larger touch targets on mobile */
-    .milestone-dot {
-        width: 90px;
-        height: 90px;
+    .timeline-connector {
+        display: none;
     }
 
-    .milestone-number {
-        font-size: 2rem;
+    .timeline-end {
+        display: none;
     }
 
-    /* Bigger, more readable text */
+    /* Milestone card style on mobile */
+    .timeline-milestone {
+        display: flex;
+        flex-direction: column;
+        background: rgba(0, 71, 171, 0.03);
+        border: 1px solid rgba(0, 71, 171, 0.15);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+    }
+
+    .timeline-milestone:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .timeline-milestone:active {
+        background: rgba(0, 71, 171, 0.08);
+    }
+
+    /* Header area with dot and text */
     .milestone-time {
-        font-size: 0.8125rem; /* 13px instead of 12px */
-        padding: 6px 14px;
-    }
-
-    .milestone-title {
-        font-size: 1.25rem; /* 20px instead of 18px */
-        margin-bottom: 10px;
-    }
-
-    /* Change hint text for mobile */
-    .milestone-hint {
-        font-size: 0;
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         color: rgba(255, 255, 255, 0.5);
-    }
-
-    .milestone-hint::after {
-        content: 'Tik voor details';
-        font-size: 0.8125rem;
+        margin-bottom: 12px;
+        background: transparent;
+        padding: 0;
+        border: none;
         display: block;
     }
 
-    /* Tap feedback - pulse animation */
     .milestone-dot {
-        position: relative;
-        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        display: inline-flex;
+        vertical-align: middle;
+        margin: 0 16px 0 0;
+        flex-shrink: 0;
     }
 
-    .milestone-dot::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        border: 2px solid #0047AB;
-        border-radius: 50%;
-        opacity: 0;
-        animation: pulse-mobile 2s infinite;
-        pointer-events: none;
+    .milestone-number {
+        font-size: 1.5rem;
     }
 
-    @keyframes pulse-mobile {
-        0%, 100% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        50% {
-            opacity: 0.3;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
+    .milestone-title {
+        display: inline;
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin: 0;
+        vertical-align: middle;
+        line-height: 60px;
     }
 
-    /* Details panel optimized for mobile */
+    .milestone-hint {
+        display: none;
+    }
+
+    /* Details - hidden by default */
     .milestone-details {
-        position: static;
-        transform: none;
-        width: 100%;
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        display: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         margin-top: 16px;
-        opacity: 0;
-        max-height: 0;
-        padding: 0;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
+        padding-top: 16px !important;
+        border-top: 1px solid rgba(0, 71, 171, 0.15) !important;
     }
 
     .timeline-milestone.mobile-expanded .milestone-details {
-        opacity: 1;
-        max-height: 800px; /* More space for content */
-        padding: 20px;
-        background: rgba(0, 71, 171, 0.08);
-        border-radius: 12px;
-        border: 1px solid rgba(0, 71, 171, 0.2);
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
-    /* Active state visual feedback */
-    .timeline-milestone.mobile-expanded .milestone-dot {
-        transform: scale(1.05);
-        background: linear-gradient(135deg, rgba(0, 71, 171, 0.4) 0%, rgba(0, 102, 255, 0.5) 100%);
-        box-shadow: 0 0 20px rgba(0, 71, 171, 0.5);
+    .detail-section {
+        margin-bottom: 16px;
+        text-align: left;
     }
 
-    .timeline-milestone.mobile-expanded .milestone-dot::after {
-        animation: none;
-        opacity: 0;
+    .detail-section:last-child {
+        margin-bottom: 0;
     }
 
-    .timeline-milestone.mobile-expanded .milestone-hint {
-        opacity: 0;
-    }
-
-    .timeline-milestone:hover .milestone-details {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    /* Bigger detail text on mobile */
     .detail-section h4 {
-        font-size: 0.9375rem; /* 15px */
-        margin-bottom: 10px;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #0066FF;
+        margin: 0 0 8px 0;
     }
 
-    .detail-section p,
+    .detail-section p {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0;
+    }
+
+    .detail-section ul {
+        margin: 0;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
     .detail-section li {
-        font-size: 0.875rem; /* 14px */
-        line-height: 1.7;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 4px;
+    }
+
+    .detail-section li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Disable desktop hover on mobile */
+    .timeline-milestone:hover .milestone-details {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        display: none !important;
+    }
+
+    .timeline-milestone:hover .milestone-dot {
+        transform: none !important;
+        background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 102, 255, 0.3) 100%) !important;
+        box-shadow: none !important;
+    }
+
+    /* Override hover when expanded */
+    .timeline-milestone.mobile-expanded:hover .milestone-details {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     .cta-buttons {
@@ -1183,9 +1214,12 @@
     .offering-hero {
         padding-top: 60px; /* Reduce top padding since no header */
     }
+}
 
-    /* Timeline - 2x2 grid on tablet */
+/* Tablet only - 2x2 grid timeline */
+@media (min-width: 769px) and (max-width: 1024px) {
     .timeline-journey {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
         gap: 40px 20px;
