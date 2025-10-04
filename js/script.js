@@ -1030,15 +1030,7 @@ Groeten!`;
         const langOptions = document.querySelectorAll('.lang-option');
         const footerLangBtns = document.querySelectorAll('.footer-lang-btn');
 
-        if (!languageToggle || !languageDropdown) return;
-
-        // Toggle dropdown visibility (desktop header)
-        languageToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            languageDropdown.classList.toggle('show');
-        });
-
-        // Footer language buttons
+        // Footer language buttons - always initialize (works on mobile without header)
         footerLangBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const selectedLang = btn.dataset.lang;
@@ -1051,6 +1043,15 @@ Groeten!`;
                     btn.classList.add('active');
                 }
             });
+        });
+
+        // Desktop header language toggle (only if header exists)
+        if (!languageToggle || !languageDropdown) return;
+
+        // Toggle dropdown visibility (desktop header)
+        languageToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
         });
 
         // Language option selection
