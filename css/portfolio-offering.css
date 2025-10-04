@@ -912,30 +912,126 @@
     /* Timeline - vertical on mobile */
     .timeline-journey {
         grid-template-columns: 1fr;
-        gap: 40px;
-        padding: 40px 0;
+        gap: 32px;
+        padding: 32px 0;
     }
 
+    /* Larger touch targets on mobile */
+    .milestone-dot {
+        width: 90px;
+        height: 90px;
+    }
+
+    .milestone-number {
+        font-size: 2rem;
+    }
+
+    /* Bigger, more readable text */
+    .milestone-time {
+        font-size: 0.8125rem; /* 13px instead of 12px */
+        padding: 6px 14px;
+    }
+
+    .milestone-title {
+        font-size: 1.25rem; /* 20px instead of 18px */
+        margin-bottom: 10px;
+    }
+
+    /* Change hint text for mobile */
+    .milestone-hint {
+        font-size: 0;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .milestone-hint::after {
+        content: 'Tik voor details';
+        font-size: 0.8125rem;
+        display: block;
+    }
+
+    /* Tap feedback - pulse animation */
+    .milestone-dot {
+        position: relative;
+    }
+
+    .milestone-dot::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border: 2px solid #0047AB;
+        border-radius: 50%;
+        opacity: 0;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            opacity: 0.3;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+    }
+
+    /* Details panel optimized for mobile */
     .milestone-details {
         position: static;
         transform: none;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 16px;
         opacity: 0;
         max-height: 0;
-        padding: 0 24px;
-        transition: all 0.3s ease;
+        padding: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
     }
 
     .timeline-milestone.mobile-expanded .milestone-details {
         opacity: 1;
-        max-height: 600px;
-        padding: 24px;
+        max-height: 800px; /* More space for content */
+        padding: 20px;
+        background: rgba(0, 71, 171, 0.08);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 71, 171, 0.2);
+    }
+
+    /* Active state visual feedback */
+    .timeline-milestone.mobile-expanded .milestone-dot {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, rgba(0, 71, 171, 0.4) 0%, rgba(0, 102, 255, 0.5) 100%);
+        box-shadow: 0 0 20px rgba(0, 71, 171, 0.5);
+    }
+
+    .timeline-milestone.mobile-expanded .milestone-dot::after {
+        animation: none;
+        opacity: 0;
+    }
+
+    .timeline-milestone.mobile-expanded .milestone-hint {
+        opacity: 0;
     }
 
     .timeline-milestone:hover .milestone-details {
         opacity: 0;
         visibility: hidden;
+    }
+
+    /* Bigger detail text on mobile */
+    .detail-section h4 {
+        font-size: 0.9375rem; /* 15px */
+        margin-bottom: 10px;
+    }
+
+    .detail-section p,
+    .detail-section li {
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.7;
     }
 
     .cta-buttons {
