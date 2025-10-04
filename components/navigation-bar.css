@@ -285,37 +285,8 @@
 
 /* Mobile Navigation */
 @media (max-width: 768px) {
-    .nav-menu {
-        display: none; /* Hide on mobile, use bottom nav instead */
-    }
-
-    .header-actions {
-        display: none; /* Hide header actions on mobile */
-    }
-
-    .header-container {
-        padding: 0 var(--spacing-lg);
-        justify-content: center;
-    }
-
+    /* Hide entire header on mobile - using bottom nav instead */
     .header {
-        top: 15px;
-        width: auto;
-        min-width: 100px;
-        height: 40px;
-        padding: 0 var(--spacing-base);
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        top: 12px;
-        width: auto;
-        min-width: 80px;
-        height: 36px;
-    }
-
-    .header-container {
-        padding: 0 var(--spacing-sm);
+        display: none;
     }
 }
