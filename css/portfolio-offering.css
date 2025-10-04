@@ -875,3 +875,19 @@
     background: rgba(0, 0, 0, 0.1);
     border-color: rgba(0, 0, 0, 0.3);
 }
+
+/* Mobile & Tablet - Hide header, use bottom nav */
+@media (max-width: 1024px) {
+    .header {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        top: -9999px !important;
+    }
+
+    .offering-hero {
+        padding-top: 60px; /* Reduce top padding since no header */
+    }
+}

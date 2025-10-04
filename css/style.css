@@ -4539,6 +4539,12 @@ button, a, input, textarea {
     font-size: var(--font-size-sm);
 }
 
+@media (max-width: 1024px) {
+    .simple-footer {
+        padding-bottom: calc(var(--spacing-xl) + 80px); /* Extra ruimte voor mobile bottom nav */
+    }
+}
+
 @media (max-width: 768px) {
     .simple-footer-content {
         flex-direction: column;
