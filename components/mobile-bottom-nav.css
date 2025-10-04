@@ -86,8 +86,8 @@
     line-height: 1;
 }
 
-/* Show on mobile devices */
-@media (max-width: 768px) {
+/* Show on mobile and tablet devices */
+@media (max-width: 1024px) {
     .mobile-bottom-nav {
         display: block;
     }

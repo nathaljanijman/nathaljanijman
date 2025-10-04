@@ -254,8 +254,8 @@
     transform: scale(1.1);
 }
 
-/* Mobile Navigation - Hide header completely, use bottom nav */
-@media (max-width: 768px) {
+/* Mobile & Tablet Navigation - Hide header completely, use bottom nav */
+@media (max-width: 1024px) {
     .header {
         display: none !important;
     }
