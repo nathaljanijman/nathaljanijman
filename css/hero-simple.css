@@ -434,21 +434,23 @@
     .suggestion-pill {
         font-size: var(--font-size-xs);
         padding: 6px 16px;
-        min-width: 120px;
+        width: auto;
+        max-width: 90%;
     }
 
     .portfolio-sticker {
         top: 80px;
-        right: 15px;
-        left: 15px;
-        padding: 14px 18px;
+        right: var(--spacing-base);
+        left: auto;
+        max-width: 280px;
+        padding: 12px 16px;
     }
 
     .sticker-question {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     .sticker-answer {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 }

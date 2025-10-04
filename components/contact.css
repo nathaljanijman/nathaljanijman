@@ -166,7 +166,7 @@
 
 .response-time {
     font-family: var(--font-family-primary);
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
     color: rgba(0, 71, 171, 0.8);
     font-weight: 600;
     text-transform: uppercase;
@@ -228,6 +228,14 @@
         padding: 0 var(--spacing-base);
     }
 
+    .contact-header {
+        padding: 0 var(--spacing-base);
+    }
+
+    .contact-option-card {
+        padding: var(--spacing-lg);
+    }
+
     .contact-option-card .option-icon {
         width: 64px;
         height: 64px;
@@ -235,6 +243,26 @@
 
     .contact-option-card h3 {
         font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-option-card {
+        padding: var(--spacing-base);
+    }
+
+    .contact-option-card .option-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: var(--spacing-base);
+    }
+
+    .contact-option-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .contact-option-card p {
+        font-size: var(--font-size-base);
     }
 }
 

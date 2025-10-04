@@ -62,7 +62,7 @@
 .nav-link {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 14px;
@@ -136,7 +136,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -207,7 +207,7 @@
     text-decoration: none;
     border-radius: 18px;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: var(--font-size-sm);
     letter-spacing: 0.02em;
     text-transform: uppercase;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -469,5 +469,31 @@
 
     .header-container {
         padding: 0 var(--spacing-lg);
+    }
+
+    .header {
+        top: 15px;
+        width: calc(100% - 30px);
+    }
+
+    .mobile-menu-overlay {
+        top: 95px;
+        width: calc(100% - 30px);
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        top: 12px;
+        width: calc(100% - 20px);
+    }
+
+    .header-container {
+        padding: 0 var(--spacing-base);
+    }
+
+    .mobile-menu-overlay {
+        top: 85px;
+        width: calc(100% - 20px);
     }
 }
