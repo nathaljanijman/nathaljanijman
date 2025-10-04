@@ -1,0 +1,613 @@
+/* ===== PROCESS PREVIEW COMPONENTS ===== */
+
+/* Preview Section Wrapper */
+.preview-section {
+    padding: 80px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.preview-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #0047AB 0%, #0066FF 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+
+.preview-header h2 {
+    font-family: var(--font-family-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 12px 0;
+}
+
+.preview-header p {
+    font-family: var(--font-family-primary);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* ===== OPTIE 1: INTERACTIVE TIMELINE JOURNEY ===== */
+
+.timeline-journey {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 0;
+    padding: 60px 0;
+    align-items: start;
+}
+
+/* Horizontal connector line */
+.timeline-connector {
+    position: absolute;
+    top: 90px;
+    left: 5%;
+    right: 10%;
+    height: 3px;
+    background: linear-gradient(90deg,
+        rgba(0, 71, 171, 0.3) 0%,
+        rgba(0, 102, 255, 0.5) 50%,
+        rgba(0, 71, 171, 0.3) 100%
+    );
+    z-index: 0;
+}
+
+.timeline-milestone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    padding: 0 12px;
+}
+
+.milestone-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    background: rgba(0, 71, 171, 0.1);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 71, 171, 0.2);
+}
+
+.milestone-dot {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 102, 255, 0.3) 100%);
+    border: 3px solid #0047AB;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+}
+
+.milestone-number {
+    font-family: var(--font-family-primary);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: white;
+}
+
+.milestone-title {
+    font-family: var(--font-family-primary);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 8px 0;
+}
+
+.milestone-hint {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Hover details panel */
+.milestone-details {
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 320px;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 71, 171, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-milestone:hover .milestone-details {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.timeline-milestone:hover .milestone-dot {
+    transform: scale(1.15);
+    background: linear-gradient(135deg, rgba(0, 71, 171, 0.4) 0%, rgba(0, 102, 255, 0.5) 100%);
+    box-shadow: 0 0 30px rgba(0, 71, 171, 0.6);
+}
+
+.timeline-milestone:hover .milestone-hint {
+    opacity: 0;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-section h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0047AB;
+    margin: 0 0 8px 0;
+    text-align: left;
+}
+
+.detail-section p {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+}
+
+.detail-section ul {
+    margin: 0;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.detail-section li {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+/* Timeline end marker */
+.timeline-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 60px;
+}
+
+.timeline-end svg {
+    stroke: #0047AB;
+    margin-bottom: 8px;
+}
+
+/* ===== OPTIE 2: EXPANDABLE ACCORDION STEPS ===== */
+
+.accordion-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.accordion-step {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 71, 171, 0.05) 100%);
+    border: 2px solid rgba(0, 71, 171, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-step:hover {
+    border-color: rgba(0, 71, 171, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 71, 171, 0.08) 100%);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.accordion-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.accordion-number {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 71, 171, 0.15);
+    border: 2px solid rgba(0, 71, 171, 0.3);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-primary);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0047AB;
+    flex-shrink: 0;
+}
+
+.accordion-info h3 {
+    font-family: var(--font-family-primary);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 6px 0;
+}
+
+.accordion-duration {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+.accordion-toggle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.accordion-toggle svg {
+    stroke: rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.accordion-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 71, 171, 0.3);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-step.active .accordion-content {
+    max-height: 500px;
+}
+
+.accordion-step.active .accordion-toggle svg {
+    transform: rotate(180deg);
+}
+
+.accordion-step.active .accordion-toggle {
+    background: rgba(0, 71, 171, 0.2);
+    border-color: rgba(0, 71, 171, 0.4);
+}
+
+.accordion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 0 28px 28px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+}
+
+.accordion-col h4 {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 12px 0;
+}
+
+.accordion-col p {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.accordion-col ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.accordion-col li {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+/* ===== OPTIE 3: PROGRESS BAR TIMELINE ===== */
+
+.progress-timeline {
+    position: relative;
+}
+
+.progress-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 60px;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 71, 171, 0.2);
+}
+
+.progress-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #0047AB 0%, #0066FF 100%);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.progress-step {
+    opacity: 0.5;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-step.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.progress-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 71, 171, 0.08) 100%);
+    border: 2px solid rgba(0, 71, 171, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.progress-card:hover {
+    border-color: rgba(0, 71, 171, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 71, 171, 0.12) 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 71, 171, 0.2);
+}
+
+.progress-step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.progress-number {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 71, 171, 0.15);
+    border: 2px solid rgba(0, 71, 171, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-primary);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0047AB;
+    flex-shrink: 0;
+}
+
+.progress-meta {
+    flex: 1;
+}
+
+.progress-meta h3 {
+    font-family: var(--font-family-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 8px 0;
+}
+
+.progress-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badge-time,
+.badge-phase {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.badge-time {
+    background: rgba(0, 71, 171, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 71, 171, 0.2);
+}
+
+.badge-phase {
+    background: rgba(0, 71, 171, 0.2);
+    color: #0047AB;
+    border: 1px solid rgba(0, 71, 171, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.progress-description {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.progress-deliverables {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-deliverables strong {
+    color: #0047AB;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1024px) {
+    /* Timeline Journey - 2x2 grid */
+    .timeline-journey {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto;
+        gap: 40px 20px;
+    }
+
+    .timeline-connector {
+        display: none;
+    }
+
+    .timeline-end {
+        grid-column: 1 / -1;
+    }
+
+    .milestone-details {
+        width: 280px;
+    }
+
+    /* Progress Timeline - single column */
+    .progress-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Timeline Journey - vertical */
+    .timeline-journey {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 0;
+    }
+
+    .milestone-details {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 20px;
+        opacity: 0;
+        max-height: 0;
+        padding: 0 24px;
+        transition: all 0.3s ease;
+    }
+
+    .timeline-milestone.mobile-expanded .milestone-details {
+        opacity: 1;
+        max-height: 600px;
+        padding: 24px;
+    }
+
+    .timeline-milestone:hover .milestone-details {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Accordion - full width */
+    .accordion-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .accordion-header {
+        padding: 20px;
+    }
+
+    .accordion-left {
+        gap: 16px;
+    }
+
+    .accordion-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+
+    .accordion-info h3 {
+        font-size: 1.125rem;
+    }
+
+    /* Progress steps - already single column */
+    .progress-header {
+        margin-bottom: 40px;
+    }
+}
