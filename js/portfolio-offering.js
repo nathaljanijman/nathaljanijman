@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe package cards and process steps
-    document.querySelectorAll('.package-card, .process-step').forEach(card => {
+    // Observe package cards and timeline milestones
+    document.querySelectorAll('.package-card, .timeline-milestone').forEach(card => {
         observer.observe(card);
     });
 
@@ -116,5 +116,50 @@ document.addEventListener('DOMContentLoaded', function() {
             hero.style.transform = `translateY(${rate}px)`;
         });
     }
+
+    // Mobile Timeline Expand functionality
+    initMobileTimeline();
+
+    function initMobileTimeline() {
+        const milestones = document.querySelectorAll('.timeline-milestone');
+
+        // Only enable on mobile
+        if (window.innerWidth <= 768) {
+            milestones.forEach(milestone => {
+                const dot = milestone.querySelector('.milestone-dot');
+
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    // Toggle current milestone
+                    const isExpanded = milestone.classList.contains('mobile-expanded');
+
+                    // Close all others
+                    milestones.forEach(m => m.classList.remove('mobile-expanded'));
+
+                    // Toggle current
+                    if (!isExpanded) {
+                        milestone.classList.add('mobile-expanded');
+                    }
+                });
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.timeline-milestone')) {
+                    milestones.forEach(m => m.classList.remove('mobile-expanded'));
+                }
+            });
+        }
+    }
+
+    // Re-init mobile timeline on resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            initMobileTimeline();
+        }, 250);
+    });
 
 });
