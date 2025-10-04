@@ -4548,8 +4548,8 @@ button, a, input, textarea {
 
 @media (max-width: 768px) {
     .footer-links {
-        flex-direction: column;
-        gap: var(--spacing-sm);
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
