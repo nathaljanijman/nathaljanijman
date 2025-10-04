@@ -1,5 +1,3 @@
 name = "nathaljanijman-portfolio"
 compatibility_date = "2025-10-03"
-
-[site]
-bucket = "."
+pages_build_output_dir = "."
