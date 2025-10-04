@@ -952,6 +952,7 @@
     /* Tap feedback - pulse animation */
     .milestone-dot {
         position: relative;
+        cursor: pointer;
     }
 
     .milestone-dot::after {
@@ -965,10 +966,11 @@
         border: 2px solid #0047AB;
         border-radius: 50%;
         opacity: 0;
-        animation: pulse 2s infinite;
+        animation: pulse-mobile 2s infinite;
+        pointer-events: none;
     }
 
-    @keyframes pulse {
+    @keyframes pulse-mobile {
         0%, 100% {
             opacity: 0;
             transform: translate(-50%, -50%) scale(1);

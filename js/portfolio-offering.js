@@ -118,42 +118,80 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Mobile Timeline Expand functionality
-    initMobileTimeline();
+    const milestones = document.querySelectorAll('.timeline-milestone');
+
+    // Only proceed if timeline exists on page
+    if (milestones.length === 0) return;
+
+    let mobileListenersAttached = false;
 
     function initMobileTimeline() {
-        const milestones = document.querySelectorAll('.timeline-milestone');
+        const isMobile = window.innerWidth <= 768;
 
-        // Only enable on mobile
-        if (window.innerWidth <= 768) {
+        console.log('initMobileTimeline - Width:', window.innerWidth, 'isMobile:', isMobile, 'listeners attached:', mobileListenersAttached);
+
+        if (isMobile && !mobileListenersAttached) {
+            // Attach mobile listeners
             milestones.forEach(milestone => {
                 const dot = milestone.querySelector('.milestone-dot');
-
-                dot.addEventListener('click', (e) => {
-                    e.stopPropagation();
-
-                    // Toggle current milestone
-                    const isExpanded = milestone.classList.contains('mobile-expanded');
-
-                    // Close all others
-                    milestones.forEach(m => m.classList.remove('mobile-expanded'));
-
-                    // Toggle current
-                    if (!isExpanded) {
-                        milestone.classList.add('mobile-expanded');
-                    }
-                });
+                if (dot) {
+                    dot.addEventListener('click', handleMilestoneClick);
+                    console.log('Mobile listener attached to:', milestone.querySelector('.milestone-title')?.textContent);
+                }
             });
 
             // Close when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.timeline-milestone')) {
-                    milestones.forEach(m => m.classList.remove('mobile-expanded'));
-                }
+            document.addEventListener('click', handleOutsideClick);
+            mobileListenersAttached = true;
+            console.log('Mobile mode activated');
+
+        } else if (!isMobile && mobileListenersAttached) {
+            // Remove mobile listeners and classes on desktop
+            milestones.forEach(milestone => {
+                const dot = milestone.querySelector('.milestone-dot');
+                dot.removeEventListener('click', handleMilestoneClick);
+                milestone.classList.remove('mobile-expanded');
             });
+
+            document.removeEventListener('click', handleOutsideClick);
+            mobileListenersAttached = false;
         }
     }
 
-    // Re-init mobile timeline on resize
+    function handleMilestoneClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const milestone = e.currentTarget.closest('.timeline-milestone');
+        if (!milestone) {
+            console.error('Milestone not found');
+            return;
+        }
+
+        const isExpanded = milestone.classList.contains('mobile-expanded');
+
+        // Close all others
+        milestones.forEach(m => m.classList.remove('mobile-expanded'));
+
+        // Toggle current
+        if (!isExpanded) {
+            milestone.classList.add('mobile-expanded');
+            console.log('Milestone expanded:', milestone.querySelector('.milestone-title').textContent);
+        } else {
+            console.log('Milestone collapsed');
+        }
+    }
+
+    function handleOutsideClick(e) {
+        if (!e.target.closest('.timeline-milestone')) {
+            milestones.forEach(m => m.classList.remove('mobile-expanded'));
+        }
+    }
+
+    // Init on load
+    initMobileTimeline();
+
+    // Re-init on resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
