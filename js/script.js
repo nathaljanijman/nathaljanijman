@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // initThemeToggle(); // Disabled - theme toggle removed
     initLanguageToggle();
     initMobileMenu();
+    initMobileBottomNav();
     initConversationalChat();
     initWhatsAppContact();
     initHeroWhatsApp();
@@ -1496,6 +1497,60 @@ Groeten!`;
                 }
             }
         });
+    }
+
+    // Mobile Bottom Navigation - Active state management
+    function initMobileBottomNav() {
+        const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+        if (mobileNavItems.length === 0) return;
+
+        // Sections to track
+        const sections = [
+            { id: 'home', element: document.querySelector('#home') },
+            { id: 'projects', element: document.querySelector('#projects') },
+            { id: 'about', element: document.querySelector('#about') },
+            { id: 'contact', element: document.querySelector('#contact') }
+        ].filter(section => section.element !== null);
+
+        function updateActiveNavItem() {
+            const scrollPosition = window.scrollY + 100; // Offset for better UX
+
+            let currentSection = 'home'; // Default
+
+            sections.forEach(section => {
+                const sectionTop = section.element.offsetTop;
+                const sectionHeight = section.element.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.id;
+                }
+            });
+
+            // Update active state
+            mobileNavItems.forEach(item => {
+                const itemSection = item.getAttribute('data-section');
+                if (itemSection === currentSection) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Throttled scroll listener for performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (!scrollTimeout) {
+                scrollTimeout = setTimeout(() => {
+                    updateActiveNavItem();
+                    scrollTimeout = null;
+                }, 50);
+            }
+        });
+
+        // Initial update
+        updateActiveNavItem();
     }
 
     console.log('🎉 Portfolio initialized successfully!');
