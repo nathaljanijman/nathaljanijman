@@ -103,7 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (targetSection) {
                     const header = document.querySelector('.header');
-                    const headerHeight = header ? header.offsetHeight : 80;
+                    // On mobile (≤1024px), header is removed, so no offset needed
+                    const headerHeight = (header && window.innerWidth > 1024) ? header.offsetHeight : 0;
                     const targetPosition = targetSection.offsetTop - headerHeight;
 
                     window.scrollTo({
