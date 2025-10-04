@@ -77,25 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mobile menu functionality
     function initMobileMenu() {
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-
-        if (mobileToggle && navMenu) {
-            mobileToggle.addEventListener('click', () => {
-                mobileToggle.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
-            });
-
-            // Close menu when clicking on nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    document.body.classList.remove('menu-open');
-                });
-            });
-        }
+        // Hamburger menu removed - using bottom navigation instead
+        return;
     }
 
     // Smooth scrolling for anchor links
@@ -1036,14 +1019,23 @@ Groeten!`;
         const languageToggle = document.getElementById('languageToggle');
         const languageDropdown = document.getElementById('languageDropdown');
         const langOptions = document.querySelectorAll('.lang-option');
+        const mobileLangBtn = document.getElementById('mobileLangBtn');
 
         if (!languageToggle || !languageDropdown) return;
 
-        // Toggle dropdown visibility
+        // Toggle dropdown visibility (desktop)
         languageToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             languageDropdown.classList.toggle('show');
         });
+
+        // Mobile language button triggers desktop dropdown
+        if (mobileLangBtn) {
+            mobileLangBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                languageDropdown.classList.toggle('show');
+            });
+        }
 
         // Language option selection
         langOptions.forEach(option => {
@@ -1054,6 +1046,14 @@ Groeten!`;
                 // Use LanguageManager to change language
                 if (window.languageManager) {
                     window.languageManager.setLanguage(selectedLang);
+
+                    // Update mobile language flag
+                    if (mobileLangBtn) {
+                        const mobileLangFlag = mobileLangBtn.querySelector('.mobile-lang-flag');
+                        if (mobileLangFlag) {
+                            mobileLangFlag.textContent = selectedLang === 'nl' ? '🇳🇱' : '🇬🇧';
+                        }
+                    }
 
                     // Add feedback animation
                     languageToggle.style.transform = 'scale(0.95)';
@@ -1080,101 +1080,7 @@ Groeten!`;
     }
 
     // Enhanced Mobile Menu functionality
-    function initMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
-        const mobileLangToggle = document.querySelector('.mobile-lang-toggle');
-
-        if (!mobileMenuToggle || !mobileMenuOverlay) return;
-
-        // Toggle mobile menu
-        mobileMenuToggle.addEventListener('click', () => {
-            const isActive = mobileMenuToggle.classList.contains('active');
-
-            if (isActive) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        });
-
-        // Close menu when clicking on nav links
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                closeMobileMenu();
-            });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenuToggle.contains(e.target) && !mobileMenuOverlay.contains(e.target)) {
-                if (mobileMenuToggle.classList.contains('active')) {
-                    closeMobileMenu();
-                }
-            }
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenuToggle.classList.contains('active')) {
-                closeMobileMenu();
-            }
-        });
-
-        // Mobile theme toggle
-        if (mobileThemeToggle) {
-            mobileThemeToggle.addEventListener('click', () => {
-                const themeToggle = document.getElementById('themeToggle');
-                if (themeToggle) {
-                    themeToggle.click(); // Trigger main theme toggle
-                }
-            });
-        }
-
-        // Mobile language toggle
-        if (mobileLangToggle) {
-            mobileLangToggle.addEventListener('click', () => {
-                const languageToggle = document.getElementById('languageToggle');
-                if (languageToggle) {
-                    languageToggle.click(); // Trigger main language toggle
-                }
-            });
-        }
-
-        function openMobileMenu() {
-            mobileMenuToggle.classList.add('active');
-            mobileMenuOverlay.classList.add('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
-        }
-
-        function closeMobileMenu() {
-            mobileMenuToggle.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = ''; // Restore scroll
-        }
-
-        // Update active nav link
-        function updateActiveNavLink() {
-            const currentSection = window.location.hash || '#home';
-
-            mobileNavLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === currentSection) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // Initialize active state
-        updateActiveNavLink();
-
-        // Update on hash change
-        window.addEventListener('hashchange', updateActiveNavLink);
-    }
+    // Hamburger menu removed - using bottom navigation instead
 
     // Hero Conversation Functionality
     function initHeroConversation() {
