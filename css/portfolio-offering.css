@@ -165,7 +165,7 @@
 
 .package-header h3 {
     font-family: var(--font-family-primary);
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: white;
     margin: 0 0 8px 0;
@@ -490,7 +490,7 @@
 
 .addons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
     gap: 32px;
 }
 
@@ -522,7 +522,7 @@
 
 .addon-content h3 {
     font-family: var(--font-family-primary);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: white;
     margin: 0 0 16px 0;
@@ -539,7 +539,7 @@
 
 .addon-features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: 16px;
     margin-bottom: 32px;
 }
@@ -773,6 +773,29 @@
 
     .cta-primary, .cta-secondary {
         justify-content: center;
+    }
+
+    /* Add-ons responsive */
+    .addons-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .addon-card {
+        padding: 32px 24px;
+    }
+
+    .addon-features {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .addon-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .package-header h3 {
+        font-size: 1.25rem;
     }
 }
 
