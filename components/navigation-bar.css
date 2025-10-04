@@ -254,39 +254,9 @@
     transform: scale(1.1);
 }
 
-/* Mobile Navigation Media Query */
-@media (max-width: 968px) {
-    .header {
-        width: calc(100% - 20px);
-        height: 44px;
-        border-radius: 22px;
-    }
-
-    .header.scrolled {
-        transform: translateX(-50%) scale(0.98);
-    }
-
-    .nav-menu {
-        display: none;
-    }
-
-    .header-actions {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .header-container {
-        padding: 0 var(--spacing-lg);
-    }
-}
-
-/* Mobile Navigation */
+/* Mobile Navigation - Hide header completely, use bottom nav */
 @media (max-width: 768px) {
-    /* Hide entire header on mobile - using bottom nav instead */
     .header {
-        display: none;
+        display: none !important;
     }
 }
