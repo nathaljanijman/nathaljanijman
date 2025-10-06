@@ -15,6 +15,15 @@ const translations = {
         heroSuggestion2: 'Betere resultaten',
         heroSuggestion3: 'Meer impact',
 
+        // Ticker Stats
+        tickerStat1: '7+ jaar ervaring als product owner',
+        tickerStat2: '5+ jaar bij corporate organisatie',
+        tickerStat3: '8+ corporate internationale websites eigenaarschap',
+        tickerStat4: 'Internationale samenwerking',
+        tickerStat5: '25+ team members',
+        tickerStat6: '150+ stakeholders',
+        tickerStat7: '10+ jaar topsport ervaring',
+
         // Portfolio Sticker
         stickerQuestion: 'Wil je ook zo\'n portfolio website?',
         stickerAnswer: 'Ik maak hem voor je! →',
@@ -26,6 +35,12 @@ const translations = {
         // About Section
         aboutTitle: 'Over Nathalja',
         aboutSubtitle: 'Van topsport naar digital product leadership',
+        aboutParagraph1: 'Na jaren als topsporter leerde ik wat het betekent om onder druk te presteren, in teams te excelleren, en altijd focused te blijven op het doel. Die mindset breng ik nu in als Product Owner bij ABN AMRO.',
+        aboutParagraph2: 'Van luxury e-commerce bij BALR. tot enterprise platforms bij ABN AMRO - ik help teams betere digitale producten bouwen. Of het nu gaat om 11.000+ content pagina\'s beheren, offshore teams coördineren, of API integraties opzetten: ik geloof in data-driven leadership en producten die écht werken.',
+        aboutParagraph3: 'Als entrepreneur heb ik mijn eigen ski goggles merk SLOPEZ opgezet, en als "vibe coder" bouw ik regelmatig side projects zoals Sprint Planner en DHGate Monitor. Ik combineer strategisch denken met hands-on uitvoering - van visie tot shipped product.',
+        aboutStatLabel1: 'Jaar Product Owner',
+        aboutStatLabel2: 'Jaar Topsport',
+        aboutStatLabel3: 'Wereldwijd Remote',
 
         filterAll: 'Alle projecten',
         filterProductOwner: 'Product Owner',
@@ -86,6 +101,14 @@ const translations = {
         contactWhatsAppTime: 'Antwoord binnen 2 uur',
         contactEmail: 'Email voor uitgebreid gesprek',
         contactEmailTime: 'Antwoord binnen 24 uur',
+
+        // Contact Cards
+        contactCardWhatsAppDesc: 'Direct en persoonlijk bespreken',
+        contactCardWhatsAppTime: 'Responstijd: ~2 uur',
+        contactCardEmailDesc: 'Gedetailleerde project bespreking',
+        contactCardEmailTime: 'Responstijd: ~24 uur',
+        contactCardLinkedInDesc: 'Netwerk en professioneel contact',
+        contactCardLinkedInTime: 'Bekijk profiel',
         trustResponse: 'Gemiddelde responstijd',
         trustResponseTime: '2 uur',
         trustFirstCall: 'Eerste gesprek',
@@ -126,6 +149,15 @@ const translations = {
         heroSuggestion2: 'Better results',
         heroSuggestion3: 'More impact',
 
+        // Ticker Stats
+        tickerStat1: '7+ years experience as product owner',
+        tickerStat2: '5+ years at corporate organization',
+        tickerStat3: '8+ corporate international websites ownership',
+        tickerStat4: 'International collaboration',
+        tickerStat5: '25+ team members',
+        tickerStat6: '150+ stakeholders',
+        tickerStat7: '10+ years top athlete experience',
+
         // Portfolio Sticker
         stickerQuestion: 'Want a portfolio website like this?',
         stickerAnswer: 'I\'ll build it for you! →',
@@ -137,6 +169,12 @@ const translations = {
         // About Section
         aboutTitle: 'About Nathalja',
         aboutSubtitle: 'From top athlete to digital product leadership',
+        aboutParagraph1: 'After years as a top athlete, I learned what it means to perform under pressure, excel in teams, and always stay focused on the goal. I bring that mindset into my role as Product Owner at ABN AMRO.',
+        aboutParagraph2: 'From luxury e-commerce at BALR. to enterprise platforms at ABN AMRO - I help teams build better digital products. Whether it\'s managing 11,000+ content pages, coordinating offshore teams, or setting up API integrations: I believe in data-driven leadership and products that truly work.',
+        aboutParagraph3: 'As an entrepreneur, I founded my own ski goggles brand SLOPEZ, and as a "vibe coder" I regularly build side projects like Sprint Planner and DHGate Monitor. I combine strategic thinking with hands-on execution - from vision to shipped product.',
+        aboutStatLabel1: 'Years Product Owner',
+        aboutStatLabel2: 'Years Top Athlete',
+        aboutStatLabel3: 'Remote Worldwide',
 
         filterAll: 'All projects',
         filterProductOwner: 'Product Owner',
@@ -192,11 +230,19 @@ const translations = {
 
         // Contact Section
         contactTitle: 'Ready for the next step?',
-        contactSubtitle: 'I'll help you move forward',
+        contactSubtitle: 'I\'ll help you move forward',
         contactWhatsApp: 'WhatsApp direct',
         contactWhatsAppTime: 'Response within 2 hours',
         contactEmail: 'Email for detailed discussion',
         contactEmailTime: 'Response within 24 hours',
+
+        // Contact Cards
+        contactCardWhatsAppDesc: 'Direct and personal discussion',
+        contactCardWhatsAppTime: 'Response time: ~2 hours',
+        contactCardEmailDesc: 'Detailed project discussion',
+        contactCardEmailTime: 'Response time: ~24 hours',
+        contactCardLinkedInDesc: 'Network and professional contact',
+        contactCardLinkedInTime: 'View profile',
         trustResponse: 'Average response time',
         trustResponseTime: '2 hours',
         trustFirstCall: 'First call',
@@ -259,6 +305,7 @@ class LanguageManager {
     attachEventListeners() {
         // Header dropdown language options
         const langOptions = document.querySelectorAll('.lang-option');
+        console.log('📍 Found', langOptions.length, 'header language options');
         langOptions.forEach(option => {
             option.addEventListener('click', (e) => {
                 const lang = option.getAttribute('data-lang');
@@ -268,9 +315,11 @@ class LanguageManager {
 
         // Footer language buttons
         const footerLangBtns = document.querySelectorAll('.footer-lang-btn');
+        console.log('📍 Found', footerLangBtns.length, 'footer language buttons');
         footerLangBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const lang = btn.getAttribute('data-lang');
+                console.log('👆 Footer button clicked:', lang);
                 this.setLanguage(lang);
             });
         });
@@ -282,10 +331,12 @@ class LanguageManager {
             return;
         }
 
+        console.log('🌍 Language switch:', this.currentLanguage, '→', lang);
         this.currentLanguage = lang;
         localStorage.setItem('preferredLanguage', lang);
         this.applyTranslations();
         this.updateLanguageToggle();
+        console.log('✅ Language changed to:', lang);
     }
 
     applyTranslations() {
@@ -345,8 +396,10 @@ class LanguageManager {
 // Initialize language manager when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Initializing LanguageManager (DOM loaded)');
         window.languageManager = new LanguageManager();
     });
 } else {
+    console.log('🚀 Initializing LanguageManager (DOM ready)');
     window.languageManager = new LanguageManager();
 }
