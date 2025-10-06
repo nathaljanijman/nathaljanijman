@@ -4,6 +4,8 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 
 **🌐 Live:** [nathaljanijman.com](https://nathaljanijman.com)
 
+**📦 Want to use this template?** Check out the [Portfolio Template Project](../portfolio-template/) - build similar portfolios in 5 minutes!
+
 ---
 
 ## 🚀 Tech Stack
