@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initProjectFiltering();
     initProjectCardAnimations();
     initShowMoreProjects();
+    initHeroConversation();
 });
 
 // Navigation
@@ -175,6 +176,55 @@ function initShowMoreProjects() {
             const icon = showMoreBtn.querySelector('svg');
             if (icon) {
                 icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        });
+    }
+}
+
+// Hero Conversation Interface
+function initHeroConversation() {
+    const heroForm = document.getElementById('heroConversationForm');
+    const heroInput = document.getElementById('heroInput');
+    const suggestionPills = document.querySelectorAll('.suggestion-pill');
+
+    // Handle suggestion pill clicks
+    suggestionPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+            const message = this.getAttribute('data-message');
+            if (message && heroInput) {
+                heroInput.value = message;
+                heroInput.focus();
+
+                // Optional: auto-submit after filling
+                // setTimeout(() => heroForm.dispatchEvent(new Event('submit')), 300);
+            }
+        });
+    });
+
+    // Handle form submission
+    if (heroForm && heroInput) {
+        heroForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = heroInput.value.trim();
+
+            if (message) {
+                // Redirect to contact with pre-filled message
+                const whatsappNumber = '31657591440';
+                const whatsappText = encodeURIComponent(`Hi Nathalja! ${message}`);
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+
+                window.open(whatsappUrl, '_blank');
+
+                // Clear input
+                heroInput.value = '';
+
+                // Track in analytics if available
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'hero_conversation_start', {
+                        event_category: 'Engagement',
+                        event_label: message.substring(0, 50)
+                    });
+                }
             }
         });
     }
