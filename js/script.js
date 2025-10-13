@@ -186,17 +186,57 @@ function initHeroConversation() {
     const heroForm = document.getElementById('heroConversationForm');
     const heroInput = document.getElementById('heroInput');
     const suggestionPills = document.querySelectorAll('.suggestion-pill');
+    const conversationDialogue = document.getElementById('conversationDialogue');
+    const chatInput = document.getElementById('chatInput');
+
+    // Function to open conversation modal
+    function openConversationModal(initialMessage = '') {
+        if (!conversationDialogue) return;
+
+        // Create backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'dialogue-backdrop';
+        backdrop.id = 'dialogueBackdrop';
+        document.body.appendChild(backdrop);
+
+        // Show dialogue
+        conversationDialogue.style.display = 'block';
+
+        // Pre-fill chat input if there's an initial message
+        if (initialMessage && chatInput) {
+            chatInput.value = initialMessage;
+            // Auto-submit the initial message after a short delay
+            setTimeout(() => {
+                chatInput.focus();
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                const chatForm = document.getElementById('chatForm');
+                if (chatForm) {
+                    chatForm.dispatchEvent(submitEvent);
+                }
+            }, 300);
+        } else if (chatInput) {
+            setTimeout(() => chatInput.focus(), 100);
+        }
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Track in analytics if available
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversation_modal_open', {
+                event_category: 'Engagement',
+                event_label: initialMessage ? 'With Message' : 'Empty'
+            });
+        }
+    }
 
     // Handle suggestion pill clicks
     suggestionPills.forEach(pill => {
         pill.addEventListener('click', function() {
             const message = this.getAttribute('data-message');
-            if (message && heroInput) {
-                heroInput.value = message;
-                heroInput.focus();
-
-                // Optional: auto-submit after filling
-                // setTimeout(() => heroForm.dispatchEvent(new Event('submit')), 300);
+            if (message) {
+                // Open modal with pre-filled message
+                openConversationModal(message);
             }
         });
     });
@@ -208,23 +248,14 @@ function initHeroConversation() {
             const message = heroInput.value.trim();
 
             if (message) {
-                // Redirect to contact with pre-filled message
-                const whatsappNumber = '31657591440';
-                const whatsappText = encodeURIComponent(`Hi Nathalja! ${message}`);
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+                // Open conversation modal with the message
+                openConversationModal(message);
 
-                window.open(whatsappUrl, '_blank');
-
-                // Clear input
+                // Clear hero input
                 heroInput.value = '';
-
-                // Track in analytics if available
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'hero_conversation_start', {
-                        event_category: 'Engagement',
-                        event_label: message.substring(0, 50)
-                    });
-                }
+            } else {
+                // Open empty modal if no message
+                openConversationModal();
             }
         });
     }
