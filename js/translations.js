@@ -9,7 +9,7 @@ const translations = {
 
         // Hero
         heroName: 'Nathalja Nijman',
-        heroTagline: 'Ik maak digitale producten, los complexe vraagstukken op, en help mensen groeien',
+        heroTagline: '7 jaar PO ervaring × 10 jaar topsport mindset',
         heroInputPlaceholder: 'Vertel me over je idee, project of vraag...',
         heroSuggestion1: 'Snellere groei',
         heroSuggestion2: 'Betere resultaten',
@@ -143,7 +143,7 @@ const translations = {
 
         // Hero
         heroName: 'Nathalja Nijman',
-        heroTagline: 'I create digital products, solve complex challenges, and help people grow',
+        heroTagline: '7 years PO experience × 10 years top athlete mindset',
         heroInputPlaceholder: 'Tell me about your idea, project or question...',
         heroSuggestion1: 'Faster growth',
         heroSuggestion2: 'Better results',
@@ -303,4 +303,106 @@ class LanguageManager {
     }
 
     attachEventListeners() {
+        // Header language toggle (desktop)
+        const languageToggle = document.getElementById('languageToggle');
+        const languageDropdown = document.getElementById('languageDropdown');
 
+        if (languageToggle && languageDropdown) {
+            // Toggle dropdown on click
+            languageToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                languageDropdown.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                languageDropdown.classList.remove('active');
+            });
+
+            // Language options in dropdown
+            const langOptions = languageDropdown.querySelectorAll('.lang-option');
+            langOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const lang = option.dataset.lang;
+                    this.switchLanguage(lang);
+                    languageDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Footer language buttons
+        const footerLangButtons = document.querySelectorAll('.footer-lang-btn');
+        footerLangButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                this.switchLanguage(lang);
+            });
+        });
+    }
+
+    switchLanguage(lang) {
+        if (lang !== 'nl' && lang !== 'en') return;
+
+        this.currentLanguage = lang;
+        localStorage.setItem('preferredLanguage', lang);
+
+        // Update HTML lang attribute
+        document.documentElement.setAttribute('lang', lang);
+
+        // Apply translations
+        this.applyTranslations();
+
+        // Update toggle display
+        this.updateLanguageToggle();
+
+        // Update footer button states
+        this.updateFooterButtons();
+    }
+
+    updateFooterButtons() {
+        const footerButtons = document.querySelectorAll('.footer-lang-btn');
+        footerButtons.forEach(btn => {
+            if (btn.dataset.lang === this.currentLanguage) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    updateLanguageToggle() {
+        const currentLangDisplay = document.querySelector('.lang-current');
+        if (currentLangDisplay) {
+            currentLangDisplay.textContent = this.currentLanguage.toUpperCase();
+        }
+
+        // Update footer buttons
+        this.updateFooterButtons();
+    }
+
+    applyTranslations() {
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.dataset.translate;
+            if (translations[this.currentLanguage] && translations[this.currentLanguage][key]) {
+                // For input placeholders
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translations[this.currentLanguage][key];
+                } else {
+                    element.textContent = translations[this.currentLanguage][key];
+                }
+            }
+        });
+    }
+
+    // Expose translations for script.js
+    get translations() {
+        return translations;
+    }
+}
+
+// Initialize language manager when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    window.languageManager = new LanguageManager();
+});

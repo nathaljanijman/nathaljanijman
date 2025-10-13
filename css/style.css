@@ -546,7 +546,8 @@ button, a, input, textarea {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.language-dropdown.show {
+.language-dropdown.show,
+.language-dropdown.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

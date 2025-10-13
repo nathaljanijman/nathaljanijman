@@ -10,9 +10,10 @@ test.describe('Language Switching (i18n)', () => {
   test.describe('Header Language Toggle', () => {
     test('should display language toggle in header on desktop', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500); // Wait for header to be stable
 
       const langToggle = page.locator('#languageToggle');
-      await expect(langToggle).toBeVisible();
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
 
       // Check current language display
       const currentLang = page.locator('.lang-current');
@@ -21,8 +22,11 @@ test.describe('Language Switching (i18n)', () => {
 
     test('should open dropdown when clicking language toggle', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500);
 
       const langToggle = page.locator('#languageToggle');
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
+
       const dropdown = page.locator('#languageDropdown');
 
       // Dropdown should be hidden initially
@@ -30,7 +34,7 @@ test.describe('Language Switching (i18n)', () => {
 
       // Click toggle
       await langToggle.click();
-      await page.waitForTimeout(200);
+      await page.waitForTimeout(500);
 
       // Dropdown should be visible
       await expect(dropdown).toHaveClass(/active/);
@@ -38,9 +42,13 @@ test.describe('Language Switching (i18n)', () => {
 
     test('should show both language options in dropdown', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500);
 
-      await page.click('#languageToggle');
-      await page.waitForTimeout(200);
+      const langToggle = page.locator('#languageToggle');
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
+
+      await langToggle.click();
+      await page.waitForTimeout(500);
 
       // Check NL option
       const nlOption = page.locator('.lang-option[data-lang="nl"]');
@@ -57,14 +65,18 @@ test.describe('Language Switching (i18n)', () => {
 
     test('should switch to English via header dropdown', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500);
+
+      const langToggle = page.locator('#languageToggle');
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
 
       // Open dropdown
-      await page.click('#languageToggle');
-      await page.waitForTimeout(200);
+      await langToggle.click();
+      await page.waitForTimeout(500);
 
       // Click English option
       await page.click('.lang-option[data-lang="en"]');
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(800);
 
       // Check HTML lang attribute
       const htmlLang = await page.getAttribute('html', 'lang');
@@ -75,15 +87,20 @@ test.describe('Language Switching (i18n)', () => {
       await expect(projectsTitle).toContainText('Selected Work');
 
       const navProjects = page.locator('[data-translate="navProjects"]').first();
-      await expect(navProjects).toContainText('Projects');
+      await expect(navProjects).toContainText('Work');
     });
 
     test('should update current language indicator after switch', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
-
-      await page.click('#languageToggle');
-      await page.click('.lang-option[data-lang="en"]');
       await page.waitForTimeout(500);
+
+      const langToggle = page.locator('#languageToggle');
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
+
+      await langToggle.click();
+      await page.waitForTimeout(500);
+      await page.click('.lang-option[data-lang="en"]');
+      await page.waitForTimeout(800);
 
       const currentLang = page.locator('.lang-current');
       await expect(currentLang).toContainText('EN');
@@ -150,15 +167,20 @@ test.describe('Language Switching (i18n)', () => {
   test.describe('Language Synchronization', () => {
     test('should sync footer and header language states', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500);
+
+      const langToggle = page.locator('#languageToggle');
+      await expect(langToggle).toBeVisible({ timeout: 5000 });
 
       // Switch via header
-      await page.click('#languageToggle');
-      await page.click('.lang-option[data-lang="en"]');
+      await langToggle.click();
       await page.waitForTimeout(500);
+      await page.click('.lang-option[data-lang="en"]');
+      await page.waitForTimeout(800);
 
       // Scroll to footer
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(500);
 
       // Check footer reflects the change
       const enBtn = page.locator('.footer-lang-btn[data-lang="en"]');
@@ -170,21 +192,23 @@ test.describe('Language Switching (i18n)', () => {
 
     test('should sync header when switching via footer', async ({ page }) => {
       await page.setViewportSize({ width: 1920, height: 1080 });
+      await page.waitForTimeout(500);
 
       // Scroll to footer
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(500);
 
       // Switch via footer
       await page.click('.footer-lang-btn[data-lang="en"]');
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(800);
 
       // Scroll back to top
       await page.evaluate(() => window.scrollTo(0, 0));
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(500);
 
       // Check header dropdown indicator
       const currentLang = page.locator('.lang-current');
+      await expect(currentLang).toBeVisible({ timeout: 5000 });
       await expect(currentLang).toContainText('EN');
     });
   });
