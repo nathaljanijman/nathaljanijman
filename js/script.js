@@ -290,7 +290,6 @@ function initHeroConversation() {
     const modalClose = document.getElementById('modalClose');
     const chooseWhatsApp = document.getElementById('chooseWhatsApp');
     const chooseEmail = document.getElementById('chooseEmail');
-    const chooseChatContinue = document.getElementById('chooseChatContinue');
 
     if (modalClose) {
         modalClose.addEventListener('click', closeContactChoiceModal);
@@ -326,26 +325,6 @@ function initHeroConversation() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_choice_email', {
                     event_category: 'Conversion',
-                    event_label: pendingMessage.substring(0, 50)
-                });
-            }
-        });
-    }
-
-    if (chooseChatContinue) {
-        // Enable chat option
-        chooseChatContinue.disabled = false;
-        const chatResponseTime = chooseChatContinue.querySelector('.response-time');
-        if (chatResponseTime) {
-            chatResponseTime.textContent = 'Direct beschikbaar';
-        }
-
-        chooseChatContinue.addEventListener('click', function() {
-            openConversationDialogue(pendingMessage);
-
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'contact_choice_chat', {
-                    event_category: 'Engagement',
                     event_label: pendingMessage.substring(0, 50)
                 });
             }
