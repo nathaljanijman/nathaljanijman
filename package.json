@@ -10,7 +10,14 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "test:smoke": "playwright test tests/e2e.spec.js",
+    "precheck": "npm run lint:js && npm run check:functions",
+    "lint:js": "echo '🔍 Checking for console.log...' && ! grep -r 'console\\.log' js/*.js | grep -v 'analytics.js' | grep -v '//' || echo '⚠️  Found console.log statements'",
+    "check:functions": "echo '⚙️  Checking critical functions...' && grep -q 'initProjectFiltering' js/script.js && grep -q 'switchLanguage' js/translations.js && grep -q 'initHeroConversation' js/script.js && echo '✅ All critical functions present' || (echo '❌ Missing critical functions' && exit 1)",
+    "predeploy": "npm run precheck && npm run test:smoke",
+    "deploy": "git push origin main",
+    "deploy:safe": "npm run predeploy && npm run deploy"
   },
   "repository": {
     "type": "git",

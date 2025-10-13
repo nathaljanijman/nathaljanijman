@@ -1,0 +1,149 @@
+name: CI - Pull Request & Push Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npx playwright test --reporter=list
+        continue-on-error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7
+
+  lint-check:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for console.log statements (except analytics)
+        run: |
+          if grep -r "console\.log" js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"; then
+            echo "❌ Found console.log statements in production code"
+            grep -rn "console\.log" js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"
+            exit 1
+          else
+            echo "✅ No console.log statements found"
+          fi
+
+      - name: Check for TODO/FIXME comments
+        run: |
+          if grep -r "TODO\|FIXME" js/*.js css/*.css; then
+            echo "⚠️  Found TODO/FIXME comments - review before deploying"
+          else
+            echo "✅ No TODO/FIXME comments"
+          fi
+        continue-on-error: true
+
+  functional-check:
+    name: Critical Functionality Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Start local server
+        run: |
+          npx http-server . -p 8080 &
+          sleep 3
+
+      - name: Run critical path tests only
+        run: |
+          npx playwright test tests/e2e.spec.js --reporter=list
+
+      - name: Check critical JavaScript functions exist
+        run: |
+          echo "Checking for critical functions..."
+
+          # Check language switching
+          if ! grep -q "switchLanguage" js/translations.js; then
+            echo "❌ Missing: switchLanguage function"
+            exit 1
+          fi
+
+          # Check project filtering
+          if ! grep -q "initProjectFiltering" js/script.js; then
+            echo "❌ Missing: initProjectFiltering function"
+            exit 1
+          fi
+
+          # Check hero conversation
+          if ! grep -q "initHeroConversation" js/script.js; then
+            echo "❌ Missing: initHeroConversation function"
+            exit 1
+          fi
+
+          echo "✅ All critical functions present"
+
+  deployment-ready:
+    name: Deployment Ready Check
+    needs: [test, lint-check, functional-check]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: All checks passed
+        run: |
+          echo "✅ All checks passed - Safe to deploy!"
+          echo "📦 Tests: Passed"
+          echo "🔍 Code Quality: Passed"
+          echo "⚙️  Functionality: Passed"
