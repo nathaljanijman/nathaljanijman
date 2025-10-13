@@ -186,12 +186,53 @@ function initHeroConversation() {
     const heroForm = document.getElementById('heroConversationForm');
     const heroInput = document.getElementById('heroInput');
     const suggestionPills = document.querySelectorAll('.suggestion-pill');
+    const contactChoiceModal = document.getElementById('contactChoiceModal');
     const conversationDialogue = document.getElementById('conversationDialogue');
     const chatInput = document.getElementById('chatInput');
+    const messagePreview = document.querySelector('.user-message-preview');
 
-    // Function to open conversation modal
-    function openConversationModal(initialMessage = '') {
+    let pendingMessage = '';
+
+    // Function to open contact choice modal
+    function openContactChoiceModal(message) {
+        if (!contactChoiceModal) return;
+
+        // Store the message
+        pendingMessage = message;
+
+        // Show message preview
+        if (messagePreview && message) {
+            messagePreview.textContent = `"${message}"`;
+            messagePreview.style.display = 'block';
+        }
+
+        // Show modal
+        contactChoiceModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Track in analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_choice_modal_open', {
+                event_category: 'Engagement',
+                event_label: message.substring(0, 50)
+            });
+        }
+    }
+
+    // Function to close contact choice modal
+    function closeContactChoiceModal() {
+        if (!contactChoiceModal) return;
+        contactChoiceModal.classList.remove('active');
+        document.body.style.overflow = '';
+        pendingMessage = '';
+    }
+
+    // Function to open conversation dialogue (chat)
+    function openConversationDialogue(initialMessage = '') {
         if (!conversationDialogue) return;
+
+        // Close choice modal first
+        closeContactChoiceModal();
 
         // Create backdrop
         const backdrop = document.createElement('div');
@@ -220,14 +261,6 @@ function initHeroConversation() {
 
         // Prevent body scroll
         document.body.style.overflow = 'hidden';
-
-        // Track in analytics if available
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'conversation_modal_open', {
-                event_category: 'Engagement',
-                event_label: initialMessage ? 'With Message' : 'Empty'
-            });
-        }
     }
 
     // Handle suggestion pill clicks
@@ -235,28 +268,99 @@ function initHeroConversation() {
         pill.addEventListener('click', function() {
             const message = this.getAttribute('data-message');
             if (message) {
-                // Open modal with pre-filled message
-                openConversationModal(message);
+                openContactChoiceModal(message);
             }
         });
     });
 
-    // Handle form submission
+    // Handle hero form submission
     if (heroForm && heroInput) {
         heroForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const message = heroInput.value.trim();
 
             if (message) {
-                // Open conversation modal with the message
-                openConversationModal(message);
-
-                // Clear hero input
+                openContactChoiceModal(message);
                 heroInput.value = '';
-            } else {
-                // Open empty modal if no message
-                openConversationModal();
             }
         });
     }
+
+    // Handle contact choice modal options
+    const modalClose = document.getElementById('modalClose');
+    const chooseWhatsApp = document.getElementById('chooseWhatsApp');
+    const chooseEmail = document.getElementById('chooseEmail');
+    const chooseChatContinue = document.getElementById('chooseChatContinue');
+
+    if (modalClose) {
+        modalClose.addEventListener('click', closeContactChoiceModal);
+    }
+
+    if (chooseWhatsApp) {
+        chooseWhatsApp.addEventListener('click', function() {
+            const whatsappNumber = '31657591440';
+            const whatsappText = encodeURIComponent(`Hi Nathalja! ${pendingMessage}`);
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+
+            window.open(whatsappUrl, '_blank');
+            closeContactChoiceModal();
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_choice_whatsapp', {
+                    event_category: 'Conversion',
+                    event_label: pendingMessage.substring(0, 50)
+                });
+            }
+        });
+    }
+
+    if (chooseEmail) {
+        chooseEmail.addEventListener('click', function() {
+            const emailSubject = encodeURIComponent('Project aanvraag via portfolio');
+            const emailBody = encodeURIComponent(`Hi Nathalja,\n\n${pendingMessage}\n\nGroet,`);
+            const emailUrl = `mailto:nathaljanijman@hotmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+            window.location.href = emailUrl;
+            closeContactChoiceModal();
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_choice_email', {
+                    event_category: 'Conversion',
+                    event_label: pendingMessage.substring(0, 50)
+                });
+            }
+        });
+    }
+
+    if (chooseChatContinue) {
+        // Enable chat option
+        chooseChatContinue.disabled = false;
+        const chatResponseTime = chooseChatContinue.querySelector('.response-time');
+        if (chatResponseTime) {
+            chatResponseTime.textContent = 'Direct beschikbaar';
+        }
+
+        chooseChatContinue.addEventListener('click', function() {
+            openConversationDialogue(pendingMessage);
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_choice_chat', {
+                    event_category: 'Engagement',
+                    event_label: pendingMessage.substring(0, 50)
+                });
+            }
+        });
+    }
+
+    // Close modal on backdrop click
+    if (contactChoiceModal) {
+        contactChoiceModal.querySelector('.modal-backdrop')?.addEventListener('click', closeContactChoiceModal);
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && contactChoiceModal?.classList.contains('active')) {
+            closeContactChoiceModal();
+        }
+    });
 }
