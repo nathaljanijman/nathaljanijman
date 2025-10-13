@@ -1,0 +1,246 @@
+name: Daily E2E Tests
+
+on:
+  schedule:
+    # Runs at 9:00 AM CET every day (7:00 UTC in winter, 8:00 UTC in summer)
+    # Using 7:00 UTC to match 9:00 AM CET in winter time
+    - cron: '0 7 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        id: playwright_tests
+        continue-on-error: true
+        run: npx playwright test
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 30
+
+      - name: Get test results summary
+        id: test_summary
+        if: always()
+        run: |
+          if [ -f "playwright-report/index.html" ]; then
+            echo "Test report generated successfully"
+
+            # Try to extract test counts from the report
+            if command -v jq &> /dev/null && [ -f "test-results/.last-run.json" ]; then
+              echo "Test results file found"
+            else
+              echo "Test results summary not available"
+            fi
+          else
+            echo "No test report generated"
+          fi
+
+      - name: Set test status
+        id: set_status
+        if: always()
+        run: |
+          if [ "${{ steps.playwright_tests.outcome }}" == "success" ]; then
+            echo "status=✅ PASSED" >> $GITHUB_OUTPUT
+            echo "status_emoji=✅" >> $GITHUB_OUTPUT
+          else
+            echo "status=❌ FAILED" >> $GITHUB_OUTPUT
+            echo "status_emoji=❌" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create email body
+        id: email_body
+        if: always()
+        run: |
+          cat > email_body.txt << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+              }
+              .header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 8px 8px 0 0;
+                text-align: center;
+              }
+              .header h1 {
+                margin: 0;
+                font-size: 24px;
+              }
+              .status {
+                font-size: 48px;
+                margin: 10px 0;
+              }
+              .content {
+                background: #f8f9fa;
+                padding: 30px;
+                border-radius: 0 0 8px 8px;
+              }
+              .info-box {
+                background: white;
+                border-left: 4px solid #667eea;
+                padding: 15px;
+                margin: 15px 0;
+                border-radius: 4px;
+              }
+              .info-box strong {
+                color: #667eea;
+              }
+              .button {
+                display: inline-block;
+                background: #667eea;
+                color: white;
+                padding: 12px 30px;
+                text-decoration: none;
+                border-radius: 6px;
+                margin: 20px 0;
+                font-weight: 600;
+              }
+              .footer {
+                text-align: center;
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 2px solid #e9ecef;
+                color: #6c757d;
+                font-size: 14px;
+              }
+              .timestamp {
+                color: #6c757d;
+                font-size: 14px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>🎭 Portfolio E2E Test Results</h1>
+              <div class="status">${{ steps.set_status.outputs.status_emoji }}</div>
+              <p style="margin: 0; font-size: 18px;">${{ steps.set_status.outputs.status }}</p>
+            </div>
+
+            <div class="content">
+              <h2>Test Run Details</h2>
+
+              <div class="info-box">
+                <strong>📅 Date:</strong> $(date '+%Y-%m-%d')<br>
+                <strong>⏰ Time:</strong> $(date '+%H:%M:%S %Z')<br>
+                <strong>🔗 Workflow:</strong> Daily E2E Tests<br>
+                <strong>🌿 Branch:</strong> ${{ github.ref_name }}
+              </div>
+
+              <div class="info-box">
+                <strong>📊 Test Status:</strong> ${{ steps.playwright_tests.outcome }}<br>
+                <strong>🔢 Run Number:</strong> #${{ github.run_number }}<br>
+                <strong>💻 Runner:</strong> ubuntu-latest
+              </div>
+
+              <h3>What was tested?</h3>
+              <ul>
+                <li>✅ Navigation & Routing</li>
+                <li>✅ Language Switching (NL/EN)</li>
+                <li>✅ Hero Conversational Interface</li>
+                <li>✅ Project Filtering & Show More</li>
+                <li>✅ Contact Modal & Forms</li>
+                <li>✅ Responsive & Mobile Navigation</li>
+                <li>✅ Accessibility (A11y)</li>
+                <li>✅ Visual Regression Tests</li>
+              </ul>
+
+              <div style="text-align: center;">
+                <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" class="button">
+                  View Full Report on GitHub
+                </a>
+              </div>
+
+              <p style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
+                <strong>💡 Tip:</strong> Test artifacts including screenshots and detailed HTML reports are available in the GitHub Actions run for 30 days.
+              </p>
+            </div>
+
+            <div class="footer">
+              <p>
+                <strong>nathaljanijman-portfolio</strong><br>
+                Automated E2E Testing with Playwright<br>
+                <span class="timestamp">Generated at $(date '+%Y-%m-%d %H:%M:%S %Z')</span>
+              </p>
+              <p style="font-size: 12px; margin-top: 10px;">
+                This is an automated email from GitHub Actions.<br>
+                To modify this workflow, edit <code>.github/workflows/daily-e2e-tests.yml</code>
+              </p>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "${{ steps.set_status.outputs.status_emoji }} Portfolio E2E Tests - ${{ steps.set_status.outputs.status }} - $(date '+%Y-%m-%d')"
+          to: nathaljanijman@hotmail.com
+          from: Portfolio E2E Tests <${{ secrets.EMAIL_USERNAME }}>
+          html_body: file://email_body.txt
+          priority: normal
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 🎭 E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ steps.set_status.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date '+%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow Run:** [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📋 Test Suites Executed" >> $GITHUB_STEP_SUMMARY
+          echo "- Navigation & Routing" >> $GITHUB_STEP_SUMMARY
+          echo "- Language Switching" >> $GITHUB_STEP_SUMMARY
+          echo "- Hero Interface" >> $GITHUB_STEP_SUMMARY
+          echo "- Project Filtering" >> $GITHUB_STEP_SUMMARY
+          echo "- Contact Modal" >> $GITHUB_STEP_SUMMARY
+          echo "- Responsive Design" >> $GITHUB_STEP_SUMMARY
+          echo "- Accessibility" >> $GITHUB_STEP_SUMMARY
+          echo "- Visual Regression" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Full HTML report available in artifacts" >> $GITHUB_STEP_SUMMARY

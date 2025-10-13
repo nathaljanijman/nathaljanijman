@@ -1,0 +1,26 @@
+{
+  "nl": {
+    "navHome": "Home",
+    "navProjects": "Projecten",
+    "navAbout": "Bio",
+    "navContact": "Contact",
+    "heroName": "Nathalja Nijman",
+    "projectsTitle": "Geselecteerd werk",
+    "aboutTitle": "Over Mij",
+    "contactTitle": "Klaar voor de volgende stap?",
+    "filterAll": "Alle projecten",
+    "showMoreBtn": "Toon meer projecten"
+  },
+  "en": {
+    "navHome": "Home",
+    "navProjects": "Projects",
+    "navAbout": "About",
+    "navContact": "Contact",
+    "heroName": "Nathalja Nijman",
+    "projectsTitle": "Selected Work",
+    "aboutTitle": "About Me",
+    "contactTitle": "Ready for the next step?",
+    "filterAll": "All projects",
+    "showMoreBtn": "Show more projects"
+  }
+}

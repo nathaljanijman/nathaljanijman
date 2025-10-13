@@ -120,36 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Timeline Accordion functionality
     const milestones = document.querySelectorAll('.timeline-milestone');
 
-    // Only proceed if timeline exists on page
-    if (milestones.length === 0) return;
 
-    console.log('Timeline found, milestones:', milestones.length);
-
-    milestones.forEach((milestone, index) => {
-        milestone.addEventListener('click', function(e) {
-            console.log('Clicked milestone', index + 1, 'Width:', window.innerWidth);
-
-            // Only on mobile
-            if (window.innerWidth > 768) {
-                console.log('Desktop mode - hover only');
-                return;
-            }
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isExpanded = this.classList.contains('mobile-expanded');
-            console.log('Was expanded:', isExpanded);
-
-            // Close all
-            milestones.forEach(m => m.classList.remove('mobile-expanded'));
-
-            // Toggle this one
-            if (!isExpanded) {
-                this.classList.add('mobile-expanded');
-                console.log('Now expanded!');
-            }
-        });
-    });
 
 });

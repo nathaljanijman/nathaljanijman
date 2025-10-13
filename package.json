@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "echo \"Static site - no build process needed\" && exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
   },
   "repository": {
     "type": "git",
@@ -18,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/nathaljanijman/nathaljanijman/issues"
   },
-  "homepage": "https://github.com/nathaljanijman/nathaljanijman#readme"
+  "homepage": "https://github.com/nathaljanijman/nathaljanijman#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.42.1"
+  }
 }
