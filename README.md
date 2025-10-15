@@ -20,6 +20,11 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 - **Cloudflare Pages** - Global CDN, automatic deployments
 - **GitHub** - Version control, CI/CD integration
 - **Cloudflare DNS** - DNS management, SSL certificates
+- **GitHub Actions CI/CD** - Automated testing & quality checks
+  - E2E tests on every push
+  - Critical function verification
+  - Code quality checks
+  - Blocks broken code from reaching production
 
 ### Analytics & Tracking
 - **Google Analytics 4** (GA4) - User behavior tracking
@@ -481,14 +486,557 @@ Alle functionaliteiten werken zoals verwacht.
 
 ---
 
+## 🧪 Playwright Test Suite
+
+### Overview
+Comprehensive end-to-end testing suite met **222 tests** verdeeld over **8 test suites**, waaronder visual regression testing, accessibility validatie, en functionele tests voor alle componenten.
+
+### Test Configuration
+
+**Playwright Config** (`playwright.config.js`):
+```javascript
+{
+  testDir: './tests',
+  fullyParallel: true,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: 'html',
+  use: {
+    baseURL: 'http://localhost:8080',
+    trace: 'on-first-retry'
+  },
+  webServer: {
+    command: 'python3 -m http.server 8080',
+    url: 'http://localhost:8080',
+    reuseExistingServer: !process.env.CI
+  }
+}
+```
+
+**Features**:
+- Automatic webserver startup (Python SimpleHTTPServer)
+- CI-optimized configuration (2 retries, single worker)
+- HTML reporter voor visuele test resultaten
+- Trace recording bij failures
+
+---
+
+### Test Suites
+
+#### 1. Visual Regression Tests (28 tests)
+**File**: `tests/e2e/visual-regression.spec.js`
+
+Uitgebreide screenshot-based testing voor visuele consistentie:
+
+**Hero Section** (4 tests):
+- Desktop NL/EN variants (1920x1080)
+- Mobile layout (375x667)
+- Tablet layout (768x1024)
+- MaxDiffPixels: 100
+
+**Navigation** (3 tests):
+- Desktop header styling
+- Mobile bottom navigation
+- Language dropdown open state
+
+**Projects Section** (5 tests):
+- Default state met 2 zichtbare projecten
+- Individual project card design
+- Filter buttons UI
+- Web filter active state
+- Show more expanded state
+
+**Contact Section** (3 tests):
+- Desktop layout (1920x1080)
+- Mobile layout (375x667)
+- WhatsApp contact card design
+
+**About Section** (3 tests):
+- Desktop 2-column layout met foto
+- Mobile vertical layout
+- Stats section (7 jaar PO, 10+ jaar topsport)
+
+**Footer** (3 tests):
+- Desktop footer layout
+- Mobile footer layout
+- Language switcher component
+
+**Interactive Elements** (7 tests):
+- Ticker animation section
+- Portfolio sticker (desktop/mobile)
+- Filter button active state
+- Show more expanded button
+- Full page screenshots (NL/EN, desktop/mobile)
+
+**Totaal**: 24 baseline snapshots in `tests/e2e/visual-regression.spec.js-snapshots/`
+
+---
+
+#### 2. Accessibility Tests (39 tests)
+**File**: `tests/e2e/accessibility.spec.js`
+
+WCAG 2.1 compliance validatie:
+
+**Semantic HTML**:
+- Proper heading hierarchy (h1 → h2 → h3)
+- Main landmark (`<main>` element)
+- Navigation landmarks
+- Banner role voor header
+- Contentinfo role voor footer
+
+**ARIA Attributes**:
+- Navigation aria-labels ("Main navigation", "Language selection")
+- Button aria-labels (close buttons, toggles)
+- Aria-expanded states (mobile menu, dropdowns)
+- Aria-hidden op decorative elements
+- Link descriptions (external links, social media)
+
+**Keyboard Navigation**:
+- Tab order validatie
+- Focus visible states (outline: 2px solid white)
+- Skip to content link (hidden tot focus)
+- Enter/Space key support voor buttons
+- ESC key closes modals
+
+**Interactive Elements**:
+- All links have descriptive text
+- Buttons hebben clear purpose labels
+- Form inputs hebben associated labels
+- Images hebben alt text
+- Focus trapping in modals
+
+**Focus Management**:
+- Visual focus indicators present
+- Logical tab order door page
+- Focus returns na modal close
+- No keyboard traps
+
+**Screen Reader Support**:
+- Language attribute op `<html>` (`lang="nl"`)
+- Section headings voor structuur
+- Link text beyond "click here"
+- Descriptive aria-labels
+
+---
+
+#### 3. Contact Modal Tests (37 tests)
+**File**: `tests/e2e/contact-modal.spec.js`
+
+Complete modal functionaliteit testing:
+
+**Modal Trigger Scenarios**:
+- Hero input field trigger (na 5 characters)
+- Contact section buttons
+- Direct WhatsApp links
+- Multiple trigger sources
+
+**Modal Behavior**:
+- Opens with fade-in animation
+- Backdrop blur effect
+- Close button functionality (X icon)
+- Backdrop click to close
+- ESC key to close
+- Body scroll lock when open
+- Focus trapping inside modal
+
+**Modal Content**:
+- 3 contact options aanwezig (WhatsApp, Email, LinkedIn)
+- Icons display correctly
+- Response times shown ("~2 uur", "~24 uur")
+- Links have correct href attributes
+- WhatsApp pre-filled messages
+
+**Contact Options Validation**:
+- WhatsApp: Correct phone number, green hover
+- Email: Valid mailto link, blue hover
+- LinkedIn: Profile URL, LinkedIn blue hover
+
+**Modal States**:
+- Initial hidden state
+- Open state (visible + aria-hidden="false")
+- Close state (hidden + aria-hidden="true")
+- Multiple open/close cycles
+
+**Accessibility**:
+- Modal heeft role="dialog"
+- aria-modal="true" when open
+- Focus moves to modal on open
+- Close button heeft aria-label
+
+---
+
+#### 4. Responsive Mobile Tests (33 tests)
+**File**: `tests/e2e/responsive-mobile.spec.js`
+
+Mobile-first design validatie:
+
+**Viewport Testing**:
+- Small mobile: 375x667 (iPhone SE)
+- Medium mobile: 414x896 (iPhone 11)
+- Tablet: 768x1024 (iPad)
+- Desktop: 1920x1080
+
+**Mobile Navigation**:
+- Bottom navigation bar visible < 768px
+- 4 nav items (Home, Projects, About, Contact)
+- Active state highlighting
+- Smooth scroll to sections
+- Icons + labels present
+
+**Hamburger Menu**:
+- Visible < 768px
+- Opens/closes correctly
+- Overlay animation
+- Link auto-close on click
+- Body scroll lock
+
+**Mobile Layout Adaptations**:
+- Hero: Full viewport height, centered content
+- Projects: 1-column grid
+- About: Vertical stack (foto boven tekst)
+- Contact: 1-column cards
+- Footer: Centered, stacked links
+
+**Touch Interactions**:
+- Tap targets ≥ 44x44px
+- Touch feedback (active states)
+- Swipe gestures (waar applicable)
+- No hover dependencies
+
+**Mobile Performance**:
+- Ticker speed adjusted (45s vs 60s desktop)
+- Image sizes optimized
+- Font sizes readable (≥ 16px body)
+
+---
+
+#### 5. Hero Interface Tests (27 tests)
+**File**: `tests/e2e/hero-interface.spec.js`
+
+Hero section conversational interface:
+
+**Hero Content Validation**:
+- Heading aanwezig ("Nathalja Nijman")
+- Tagline ("Product Owner & Digital Leader")
+- Background image loads
+- Input field present
+- Character counter present
+
+**Conversational Input**:
+- Placeholder text correct
+- User kan typen
+- Character counter updates (0/500)
+- Character limit enforcement
+- Contact modal trigger (≥ 5 characters)
+
+**WhatsApp Integration**:
+- Pre-filled message format correct
+- Phone number in URL
+- Message encoding (URI component)
+- Opens in new tab
+
+**Input States**:
+- Default state (empty, placeholder)
+- Typing state (character count)
+- Near limit warning (> 450 characters)
+- At limit (500 characters, geen verdere input)
+
+**Responsive Hero**:
+- Desktop: Links uitlijning, grote heading
+- Tablet: Centered, medium heading
+- Mobile: Centered, small heading, vertical layout
+
+---
+
+#### 6. Projects Filtering Tests (25 tests)
+**File**: `tests/e2e/projects-filtering.spec.js`
+
+Dynamic project filtering functionaliteit:
+
+**Filter System**:
+- Filter buttons present ("Alle", "Web", "Product Owner")
+- Default: "Alle" active
+- Click to activate filter
+- Active state styling (blue border + background)
+- Animated filter transitions
+
+**Project Visibility**:
+- Initial: 2 projecten zichtbaar
+- Show More: Expand to 5 projecten
+- Filter applies to visible set
+- Hidden projects excluded from filter
+
+**Filter Logic**:
+- "Alle": Shows all 5 projecten
+- "Web": Shows Web App projecten only
+- "Product Owner": Shows PO projecten only
+- Filter counts update correctly
+
+**Filter Animation**:
+- Fade out hidden projecten (opacity 0)
+- Fade in matching projecten (opacity 1)
+- Scale animation (0.95 → 1)
+- Stagger delay (100ms per card)
+
+**Show More Button**:
+- Initially shows "Meer projecten"
+- Expands to show 3 extra projecten
+- Button text changes to "Minder projecten"
+- Arrow rotates 180deg
+- Collapses back to 2 projecten
+
+**Filter Persistence**:
+- Active filter maintained na page scroll
+- Filter state during expand/collapse
+- No filter reset on language switch
+
+---
+
+#### 7. Language Switching Tests (19 tests)
+**File**: `tests/e2e/language-switching.spec.js`
+
+Volledige i18n functionaliteit:
+
+**Language Toggle**:
+- Footer language buttons (Nederlands | English)
+- Header dropdown (desktop)
+- Active language styling (bold, blue)
+- Click to switch language
+
+**Content Translation**:
+- Hero tagline updates
+- Navigation labels update
+- Section headings translate
+- Button text translates
+- Project descriptions translate
+- Contact section translates
+- Footer text translates
+
+**Translation Coverage**:
+- 50+ translation keys
+- All visible text heeft NL/EN variant
+- Fallback naar key name bij missing translation
+
+**Language Persistence**:
+- Saves to localStorage (`language: 'nl'` or `'en'`)
+- Persists across page reloads
+- Browser language detection (first visit)
+- Manual selection overrides auto-detect
+
+**URL Integration**:
+- Language parameter in URL (optional)
+- `?lang=en` forces English
+- `?lang=nl` forces Dutch
+- Updates localStorage on URL change
+
+**Dynamic Translation System**:
+- `data-translate` attributes
+- Real-time DOM updates
+- No page reload required
+- Smooth transitions
+
+**Translation Edge Cases**:
+- Missing translations show key
+- Empty translations fallback
+- Special characters handled (é, ñ, etc.)
+- Numbers formatted correctly (decimals)
+
+---
+
+#### 8. Navigation Tests (14 tests)
+**File**: `tests/e2e/navigation.spec.js`
+
+Navigation flow en scroll behavior:
+
+**Desktop Navigation**:
+- Fixed top navbar
+- 4 nav links (Home, Projecten, Bio, Contact)
+- Active section highlighting
+- Smooth scroll to sections
+- Scroll offset compensation (navbar height)
+
+**Scroll Behavior**:
+- Click nav link scrolls to section
+- Active link updates based on scroll position
+- Intersection Observer tracking
+- Scroll spy functionality
+
+**Mobile Navigation**:
+- Bottom navigation bar (< 768px)
+- Fixed position
+- Icon + label design
+- Tap to scroll
+- Active state visible
+
+**Language Toggle**:
+- Desktop: Dropdown in header
+- Mobile: Footer buttons
+- Globe icon present
+- Current language highlighted
+
+**Navbar Scroll State**:
+- Transparent at top
+- Solid background after scroll
+- Box shadow on scroll
+- Backdrop blur effect
+
+---
+
+### Test Scripts
+
+**Available Commands** (via `package.json`):
+
+```bash
+# Run alle tests (headless)
+npm test
+npm run test:e2e
+
+# Run tests met browser UI
+npm run test:headed
+
+# Playwright UI mode (interactive debugging)
+npm run test:ui
+
+# Debug mode (step through tests)
+npm run test:debug
+
+# View HTML test report
+npm run test:report
+
+# Smoke tests (critical paths only)
+npm run test:smoke
+```
+
+---
+
+### Visual Regression Workflow
+
+**Baseline Creation**:
+```bash
+# Generate nieuwe baselines (first run)
+npx playwright test --update-snapshots
+```
+
+**Comparison**:
+- Playwright vergelijkt screenshots pixel-by-pixel
+- `maxDiffPixels` threshold (30-500 per component)
+- Diffs highlighted in red (HTML report)
+- Failed tests genereren diff images
+
+**Snapshot Management**:
+- Baselines in `tests/e2e/visual-regression.spec.js-snapshots/`
+- Committed to git voor consistency
+- Update bij intentional design changes
+- CI fails on regression zonder approval
+
+---
+
+### CI/CD Integration
+
+**GitHub Actions** (`.github/workflows/ci.yml`):
+```yaml
+- Run Playwright tests on every push
+- Pre-deployment smoke tests
+- Auto-retry flaky tests (2x in CI)
+- Single worker for consistency
+- HTML report artifact upload
+- Fail pipeline on test failures
+```
+
+**Pre-Deploy Hook** (`npm run predeploy`):
+1. JavaScript linting (`lint:js`)
+2. Critical function checks (`check:functions`)
+3. Smoke tests (`test:smoke`)
+4. Blocks deployment if tests fail
+
+---
+
+### Test Best Practices
+
+**1. Reliable Selectors**:
+- Use semantic selectors (`.hero-simple`, `#contact`)
+- Avoid brittle CSS selectors
+- Prefer `data-testid` voor dynamic content
+- Use `getByRole`, `getByLabel` waar mogelijk
+
+**2. Wait Strategies**:
+- `page.waitForLoadState('networkidle')` voor page loads
+- `page.waitForTimeout()` voor animations (minimaal)
+- Avoid hard-coded sleeps waar mogelijk
+- Use `page.waitForSelector()` voor dynamic content
+
+**3. Viewport Consistency**:
+- Always set viewport size
+- Match common device sizes
+- Test multiple breakpoints
+- Consider retina displays
+
+**4. Screenshot Stability**:
+- Wait for animations to complete
+- Disable animation in screenshots (waar mogelijk)
+- Set `maxDiffPixels` threshold appropriately
+- Scroll to element before screenshot
+
+**5. Accessibility First**:
+- Test keyboard navigation
+- Verify ARIA attributes
+- Check focus management
+- Validate color contrast
+
+---
+
+### Test Coverage Summary
+
+| Category | Tests | Coverage |
+|----------|-------|----------|
+| Visual Regression | 28 | 100% components |
+| Accessibility | 39 | WCAG 2.1 AA |
+| Contact Modal | 37 | Full user flows |
+| Mobile Responsive | 33 | 4 viewports |
+| Hero Interface | 27 | All interactions |
+| Project Filtering | 25 | Complete logic |
+| Language Switch | 19 | NL/EN full i18n |
+| Navigation | 14 | Desktop/Mobile |
+| **Total** | **222** | **End-to-end** |
+
+---
+
+### Troubleshooting Tests
+
+**Common Issues**:
+
+1. **Flaky Screenshot Tests**:
+   - Increase `maxDiffPixels` threshold
+   - Add `waitForTimeout()` na animations
+   - Check font loading (Google Fonts race condition)
+
+2. **Webserver Port Conflict**:
+   - Kill existing process: `lsof -ti:8080 | xargs kill`
+   - Change port in `playwright.config.js`
+
+3. **Missing Snapshots**:
+   - Run `npx playwright test --update-snapshots`
+   - Commit nieuwe baselines to git
+
+4. **CI Test Failures**:
+   - Check HTML report artifact
+   - View trace file voor debugging
+   - Retry flaky tests (2x automatic in CI)
+
+---
+
 ## 👨‍💻 Development
 
 ### Local Setup
 1. Clone repository
-2. Open `index.html` in browser
-3. No build process required (vanilla stack)
+2. Install dependencies: `npm install`
+3. Run tests: `npm test`
+4. Open `index.html` in browser (no build process)
 
 ### Testing Checklist
+- [ ] Alle Playwright tests passen (`npm test`)
+- [ ] Visual regressions approved
+- [ ] Accessibility validatie passed
 - [ ] Alle navigatie links werken
 - [ ] Smooth scroll naar juiste secties
 - [ ] WhatsApp links openen met juist nummer
