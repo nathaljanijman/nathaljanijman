@@ -40,14 +40,6 @@
     {
       "source": "/en/portfolio-website",
       "destination": "/portfolio-website.html?lang=en"
-    },
-    {
-      "source": "/nl/:path*",
-      "destination": "/:path*.html?lang=nl"
-    },
-    {
-      "source": "/en/:path*",
-      "destination": "/:path*.html?lang=en"
     }
   ],
   "headers": [
