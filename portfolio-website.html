@@ -23,11 +23,11 @@
     <!-- Navigation Bar -->
     <header class="header" role="banner">
         <div class="header-container">
-            <a href="index.html" class="back-link">
+            <a href="/" class="back-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
-                <span>Terug naar home</span>
+                <span data-translate="portfolioBackLink">Terug naar home</span>
             </a>
         </div>
     </header>
@@ -35,9 +35,9 @@
     <!-- Hero Section -->
     <section class="offering-hero">
         <div class="container">
-            <h1>Ook zo'n fancy lead generator website?</h1>
-            <p class="hero-subtitle">Die bouw ik voor je!</p>
-            <p class="hero-description">Kies het package dat bij jouw ambities past. Van snelle online aanwezigheid tot full-service lead machine.</p>
+            <h1 data-translate="portfolioHeroTitle">Ook zo'n fancy lead generator website?</h1>
+            <p class="hero-subtitle" data-translate="portfolioHeroSubtitle">Die bouw ik voor je!</p>
+            <p class="hero-description" data-translate="portfolioHeroDescription">Kies het package dat bij jouw ambities past. Van snelle online aanwezigheid tot full-service lead machine.</p>
         </div>
     </section>
 
@@ -50,13 +50,13 @@
                 <!-- Quick Start Package -->
                 <div class="package-card" data-package="starter">
                     <div class="package-header">
-                        <h3>Quick Start</h3>
-                        <p class="package-subtitle">Snel online, zonder gedoe</p>
+                        <h3 data-translate="packageQuickStart">Quick Start</h3>
+                        <p class="package-subtitle" data-translate="packageQuickStartSubtitle">Snel online, zonder gedoe</p>
                     </div>
                     <div class="package-pricing">
                         <div>
                             <span class="price">€350</span>
-                            <span class="price-period">eenmalig</span>
+                            <span class="price-period" data-translate="packageOneTime">eenmalig</span>
                             <button class="price-info-trigger" data-tooltip="roi-quick">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <circle cx="12" cy="12" r="10"/>
@@ -64,7 +64,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <span class="price-badge">Instap aanbieding</span>
+                        <span class="price-badge" data-translate="packageInstapBadge">Instap aanbieding</span>
                     </div>
                     <ul class="package-features">
                         <li class="feature-item">
@@ -119,12 +119,12 @@
                         </li>
                     </ul>
                     <button class="package-cta">
-                        <span>Kies Quick Start</span>
+                        <span data-translate="packageCtaQuickStart">Kies Quick Start</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </button>
-                    <p class="delivery-time">Oplevering in 1-2 weken</p>
+                    <p class="delivery-time" data-translate="packageDelivery1">Oplevering in 1-2 weken</p>
                 </div>
 
                 <!-- All-In Package (Best Value) -->
@@ -133,15 +133,15 @@
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
                         </svg>
-                        <span>Meest gekozen</span>
+                        <span data-translate="packageBestValue">Meest gekozen</span>
                     </div>
                     <div class="package-header">
-                        <h3>All-In</h3>
-                        <p class="package-subtitle">Compleet en klaar voor resultaat</p>
+                        <h3 data-translate="packageAllIn">All-In</h3>
+                        <p class="package-subtitle" data-translate="packageAllInSubtitle">Compleet en klaar voor resultaat</p>
                     </div>
                     <div class="package-pricing">
                         <span class="price">€1.950</span>
-                        <span class="price-period">eenmalig</span>
+                        <span class="price-period" data-translate="packageOneTime">eenmalig</span>
                         <button class="price-info-trigger" data-tooltip="roi-allin">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
@@ -194,23 +194,23 @@
                         </li>
                     </ul>
                     <button class="package-cta">
-                        <span>Kies All-In</span>
+                        <span data-translate="packageCtaAllIn">Kies All-In</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </button>
-                    <p class="delivery-time">Oplevering in 3-4 weken</p>
+                    <p class="delivery-time" data-translate="packageDelivery2">Oplevering in 3-4 weken</p>
                 </div>
 
                 <!-- Premium Package -->
                 <div class="package-card" data-package="enterprise">
                     <div class="package-header">
-                        <h3>Premium</h3>
-                        <p class="package-subtitle">Voor grotere ambities</p>
+                        <h3 data-translate="packagePremium">Premium</h3>
+                        <p class="package-subtitle" data-translate="packagePremiumSubtitle">Voor grotere ambities</p>
                     </div>
                     <div class="package-pricing">
                         <span class="price">€3.500</span>
-                        <span class="price-period">eenmalig</span>
+                        <span class="price-period" data-translate="packageOneTime">eenmalig</span>
                         <button class="price-info-trigger" data-tooltip="roi-premium">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
@@ -263,12 +263,12 @@
                         </li>
                     </ul>
                     <button class="package-cta">
-                        <span>Kies Premium</span>
+                        <span data-translate="packageCtaPremium">Kies Premium</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </button>
-                    <p class="delivery-time">Oplevering in 6-8 weken</p>
+                    <p class="delivery-time" data-translate="packageDelivery3">Oplevering in 6-8 weken</p>
                 </div>
             </div>
         </div>
@@ -278,8 +278,8 @@
     <section class="support-addon-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="addons-title">Extra diensten</h2>
-                <p class="addons-subtitle">Voeg extra kracht toe aan je portfolio website</p>
+                <h2 class="addons-title" data-translate="addonsTitle">Extra diensten</h2>
+                <p class="addons-subtitle" data-translate="addonsSubtitle">Voeg extra kracht toe aan je portfolio website</p>
             </div>
 
             <div class="addons-grid">
@@ -287,7 +287,7 @@
                 <div class="addon-card">
                     <div class="addon-badge">Add-on 1</div>
                     <div class="addon-content">
-                        <h3>Onderhoud & Support</h3>
+                        <h3 data-translate="addonSupport">Onderhoud & Support</h3>
                         <p>Houd je website altijd up-to-date en optimaal presterend. Voeg maandelijkse onderhoud en support toe aan elk package.</p>
                     <div class="addon-features">
                         <div class="addon-feature">
@@ -325,7 +325,7 @@
             <div class="addon-card">
                 <div class="addon-badge">Add-on 2</div>
                 <div class="addon-content">
-                    <h3>SEA & Advertising Campagnes</h3>
+                    <h3 data-translate="addonSEA">SEA & Advertising Campagnes</h3>
                     <p>Laat je portfolio niet alleen wachten op organisch verkeer. We bouwen campagnes op om je diensten actief te vermarkten.</p>
                     <div class="addon-features">
                         <div class="addon-feature">
@@ -366,8 +366,8 @@
     <section class="process-section">
         <div class="container">
             <div class="section-header">
-                <h2>Hoe werkt het?</h2>
-                <p class="section-subtitle">Van intake tot launch in 4 stappen</p>
+                <h2 data-translate="processTitle">Hoe werkt het?</h2>
+                <p class="section-subtitle" data-translate="processSubtitle">Van intake tot launch in 4 stappen</p>
             </div>
 
             <div class="timeline-journey">
@@ -378,8 +378,8 @@
                     <div class="milestone-dot">
                         <span class="milestone-number">01</span>
                     </div>
-                    <h3 class="milestone-title">Intake gesprek</h3>
-                    <p class="milestone-hint">Hover voor details</p>
+                    <h3 class="milestone-title" data-translate="processMilestone1">Intake gesprek</h3>
+                    <p class="milestone-hint" data-translate="processHoverHint">Hover voor details</p>
 
                     <div class="milestone-details">
                         <div class="detail-section">
@@ -409,8 +409,8 @@
                     <div class="milestone-dot">
                         <span class="milestone-number">02</span>
                     </div>
-                    <h3 class="milestone-title">Design & concept</h3>
-                    <p class="milestone-hint">Hover voor details</p>
+                    <h3 class="milestone-title" data-translate="processMilestone2">Design & concept</h3>
+                    <p class="milestone-hint" data-translate="processHoverHint">Hover voor details</p>
 
                     <div class="milestone-details">
                         <div class="detail-section">
@@ -439,8 +439,8 @@
                     <div class="milestone-dot">
                         <span class="milestone-number">03</span>
                     </div>
-                    <h3 class="milestone-title">Development</h3>
-                    <p class="milestone-hint">Hover voor details</p>
+                    <h3 class="milestone-title" data-translate="processMilestone3">Development</h3>
+                    <p class="milestone-hint" data-translate="processHoverHint">Hover voor details</p>
 
                     <div class="milestone-details">
                         <div class="detail-section">
@@ -469,8 +469,8 @@
                     <div class="milestone-dot">
                         <span class="milestone-number">04</span>
                     </div>
-                    <h3 class="milestone-title">Launch & support</h3>
-                    <p class="milestone-hint">Hover voor details</p>
+                    <h3 class="milestone-title" data-translate="processMilestone4">Launch & support</h3>
+                    <p class="milestone-hint" data-translate="processHoverHint">Hover voor details</p>
 
                     <div class="milestone-details">
                         <div class="detail-section">
@@ -499,7 +499,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
-                    <span>LIVE</span>
+                    <span data-translate="processLive">LIVE</span>
                 </div>
             </div>
         </div>
@@ -509,8 +509,8 @@
     <section class="contact-section">
         <div class="contact-container">
             <div class="contact-header">
-                <h2 class="section-title">Klaar om te beginnen?</h2>
-                <p class="contact-tagline">Laten we jouw online aanwezigheid naar het volgende level tillen</p>
+                <h2 class="section-title" data-translate="portfolioContactTitle">Klaar om te beginnen?</h2>
+                <p class="contact-tagline" data-translate="portfolioContactSubtitle">Laten we jouw online aanwezigheid naar het volgende level tillen</p>
             </div>
 
             <div class="contact-options-grid">
@@ -601,17 +601,17 @@
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-bottom-nav" role="navigation" aria-label="Mobile bottom navigation">
         <div class="mobile-bottom-nav-container">
-            <a href="index.html#home" class="mobile-nav-item" aria-label="Home section">
+            <a href="/#home" class="mobile-nav-item" id="navHome" aria-label="Home section">
                 <div class="mobile-nav-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                         <polyline points="9 22 9 12 15 12 15 22"/>
                     </svg>
                 </div>
-                <span class="mobile-nav-label">Home</span>
+                <span class="mobile-nav-label" data-translate="navHome">Home</span>
             </a>
 
-            <a href="index.html#projects" class="mobile-nav-item" aria-label="Projects section">
+            <a href="/#projects" class="mobile-nav-item" id="navProjects" aria-label="Projects section">
                 <div class="mobile-nav-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="3" width="7" height="7"/>
@@ -620,31 +620,32 @@
                         <rect x="3" y="14" width="7" height="7"/>
                     </svg>
                 </div>
-                <span class="mobile-nav-label">Projecten</span>
+                <span class="mobile-nav-label" data-translate="navProjects">Projecten</span>
             </a>
 
-            <a href="index.html#about" class="mobile-nav-item" aria-label="About section">
+            <a href="/#about" class="mobile-nav-item" id="navAbout" aria-label="About section">
                 <div class="mobile-nav-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                         <circle cx="12" cy="7" r="4"/>
                     </svg>
                 </div>
-                <span class="mobile-nav-label">Bio</span>
+                <span class="mobile-nav-label" data-translate="navAbout">Bio</span>
             </a>
 
-            <a href="index.html#contact" class="mobile-nav-item" aria-label="Contact section">
+            <a href="/#contact" class="mobile-nav-item" id="navContact" aria-label="Contact section">
                 <div class="mobile-nav-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                         <polyline points="22,6 12,13 2,6"/>
                     </svg>
                 </div>
-                <span class="mobile-nav-label">Contact</span>
+                <span class="mobile-nav-label" data-translate="navContact">Contact</span>
             </a>
         </div>
     </nav>
 
+    <script src="js/translations.js"></script>
     <script src="js/portfolio-offering.js"></script>
     <script src="js/analytics.js"></script>
 </body>

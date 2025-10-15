@@ -49,6 +49,49 @@ const translations = {
         showMoreBtn: 'Toon meer projecten',
         showLessBtn: 'Toon minder',
 
+        // Portfolio Website Page
+        portfolioBackLink: 'Terug naar home',
+        portfolioHeroTitle: 'Ook zo\'n fancy lead generator website?',
+        portfolioHeroSubtitle: 'Die bouw ik voor je!',
+        portfolioHeroDescription: 'Kies het package dat bij jouw ambities past. Van snelle online aanwezigheid tot full-service lead machine.',
+
+        // Packages
+        packageQuickStart: 'Quick Start',
+        packageQuickStartSubtitle: 'Snel online, zonder gedoe',
+        packageAllIn: 'All-In',
+        packageAllInSubtitle: 'Compleet en klaar voor resultaat',
+        packagePremium: 'Premium',
+        packagePremiumSubtitle: 'Voor grotere ambities',
+        packageBestValue: 'Meest gekozen',
+        packageOneTime: 'eenmalig',
+        packageInstapBadge: 'Instap aanbieding',
+        packageCtaQuickStart: 'Kies Quick Start',
+        packageCtaAllIn: 'Kies All-In',
+        packageCtaPremium: 'Kies Premium',
+        packageDelivery1: 'Oplevering in 1-2 weken',
+        packageDelivery2: 'Oplevering in 3-4 weken',
+        packageDelivery3: 'Oplevering in 6-8 weken',
+
+        // Process Section
+        processTitle: 'Hoe werkt het?',
+        processSubtitle: 'Van intake tot launch in 4 stappen',
+        processMilestone1: 'Intake gesprek',
+        processMilestone2: 'Design & concept',
+        processMilestone3: 'Development',
+        processMilestone4: 'Launch & support',
+        processHoverHint: 'Hover voor details',
+        processLive: 'LIVE',
+
+        // Add-ons
+        addonsTitle: 'Extra diensten',
+        addonsSubtitle: 'Voeg extra kracht toe aan je portfolio website',
+        addonSupport: 'Onderhoud & Support',
+        addonSEA: 'SEA & Advertising Campagnes',
+
+        // Contact Section
+        portfolioContactTitle: 'Klaar om te beginnen?',
+        portfolioContactSubtitle: 'Laten we jouw online aanwezigheid naar het volgende level tillen',
+
         // Project 1 - ABN AMRO
         project1Year: '2020 - Heden',
         project1Type: 'Product Owner',
@@ -255,6 +298,49 @@ const translations = {
         footerLinkedIn: 'LinkedIn',
         footerEmail: 'Email',
 
+        // Portfolio Website Page
+        portfolioBackLink: 'Back to home',
+        portfolioHeroTitle: 'Want a fancy lead generator website like this?',
+        portfolioHeroSubtitle: 'I\'ll build it for you!',
+        portfolioHeroDescription: 'Choose the package that fits your ambitions. From quick online presence to full-service lead machine.',
+
+        // Packages
+        packageQuickStart: 'Quick Start',
+        packageQuickStartSubtitle: 'Online fast, hassle-free',
+        packageAllIn: 'All-In',
+        packageAllInSubtitle: 'Complete and ready for results',
+        packagePremium: 'Premium',
+        packagePremiumSubtitle: 'For bigger ambitions',
+        packageBestValue: 'Most popular',
+        packageOneTime: 'one-time',
+        packageInstapBadge: 'Entry offer',
+        packageCtaQuickStart: 'Choose Quick Start',
+        packageCtaAllIn: 'Choose All-In',
+        packageCtaPremium: 'Choose Premium',
+        packageDelivery1: 'Delivery in 1-2 weeks',
+        packageDelivery2: 'Delivery in 3-4 weeks',
+        packageDelivery3: 'Delivery in 6-8 weeks',
+
+        // Process Section
+        processTitle: 'How does it work?',
+        processSubtitle: 'From intake to launch in 4 steps',
+        processMilestone1: 'Intake meeting',
+        processMilestone2: 'Design & concept',
+        processMilestone3: 'Development',
+        processMilestone4: 'Launch & support',
+        processHoverHint: 'Hover for details',
+        processLive: 'LIVE',
+
+        // Add-ons
+        addonsTitle: 'Extra services',
+        addonsSubtitle: 'Add extra power to your portfolio website',
+        addonSupport: 'Maintenance & Support',
+        addonSEA: 'SEA & Advertising Campaigns',
+
+        // Contact Section
+        portfolioContactTitle: 'Ready to start?',
+        portfolioContactSubtitle: 'Let\'s take your online presence to the next level',
+
         // Contact Modal
         modalTitle: 'Perfect! How should we approach this?',
         modalWhatsAppTitle: 'WhatsApp chat',
@@ -278,6 +364,22 @@ class LanguageManager {
     }
 
     detectLanguage() {
+        // First check URL path for language
+        const path = window.location.pathname;
+        if (path.startsWith('/en') || path === '/en') {
+            return 'en';
+        }
+        if (path.startsWith('/nl') || path === '/nl') {
+            return 'nl';
+        }
+
+        // Check URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam && (langParam === 'nl' || langParam === 'en')) {
+            return langParam;
+        }
+
         // Check if language is stored in localStorage
         const stored = localStorage.getItem('preferredLanguage');
         if (stored && (stored === 'nl' || stored === 'en')) {
@@ -300,6 +402,7 @@ class LanguageManager {
     init() {
         this.applyTranslations();
         this.updateLanguageToggle();
+        this.updateDynamicLinks();
         this.attachEventListeners();
     }
 
@@ -351,14 +454,34 @@ class LanguageManager {
         // Update HTML lang attribute
         document.documentElement.setAttribute('lang', lang);
 
-        // Apply translations
-        this.applyTranslations();
+        // Navigate to the correct language URL
+        const currentPath = window.location.pathname;
+        let newPath;
 
-        // Update toggle display
-        this.updateLanguageToggle();
+        // Determine the base page (without language prefix)
+        let basePage = currentPath;
+        if (currentPath.startsWith('/nl') || currentPath.startsWith('/en')) {
+            basePage = currentPath.substring(3) || '/';
+        }
 
-        // Update footer button states
-        this.updateFooterButtons();
+        // Handle root path
+        if (basePage === '/' || basePage === '') {
+            newPath = `/${lang}`;
+        } else {
+            newPath = `/${lang}${basePage}`;
+        }
+
+        // Only navigate if the URL is different
+        const newUrl = newPath + window.location.search + window.location.hash;
+        if (window.location.pathname !== newPath) {
+            window.location.href = newUrl;
+        } else {
+            // If URL is the same, just update the UI
+            this.applyTranslations();
+            this.updateLanguageToggle();
+            this.updateFooterButtons();
+            this.updateDynamicLinks();
+        }
     }
 
     updateFooterButtons() {
@@ -395,6 +518,31 @@ class LanguageManager {
                 }
             }
         });
+    }
+
+    updateDynamicLinks() {
+        // Update portfolio sticker link
+        const portfolioLink = document.getElementById('portfolioStickerLink');
+        if (portfolioLink) {
+            portfolioLink.href = `/${this.currentLanguage}/portfolio-website`;
+        }
+
+        // Update mobile nav links to home
+        const navHome = document.getElementById('navHome');
+        const navProjects = document.getElementById('navProjects');
+        const navAbout = document.getElementById('navAbout');
+        const navContact = document.getElementById('navContact');
+
+        if (navHome) navHome.href = `/${this.currentLanguage}#home`;
+        if (navProjects) navProjects.href = `/${this.currentLanguage}#projects`;
+        if (navAbout) navAbout.href = `/${this.currentLanguage}#about`;
+        if (navContact) navContact.href = `/${this.currentLanguage}#contact`;
+
+        // Update back link on portfolio website page
+        const backLink = document.querySelector('.back-link');
+        if (backLink && backLink.getAttribute('href') === '/') {
+            backLink.href = `/${this.currentLanguage}`;
+        }
     }
 
     // Expose translations for script.js
