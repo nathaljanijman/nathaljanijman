@@ -178,9 +178,13 @@ function initShowMoreProjects() {
 
             hiddenProjects.forEach(project => {
                 if (isExpanded) {
+                    // Show project: remove hidden-project and add revealed
+                    project.classList.remove('hidden-project');
+                    project.classList.add('revealed');
                     project.style.display = 'block';
-                    setTimeout(() => project.classList.remove('hidden-project'), 10);
                 } else {
+                    // Hide project: remove revealed and add hidden-project
+                    project.classList.remove('revealed');
                     project.classList.add('hidden-project');
                     setTimeout(() => project.style.display = 'none', 300);
                 }
