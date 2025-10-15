@@ -425,7 +425,7 @@ class LanguageManager {
                 newPath = `/${this.currentLanguage}${currentPath}`;
             }
 
-            // Update URL without reloading page
+            // Use replaceState to update URL without triggering navigation
             if (window.history && window.history.replaceState) {
                 window.history.replaceState({}, '', newPath + window.location.search + window.location.hash);
             }

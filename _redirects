@@ -1,13 +1,13 @@
 # Cloudflare Pages Redirects and Rewrites
 
+# Root serves index.html, JavaScript handles language redirect
+/   /index.html   200
+
 # Language-specific page rewrites (with 200 status - URL stays same)
 /nl   /index.html   200
 /en   /index.html   200
 /nl/portfolio-website   /portfolio-website.html   200
 /en/portfolio-website   /portfolio-website.html   200
 
-# Root redirect to Dutch by default
-/   /nl   302
-
 # Legacy home redirect
-/home   /nl   301
+/home   /index.html   200
