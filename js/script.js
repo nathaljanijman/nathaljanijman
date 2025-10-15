@@ -11,16 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize all functionality
-    initNavigation();
-    initScrollAnimations();
-    initStatsCounter();
-    initFormHandling();
-    initSmoothScrolling();
-    initDynamicViewport();
-    initProjectFiltering();
-    initProjectCardAnimations();
-    initShowMoreProjects();
-    initHeroConversation();
+    // Wait a bit to ensure languageManager is initialized
+    setTimeout(() => {
+        initNavigation();
+        initScrollAnimations();
+        initStatsCounter();
+        initFormHandling();
+        initSmoothScrolling();
+        initDynamicViewport();
+        initProjectFiltering();
+        initProjectCardAnimations();
+        initShowMoreProjects();
+        initHeroConversation();
+    }, 150);
 });
 
 // Navigation
@@ -185,10 +188,13 @@ function initShowMoreProjects() {
 
             // Update button text
             const btnText = showMoreBtn.querySelector('span');
-            if (window.languageManager) {
+            if (window.languageManager && window.languageManager.translations) {
                 const key = isExpanded ? 'showLessBtn' : 'showMoreBtn';
                 const currentLang = window.languageManager.currentLanguage;
-                btnText.textContent = window.languageManager.translations[currentLang][key];
+                const translationsObj = window.languageManager.translations;
+                if (translationsObj && translationsObj[currentLang] && translationsObj[currentLang][key]) {
+                    btnText.textContent = translationsObj[currentLang][key];
+                }
             }
 
             // Update aria-expanded
