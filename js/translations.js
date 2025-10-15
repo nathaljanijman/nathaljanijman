@@ -288,12 +288,13 @@ class LanguageManager {
         const browserLang = navigator.language || navigator.userLanguage;
         const langCode = browserLang.toLowerCase();
 
-        // If Dutch, use NL, otherwise default to EN
+        // If Dutch, use NL, otherwise default to NL (Dutch is primary language)
         if (langCode.startsWith('nl')) {
             return 'nl';
         }
 
-        return 'en';
+        // Default to Dutch for primary audience
+        return 'nl';
     }
 
     init() {

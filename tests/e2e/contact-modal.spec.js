@@ -129,11 +129,11 @@ test.describe('Contact Modal & Forms', () => {
       await expect(indicator).toBeAttached();
     });
 
-    test('should display three contact options in modal', async ({ page }) => {
+    test('should display two contact options in modal', async ({ page }) => {
       const modal = page.locator('#contactChoiceModal');
       const options = modal.locator('.contact-option');
 
-      await expect(options).toHaveCount(3);
+      await expect(options).toHaveCount(2);
     });
 
     test('should have WhatsApp option in modal', async ({ page }) => {
@@ -154,21 +154,16 @@ test.describe('Contact Modal & Forms', () => {
       await expect(emailOption).toContainText('Stuur me alle details');
     });
 
-    test('should have Chat Continue option (disabled) in modal', async ({ page }) => {
-      const modal = page.locator('#contactChoiceModal');
-      const chatOption = modal.locator('#chooseChatContinue');
-
-      await expect(chatOption).toBeAttached();
-      await expect(chatOption).toBeDisabled();
-      await expect(chatOption).toContainText('Direct doorpakken');
-      await expect(chatOption).toContainText('Binnenkort beschikbaar');
+    // Chat option was removed - modal now has only WhatsApp and Email
+    test.skip('should have Chat Continue option (disabled) in modal', async ({ page }) => {
+      // This test is skipped as the Chat option has been removed from the modal
     });
 
     test('should show response times for each modal option', async ({ page }) => {
       const modal = page.locator('#contactChoiceModal');
       const responseTimes = modal.locator('.response-time');
 
-      await expect(responseTimes).toHaveCount(3);
+      await expect(responseTimes).toHaveCount(2);
 
       const texts = await responseTimes.allTextContents();
       expect(texts[0]).toContain('uur'); // "binnen 2 uur"

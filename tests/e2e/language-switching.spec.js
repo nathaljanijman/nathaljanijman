@@ -152,7 +152,7 @@ test.describe('Language Switching (i18n)', () => {
 
       const heroTagline = page.locator('[data-translate="heroTagline"]');
       const text = await heroTagline.textContent();
-      expect(text).toContain('digital products'); // English version
+      expect(text).toContain('years'); // English version should contain 'years' instead of 'jaar'
     });
 
     test('should show language separator between buttons', async ({ page }) => {

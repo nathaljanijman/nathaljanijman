@@ -7,9 +7,12 @@ test.describe('Projects Filtering & Show More', () => {
 
     // Navigate to projects section
     await page.evaluate(() => {
-      document.querySelector('#projects').scrollIntoView({ behavior: 'smooth' });
+      document.querySelector('#projects').scrollIntoView({ behavior: 'auto' });
     });
-    await page.waitForTimeout(800);
+    await page.waitForTimeout(500);
+
+    // Ensure filter buttons are visible
+    await page.locator('.filter-btn').first().waitFor({ state: 'visible' });
   });
 
   test.describe('Projects Section Display', () => {

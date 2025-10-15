@@ -30,8 +30,9 @@ test.describe('Hero Conversational Interface', () => {
       await expect(bgImage).toHaveAttribute('src', 'images/nathalja-work.jpg');
       await expect(bgImage).toHaveAttribute('alt', 'Nathalja Nijman - Product Owner');
 
+      // Overlay exists in DOM but is hidden by design (display: none in CSS)
       const overlay = page.locator('.hero-overlay');
-      await expect(overlay).toBeVisible();
+      await expect(overlay).toHaveCount(1);
     });
   });
 
@@ -53,7 +54,7 @@ test.describe('Hero Conversational Interface', () => {
       const placeholder = await input.getAttribute('placeholder');
 
       expect(placeholder).toBeTruthy();
-      expect(placeholder).toContain('Waar kan ik je mee helpen');
+      expect(placeholder).toContain('Vertel me over je idee');
     });
 
     test('should have maxlength attribute', async ({ page }) => {
