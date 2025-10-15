@@ -168,27 +168,40 @@ function initProjectCardAnimations() {
 // Show More Projects
 function initShowMoreProjects() {
     const showMoreBtn = document.getElementById('showMoreProjects');
-    const hiddenProjects = document.querySelectorAll('.project-card.hidden-project');
+    const allProjects = document.querySelectorAll('.project-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
 
-    if (showMoreBtn && hiddenProjects.length > 0) {
+    if (showMoreBtn && allProjects.length > 0) {
         let isExpanded = false;
 
         showMoreBtn.addEventListener('click', function() {
             isExpanded = !isExpanded;
 
-            hiddenProjects.forEach(project => {
-                if (isExpanded) {
-                    // Show project: remove hidden-project and add revealed
+            if (isExpanded) {
+                // Show ALL projects (same behavior as "Alle projecten" filter)
+                allProjects.forEach(project => {
                     project.classList.remove('hidden-project');
-                    project.classList.add('revealed');
                     project.style.display = 'block';
-                } else {
-                    // Hide project: remove revealed and add hidden-project
-                    project.classList.remove('revealed');
-                    project.classList.add('hidden-project');
-                    setTimeout(() => project.style.display = 'none', 300);
-                }
-            });
+                    project.style.opacity = '1';
+                });
+
+                // Update filter buttons to show "all" as active
+                filterButtons.forEach(btn => {
+                    if (btn.getAttribute('data-filter') === 'all') {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            } else {
+                // Reset to default view (hide hidden-project cards again)
+                allProjects.forEach(project => {
+                    if (project.classList.contains('hidden-project')) {
+                        project.style.opacity = '0';
+                        setTimeout(() => project.style.display = 'none', 300);
+                    }
+                });
+            }
 
             // Update button text
             const btnText = showMoreBtn.querySelector('span');
