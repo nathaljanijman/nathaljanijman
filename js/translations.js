@@ -365,12 +365,16 @@ class LanguageManager {
     }
 
     detectLanguage() {
-        // First check URL path for language
+        // First check URL path for language (HIGHEST PRIORITY)
         const path = window.location.pathname;
         if (path.startsWith('/en') || path === '/en') {
+            // Update localStorage to match URL
+            localStorage.setItem('preferredLanguage', 'en');
             return 'en';
         }
         if (path.startsWith('/nl') || path === '/nl') {
+            // Update localStorage to match URL
+            localStorage.setItem('preferredLanguage', 'nl');
             return 'nl';
         }
 
@@ -378,6 +382,7 @@ class LanguageManager {
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
         if (langParam && (langParam === 'nl' || langParam === 'en')) {
+            localStorage.setItem('preferredLanguage', langParam);
             return langParam;
         }
 
@@ -393,25 +398,27 @@ class LanguageManager {
 
         // If Dutch, use NL, otherwise default to NL (Dutch is primary language)
         if (langCode.startsWith('nl')) {
+            localStorage.setItem('preferredLanguage', 'nl');
             return 'nl';
         }
 
         // Default to Dutch for primary audience
+        localStorage.setItem('preferredLanguage', 'nl');
         return 'nl';
     }
 
     updateURL() {
         // Update browser URL to show language prefix without page reload
         const currentPath = window.location.pathname;
-        const isPortfolioPage = currentPath.includes('portfolio-website');
 
-        // Check if URL already has language prefix
+        // Only update URL if it doesn't already have a language prefix
         if (!currentPath.startsWith('/nl') && !currentPath.startsWith('/en')) {
+            const isPortfolioPage = currentPath.includes('portfolio-website');
             let newPath;
 
             if (isPortfolioPage) {
                 newPath = `/${this.currentLanguage}/portfolio-website`;
-            } else if (currentPath === '/' || currentPath === '/index.html') {
+            } else if (currentPath === '/' || currentPath === '/index.html' || currentPath === '') {
                 newPath = `/${this.currentLanguage}`;
             } else {
                 // For other pages, add language prefix
@@ -419,7 +426,7 @@ class LanguageManager {
             }
 
             // Update URL without reloading page
-            if (window.history && window.history.pushState) {
+            if (window.history && window.history.replaceState) {
                 window.history.replaceState({}, '', newPath + window.location.search + window.location.hash);
             }
         }
