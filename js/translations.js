@@ -360,6 +360,7 @@ const translations = {
 class LanguageManager {
     constructor() {
         this.currentLanguage = this.detectLanguage();
+        this.updateURL();
         this.init();
     }
 
@@ -397,6 +398,31 @@ class LanguageManager {
 
         // Default to Dutch for primary audience
         return 'nl';
+    }
+
+    updateURL() {
+        // Update browser URL to show language prefix without page reload
+        const currentPath = window.location.pathname;
+        const isPortfolioPage = currentPath.includes('portfolio-website');
+
+        // Check if URL already has language prefix
+        if (!currentPath.startsWith('/nl') && !currentPath.startsWith('/en')) {
+            let newPath;
+
+            if (isPortfolioPage) {
+                newPath = `/${this.currentLanguage}/portfolio-website`;
+            } else if (currentPath === '/' || currentPath === '/index.html') {
+                newPath = `/${this.currentLanguage}`;
+            } else {
+                // For other pages, add language prefix
+                newPath = `/${this.currentLanguage}${currentPath}`;
+            }
+
+            // Update URL without reloading page
+            if (window.history && window.history.pushState) {
+                window.history.replaceState({}, '', newPath + window.location.search + window.location.hash);
+            }
+        }
     }
 
     init() {

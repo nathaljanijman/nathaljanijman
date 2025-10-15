@@ -1,12 +1,7 @@
-# Cloudflare Pages Redirects en Rewrites
+# Cloudflare Pages Redirects
 
-# Portfolio website pages (rewrites with 200 status)
-/nl/portfolio-website   /portfolio-website.html?lang=nl   200
-/en/portfolio-website   /portfolio-website.html?lang=en   200
-
-# Home page rewrites
-/nl   /index.html?lang=nl   200
-/en   /index.html?lang=en   200
+# Root redirect to language-specific URLs
+/   /nl   302
 
 # Legacy home redirect
-/home   /   301
+/home   /nl   301
