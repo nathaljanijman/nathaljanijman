@@ -540,8 +540,16 @@ class LanguageManager {
 
         // Update back link on portfolio website page
         const backLink = document.querySelector('.back-link');
-        if (backLink && backLink.getAttribute('href') === '/') {
-            backLink.href = `/${this.currentLanguage}`;
+        if (backLink) {
+            const currentHref = backLink.getAttribute('href');
+            if (currentHref === '/' || currentHref === '#') {
+                backLink.href = `/${this.currentLanguage}`;
+                // Add click handler to navigate correctly
+                backLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = `/${this.currentLanguage}`;
+                });
+            }
         }
     }
 
