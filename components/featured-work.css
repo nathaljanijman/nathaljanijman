@@ -299,9 +299,61 @@
     height: 14px;
 }
 
-/* Project Filters - Removed, using minimal tabs instead */
+/* Project Filters */
 .project-filters {
-    display: none;
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto var(--spacing-2xl);
+    max-width: 1200px;
+    padding: 0 var(--spacing-xl);
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+}
+
+.filter-btn:hover {
+    background: rgba(0, 71, 171, 0.05);
+    border-color: rgba(0, 71, 171, 0.4);
+    color: #0047AB;
+}
+
+.filter-btn.active {
+    background: rgba(0, 71, 171, 0.1);
+    border-color: #0047AB;
+    color: #0047AB;
+}
+
+.filter-btn:focus {
+    outline: 2px solid rgba(0, 71, 171, 0.4);
+    outline-offset: 2px;
+}
+
+/* Touch-friendly filter buttons on mobile */
+@media (max-width: 768px) {
+    .filter-btn {
+        padding: 12px 24px;
+        min-height: 44px;
+        font-size: var(--font-size-base);
+    }
+
+    .project-filters {
+        padding: 0 var(--spacing-base);
+    }
 }
 
 /* Responsive */

@@ -154,7 +154,8 @@ function initProjectFiltering() {
 
 // Project Card Animations
 function initProjectCardAnimations() {
-    const cards = document.querySelectorAll('.project-card');
+    // Only animate visible project cards, not hidden ones
+    const cards = document.querySelectorAll('.project-card:not(.hidden-project)');
     cards.forEach(card => {
         card.style.opacity = '1';
         card.style.display = 'block';
