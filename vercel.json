@@ -34,12 +34,12 @@
       "destination": "/index.html?lang=en"
     },
     {
-      "source": "/nl/portfolio-website",
-      "destination": "/portfolio-website.html?lang=nl"
+      "source": "/nl/:path*",
+      "destination": "/:path*?lang=nl"
     },
     {
-      "source": "/en/portfolio-website",
-      "destination": "/portfolio-website.html?lang=en"
+      "source": "/en/:path*",
+      "destination": "/:path*?lang=en"
     }
   ],
   "headers": [
