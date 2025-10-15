@@ -276,7 +276,6 @@ Kun je me wat meer vertellen over je specifieke situatie? Dan kan ik je beter he
 
     // Send project data to backend (placeholder)
     function sendProjectData(data) {
-        console.log('Project form submission:', data);
         // Integration with backend service would go here
     }
 
