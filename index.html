@@ -3,7 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nathalja Nijman - Portfolio</title>
+    <title>Nathalja Nijman - Product Owner & Digital Leader</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nathalja Nijman - Senior Product Owner met 3+ jaar ervaring in digital productbeheer, UX design en agile development. Gespecialiseerd in fintech, gebruikersonderzoek en product strategy.">
+    <meta name="keywords" content="Product Owner, UX Design, Agile, Scrum, Product Management, Digital Strategy, ABN AMRO, Fintech, Gebruikersonderzoek, Product Strategy, Stakeholder Management">
+    <meta name="author" content="Nathalja Nijman">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://nathaljanijman.com/">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nathaljanijman.com/">
+    <meta property="og:title" content="Nathalja Nijman - Product Owner & Digital Leader">
+    <meta property="og:description" content="7 jaar PO ervaring × 10 jaar topsport mindset. Gespecialiseerd in digital productbeheer, UX design en agile development.">
+    <meta property="og:image" content="https://nathaljanijman.com/images/nathalja-work.jpg">
+    <meta property="og:locale" content="nl_NL">
+    <meta property="og:site_name" content="Nathalja Nijman Portfolio">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://nathaljanijman.com/">
+    <meta name="twitter:title" content="Nathalja Nijman - Product Owner & Digital Leader">
+    <meta name="twitter:description" content="7 jaar PO ervaring × 10 jaar topsport mindset">
+    <meta name="twitter:image" content="https://nathaljanijman.com/images/nathalja-work.jpg">
+
+    <!-- Mobile & Theme -->
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMLD724KEM"></script>
@@ -232,7 +261,7 @@
                         <div class="dialogue-content">
                             <!-- Organic Chat Interface -->
                             <div class="dialogue-screen" id="mainScreen">
-                                <div class="chat-conversation" id="chatConversation">
+                                <div class="chat-conversation" id="chatConversation" role="log" aria-live="polite" aria-atomic="false">
                                     <div class="chat-message nathalja-message">
                                         <div class="message-avatar">
                                             <img src="images/nathalja-about.jpg" alt="Nathalja">
@@ -451,6 +480,9 @@
                 <button type="button" class="filter-btn" data-filter="web" data-translate="filterWeb" aria-label="Filter Web Apps projects">Web Apps</button>
                 <button type="button" class="filter-btn" data-filter="entrepreneurship" data-translate="filterEntrepreneurship" aria-label="Filter Entrepreneurship projects">Ondernemerschap</button>
             </div>
+
+            <!-- Accessibility: Announce filter changes to screen readers -->
+            <div id="filterAnnouncement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
             <div class="projects-grid">
                 <!-- ABN AMRO - Product Owner -->

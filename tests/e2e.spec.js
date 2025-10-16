@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 test.describe('Portfolio Website - Smoke Tests', () => {
   test('should display the main page', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/Nathalja Nijman - Portfolio/);
+    await expect(page).toHaveTitle(/Nathalja Nijman - Product Owner & Digital Leader/);
   });
 
   test('should load all main sections', async ({ page }) => {

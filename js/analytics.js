@@ -145,46 +145,42 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(contactChoiceModal, { attributes: true, attributeFilter: ['class'] });
     }
 
-    // Track scroll depth
+    // Track scroll depth with optimized throttling using requestAnimationFrame
     let scrollDepth = 0;
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function() {
-            const currentScroll = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
+    let scrollTicking = false;
 
-            // Track at 25%, 50%, 75%, 100%
-            if (currentScroll >= 25 && scrollDepth < 25) {
-                scrollDepth = 25;
+    function updateScrollDepth() {
+        const currentScroll = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
+
+        // Track at 25%, 50%, 75%, 100%
+        const depths = [
+            { threshold: 25, label: '25%' },
+            { threshold: 50, label: '50%' },
+            { threshold: 75, label: '75%' },
+            { threshold: 95, label: '100%', depth: 100 }
+        ];
+
+        for (const { threshold, label, depth = threshold } of depths) {
+            if (currentScroll >= threshold && scrollDepth < depth) {
+                scrollDepth = depth;
                 trackEvent('scroll_depth', {
                     event_category: 'Engagement',
-                    event_label: '25%',
+                    event_label: label,
                     page_location: window.location.pathname
                 });
-            } else if (currentScroll >= 50 && scrollDepth < 50) {
-                scrollDepth = 50;
-                trackEvent('scroll_depth', {
-                    event_category: 'Engagement',
-                    event_label: '50%',
-                    page_location: window.location.pathname
-                });
-            } else if (currentScroll >= 75 && scrollDepth < 75) {
-                scrollDepth = 75;
-                trackEvent('scroll_depth', {
-                    event_category: 'Engagement',
-                    event_label: '75%',
-                    page_location: window.location.pathname
-                });
-            } else if (currentScroll >= 95 && scrollDepth < 100) {
-                scrollDepth = 100;
-                trackEvent('scroll_depth', {
-                    event_category: 'Engagement',
-                    event_label: '100%',
-                    page_location: window.location.pathname
-                });
+                break;
             }
-        }, 150);
-    });
+        }
+
+        scrollTicking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!scrollTicking) {
+            requestAnimationFrame(updateScrollDepth);
+            scrollTicking = true;
+        }
+    }, { passive: true });
 });
 
 // Track page load time

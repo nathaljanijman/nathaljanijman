@@ -1,17 +1,32 @@
-// 2025 Conversational Dialogue System
+// 2025 Conversational Dialogue System - Optimized
 function initConversationalDialogue() {
-    const conversationTrigger = document.getElementById('conversationTrigger');
-    const conversationDialogue = document.getElementById('conversationDialogue');
-    const closeDialogue = document.getElementById('closeDialogue');
+    // Configuration constants
+    const CHAT_CONFIG = {
+        TIMING: {
+            FOCUS_DELAY: 100,
+            TYPING_MIN: 1500,
+            TYPING_MAX: 2500
+        },
+        CSS_CLASSES: {
+            HIDDEN: 'hidden',
+            VISIBLE: 'visible',
+            ACTIVE: 'active'
+        }
+    };
 
-    // Chat elements
-    const mainScreen = document.getElementById('mainScreen');
-    const chatConversation = document.getElementById('chatConversation');
-    const chatForm = document.getElementById('chatForm');
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    const typingIndicator = document.getElementById('typingIndicator');
-    const quickSuggestions = document.getElementById('quickSuggestions');
+    // Cache DOM elements
+    const DOM = {
+        conversationTrigger: document.getElementById('conversationTrigger'),
+        conversationDialogue: document.getElementById('conversationDialogue'),
+        closeDialogue: document.getElementById('closeDialogue'),
+        mainScreen: document.getElementById('mainScreen'),
+        chatConversation: document.getElementById('chatConversation'),
+        chatForm: document.getElementById('chatForm'),
+        chatInput: document.getElementById('chatInput'),
+        sendButton: document.getElementById('sendButton'),
+        typingIndicator: document.getElementById('typingIndicator'),
+        quickSuggestions: document.getElementById('quickSuggestions')
+    };
 
     let conversationState = 'initial';
     let userMessages = [];
@@ -19,34 +34,50 @@ function initConversationalDialogue() {
 
     // Show dialogue
     function showDialogue() {
-        // Create backdrop
-        const backdrop = document.createElement('div');
-        backdrop.className = 'dialogue-backdrop';
-        backdrop.id = 'dialogueBackdrop';
-        document.body.appendChild(backdrop);
+        try {
+            // Create backdrop
+            const backdrop = document.createElement('div');
+            backdrop.className = 'dialogue-backdrop';
+            backdrop.id = 'dialogueBackdrop';
+            document.body.appendChild(backdrop);
 
-        // Show dialogue
-        conversationDialogue.style.display = 'block';
-        setTimeout(() => chatInput.focus(), 100);
+            // Show dialogue using CSS class
+            if (DOM.conversationDialogue) {
+                DOM.conversationDialogue.classList.remove(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
+                DOM.conversationDialogue.classList.add(CHAT_CONFIG.CSS_CLASSES.VISIBLE);
+            }
 
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
+            setTimeout(() => DOM.chatInput?.focus(), CHAT_CONFIG.TIMING.FOCUS_DELAY);
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        } catch (error) {
+            console.error('Error showing dialogue:', error);
+        }
     }
 
     // Hide dialogue
     function hideDialogue() {
-        conversationDialogue.style.display = 'none';
+        try {
+            // Hide dialogue using CSS class
+            if (DOM.conversationDialogue) {
+                DOM.conversationDialogue.classList.add(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
+                DOM.conversationDialogue.classList.remove(CHAT_CONFIG.CSS_CLASSES.VISIBLE);
+            }
 
-        // Remove backdrop
-        const backdrop = document.getElementById('dialogueBackdrop');
-        if (backdrop) {
-            backdrop.remove();
+            // Remove backdrop
+            const backdrop = document.getElementById('dialogueBackdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+
+            // Restore body scroll
+            document.body.style.overflow = '';
+
+            resetConversation();
+        } catch (error) {
+            console.error('Error hiding dialogue:', error);
         }
-
-        // Restore body scroll
-        document.body.style.overflow = '';
-
-        resetConversation();
     }
 
     // Reset conversation to initial state
@@ -56,19 +87,21 @@ function initConversationalDialogue() {
         awaitingResponse = false;
 
         // Clear chat except first message
-        const messages = chatConversation.querySelectorAll('.chat-message');
-        for (let i = 1; i < messages.length; i++) {
-            messages[i].remove();
+        if (DOM.chatConversation) {
+            const messages = DOM.chatConversation.querySelectorAll('.chat-message');
+            for (let i = 1; i < messages.length; i++) {
+                messages[i].remove();
+            }
         }
 
-        // Show suggestions again
-        if (quickSuggestions) {
-            quickSuggestions.style.display = 'block';
+        // Show suggestions again using CSS class
+        if (DOM.quickSuggestions) {
+            DOM.quickSuggestions.classList.remove(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
         }
 
         // Clear input
-        if (chatInput) {
-            chatInput.value = '';
+        if (DOM.chatInput) {
+            DOM.chatInput.value = '';
         }
     }
 
@@ -94,16 +127,20 @@ function initConversationalDialogue() {
 
     // Show typing indicator
     function showTypingIndicator() {
-        if (typingIndicator) {
-            typingIndicator.style.display = 'flex';
-            chatConversation.scrollTop = chatConversation.scrollHeight;
+        if (DOM.typingIndicator) {
+            DOM.typingIndicator.classList.remove(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
+            DOM.typingIndicator.classList.add(CHAT_CONFIG.CSS_CLASSES.VISIBLE);
+            if (DOM.chatConversation) {
+                DOM.chatConversation.scrollTop = DOM.chatConversation.scrollHeight;
+            }
         }
     }
 
     // Hide typing indicator
     function hideTypingIndicator() {
-        if (typingIndicator) {
-            typingIndicator.style.display = 'none';
+        if (DOM.typingIndicator) {
+            DOM.typingIndicator.classList.add(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
+            DOM.typingIndicator.classList.remove(CHAT_CONFIG.CSS_CLASSES.VISIBLE);
         }
     }
 
@@ -205,29 +242,32 @@ Kun je me wat meer vertellen over je specifieke situatie? Dan kan ik je beter he
         userMessages.push(message);
 
         // Clear input and hide suggestions
-        chatInput.value = '';
-        if (quickSuggestions) {
-            quickSuggestions.style.display = 'none';
+        DOM.chatInput.value = '';
+        if (DOM.quickSuggestions) {
+            DOM.quickSuggestions.classList.add(CHAT_CONFIG.CSS_CLASSES.HIDDEN);
         }
 
         // Show typing indicator
         awaitingResponse = true;
         showTypingIndicator();
 
-        // Simulate typing delay
+        // Simulate typing delay with random time between min and max
+        const typingDelay = CHAT_CONFIG.TIMING.TYPING_MIN +
+            Math.random() * (CHAT_CONFIG.TIMING.TYPING_MAX - CHAT_CONFIG.TIMING.TYPING_MIN);
+
         setTimeout(() => {
             hideTypingIndicator();
             const response = generateResponse(message);
             addMessage(response);
             awaitingResponse = false;
-        }, 1500 + Math.random() * 1000); // 1.5-2.5 seconds
+        }, typingDelay)
     }
 
     // Handle suggestion chip clicks
     function handleSuggestionClick(e) {
         const message = e.target.getAttribute('data-message');
-        if (message) {
-            chatInput.value = message;
+        if (message && DOM.chatInput) {
+            DOM.chatInput.value = message;
             handleChatSubmission(e);
         }
     }

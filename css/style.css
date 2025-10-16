@@ -4593,6 +4593,36 @@ button, a, input, textarea {
     }
 }
 
+/* Additional Utility Classes for JS-driven animations */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.card-visible {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+
+.typing {
+    /* Styling for typing indicator */
+    animation: typing-pulse 1.4s infinite;
+}
+
+@keyframes typing-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
     *,

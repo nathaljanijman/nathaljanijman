@@ -107,19 +107,24 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // Add subtle parallax effect to hero section
+    // Add subtle parallax effect to hero section with optimized throttling
     const hero = document.querySelector('.offering-hero');
     if (hero) {
-        window.addEventListener('scroll', () => {
+        let parallaxTicking = false;
+        const PARALLAX_RATE = 0.3;
+
+        function updateParallax() {
             const scrolled = window.pageYOffset;
-            const rate = scrolled * 0.3;
+            const rate = scrolled * PARALLAX_RATE;
             hero.style.transform = `translateY(${rate}px)`;
-        });
+            parallaxTicking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!parallaxTicking) {
+                requestAnimationFrame(updateParallax);
+                parallaxTicking = true;
+            }
+        }, { passive: true });
     }
-
-    // Mobile Timeline Accordion functionality
-    const milestones = document.querySelectorAll('.timeline-milestone');
-
-
-
 });

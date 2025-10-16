@@ -1,13 +1,64 @@
 // Portfolio JavaScript - Interactive Functionality
+// Optimized version with performance improvements and code quality fixes
+
+// Configuration constants
+const CONFIG = {
+    CONTACT: {
+        WHATSAPP: '31657591440',
+        EMAIL: 'nathaljanijman@hotmail.com'
+    },
+    TIMING: {
+        INIT_DELAY: 150,
+        FADE_IN: 10,
+        FADE_OUT: 300,
+        CHAT_FOCUS: 100,
+        CHAT_SUBMIT: 300
+    },
+    BREAKPOINTS: {
+        MOBILE: 1024
+    },
+    CSS_CLASSES: {
+        ACTIVE: 'active',
+        HIDDEN: 'hidden',
+        VISIBLE: 'visible',
+        FADE_IN: 'fade-in',
+        FADE_OUT: 'fade-out',
+        CARD_VISIBLE: 'card-visible'
+    }
+};
+
+// DOM Element Cache
+const DOM = {};
+
+// Cache DOM elements once on load
+function cacheDOMElements() {
+    DOM.header = document.querySelector('.header');
+    DOM.navLinks = document.querySelectorAll('.nav-link, .mobile-nav-item');
+    DOM.projectCards = document.querySelectorAll('.project-card');
+    DOM.statCards = document.querySelectorAll('.stat-card');
+    DOM.stats = document.querySelectorAll('.stat-number');
+    DOM.form = document.querySelector('.hero-input-form');
+    DOM.filterButtons = document.querySelectorAll('.filter-btn');
+    DOM.showMoreBtn = document.getElementById('showMoreProjects');
+    DOM.heroForm = document.getElementById('heroConversationForm');
+    DOM.heroInput = document.getElementById('heroInput');
+    DOM.suggestionPills = document.querySelectorAll('.suggestion-pill');
+    DOM.contactChoiceModal = document.getElementById('contactChoiceModal');
+    DOM.conversationDialogue = document.getElementById('conversationDialogue');
+    DOM.chatInput = document.getElementById('chatInput');
+    DOM.messagePreview = document.querySelector('.user-message-preview');
+    DOM.modalClose = document.getElementById('modalClose');
+    DOM.chooseWhatsApp = document.getElementById('chooseWhatsApp');
+    DOM.chooseEmail = document.getElementById('chooseEmail');
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Cache all DOM elements first
+    cacheDOMElements();
 
     // Remove header completely on mobile
-    if (window.innerWidth <= 1024) {
-        const header = document.querySelector('.header');
-        if (header) {
-            header.remove();
-        }
+    if (window.innerWidth <= CONFIG.BREAKPOINTS.MOBILE && DOM.header) {
+        DOM.header.remove();
     }
 
     // Initialize all functionality
@@ -23,19 +74,19 @@ document.addEventListener('DOMContentLoaded', function() {
         initProjectCardAnimations();
         initShowMoreProjects();
         initHeroConversation();
-    }, 150);
+    }, CONFIG.TIMING.INIT_DELAY);
 });
 
 // Navigation
 function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-item');
+    if (!DOM.navLinks.length) return;
 
-    navLinks.forEach(link => {
+    DOM.navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             // Remove active class from all links
-            navLinks.forEach(l => l.classList.remove('active'));
+            DOM.navLinks.forEach(l => l.classList.remove(CONFIG.CSS_CLASSES.ACTIVE));
             // Add active class to clicked link
-            this.classList.add('active');
+            this.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
         });
     });
 }
@@ -45,7 +96,7 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
+                entry.target.classList.add(CONFIG.CSS_CLASSES.FADE_IN);
             }
         });
     }, { threshold: 0.1 });
@@ -57,27 +108,24 @@ function initScrollAnimations() {
 
 // Stats Counter
 function initStatsCounter() {
-    const stats = document.querySelectorAll('.stat-number');
+    if (!DOM.stats.length) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const target = entry.target;
-                const finalValue = target.textContent;
-                // Simple animation placeholder
-                observer.unobserve(target);
+                // Animation can be implemented here if needed
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
 
-    stats.forEach(stat => observer.observe(stat));
+    DOM.stats.forEach(stat => observer.observe(stat));
 }
 
 // Form Handling
 function initFormHandling() {
-    const form = document.querySelector('.hero-input-form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
+    if (DOM.form) {
+        DOM.form.addEventListener('submit', function(e) {
             e.preventDefault();
         });
     }
@@ -98,61 +146,74 @@ function initSmoothScrolling() {
 
 // Dynamic Viewport
 function initDynamicViewport() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    window.addEventListener('resize', () => {
-        vh = window.innerHeight * 0.01;
+    function updateViewportHeight() {
+        const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    updateViewportHeight();
+    window.addEventListener('resize', updateViewportHeight);
+}
+
+// Utility function for keyboard activation
+function handleKeyboardActivation(element, callback) {
+    element.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            callback(element);
+        }
     });
 }
 
 // Project Filtering
 function initProjectFiltering() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    if (!DOM.filterButtons.length || !DOM.projectCards.length) return;
 
     const filterProjects = function(button) {
         const filter = button.getAttribute('data-filter');
 
         // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        DOM.filterButtons.forEach(btn => btn.classList.remove(CONFIG.CSS_CLASSES.ACTIVE));
+        button.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
 
-        // Filter projects
-        projectCards.forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                card.style.display = 'block';
-                setTimeout(() => card.style.opacity = '1', 10);
+        // Filter projects using CSS classes instead of inline styles
+        DOM.projectCards.forEach(card => {
+            const shouldShow = filter === 'all' || card.getAttribute('data-category') === filter;
+
+            if (shouldShow) {
+                card.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
+                card.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
             } else {
-                card.style.opacity = '0';
-                setTimeout(() => card.style.display = 'none', 300);
+                card.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
+                setTimeout(() => {
+                    card.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                    card.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
+                }, CONFIG.TIMING.FADE_OUT);
             }
         });
+
+        // Announce to screen readers
+        announceFilterChange(filter);
     };
 
-    filterButtons.forEach(button => {
+    DOM.filterButtons.forEach(button => {
         // Click event
         button.addEventListener('click', function() {
             filterProjects(this);
         });
 
-        // Keyboard support (Enter and Space)
-        button.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                filterProjects(this);
-            }
-        });
-
-        // Additional keyboard support for browsers that don't fire keydown on buttons
-        button.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                filterProjects(this);
-            }
-        });
+        // Keyboard support (consolidated)
+        handleKeyboardActivation(button, filterProjects);
     });
+}
+
+// Announce filter changes to screen readers
+function announceFilterChange(filter) {
+    const announcement = document.getElementById('filterAnnouncement');
+    if (announcement) {
+        const filterText = filter === 'all' ? 'all projects' : filter;
+        announcement.textContent = `Showing ${filterText} projects`;
+    }
 }
 
 // Project Card Animations
@@ -160,191 +221,193 @@ function initProjectCardAnimations() {
     // Only animate visible project cards, not hidden ones
     const cards = document.querySelectorAll('.project-card:not(.hidden-project)');
     cards.forEach(card => {
-        card.style.opacity = '1';
-        card.style.display = 'block';
+        card.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
     });
 }
 
 // Show More Projects
 function initShowMoreProjects() {
-    const showMoreBtn = document.getElementById('showMoreProjects');
-    const allProjects = document.querySelectorAll('.project-card');
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    if (!DOM.showMoreBtn || !DOM.projectCards.length) return;
 
-    if (showMoreBtn && allProjects.length > 0) {
-        let isExpanded = false;
+    let isExpanded = false;
 
-        showMoreBtn.addEventListener('click', function() {
-            isExpanded = !isExpanded;
+    DOM.showMoreBtn.addEventListener('click', function() {
+        isExpanded = !isExpanded;
 
-            if (isExpanded) {
-                // Show ALL projects (same behavior as "Alle projecten" filter)
-                allProjects.forEach(project => {
-                    project.classList.remove('hidden-project');
-                    project.style.display = 'block';
-                    project.style.opacity = '1';
-                });
+        if (isExpanded) {
+            // Show ALL projects
+            DOM.projectCards.forEach(project => {
+                project.classList.remove('hidden-project', CONFIG.CSS_CLASSES.HIDDEN);
+                project.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
+            });
 
-                // Update filter buttons to show "all" as active
-                filterButtons.forEach(btn => {
-                    if (btn.getAttribute('data-filter') === 'all') {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            } else {
-                // Reset to default view (hide hidden-project cards again)
-                allProjects.forEach(project => {
-                    if (project.classList.contains('hidden-project')) {
-                        project.style.opacity = '0';
-                        setTimeout(() => project.style.display = 'none', 300);
-                    }
-                });
-            }
-
-            // Update button text
-            const btnText = showMoreBtn.querySelector('span');
-            if (window.languageManager && window.languageManager.translations) {
-                const key = isExpanded ? 'showLessBtn' : 'showMoreBtn';
-                const currentLang = window.languageManager.currentLanguage;
-                const translationsObj = window.languageManager.translations;
-                if (translationsObj && translationsObj[currentLang] && translationsObj[currentLang][key]) {
-                    btnText.textContent = translationsObj[currentLang][key];
+            // Update filter buttons to show "all" as active
+            DOM.filterButtons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === 'all') {
+                    btn.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
+                } else {
+                    btn.classList.remove(CONFIG.CSS_CLASSES.ACTIVE);
                 }
-            }
+            });
+        } else {
+            // Reset to default view
+            DOM.projectCards.forEach(project => {
+                if (project.classList.contains('hidden-project')) {
+                    project.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
+                    setTimeout(() => {
+                        project.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                        project.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
+                    }, CONFIG.TIMING.FADE_OUT);
+                }
+            });
+        }
 
-            // Update aria-expanded
-            showMoreBtn.setAttribute('aria-expanded', isExpanded);
+        // Update button text
+        updateShowMoreButtonText(isExpanded);
 
-            // Rotate chevron
-            const icon = showMoreBtn.querySelector('svg');
-            if (icon) {
-                icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-            }
-        });
+        // Update aria-expanded
+        DOM.showMoreBtn.setAttribute('aria-expanded', isExpanded);
+
+        // Rotate chevron using CSS class instead of inline style
+        const icon = DOM.showMoreBtn.querySelector('svg');
+        if (icon) {
+            icon.classList.toggle('rotated', isExpanded);
+        }
+    });
+}
+
+// Update Show More button text based on language
+function updateShowMoreButtonText(isExpanded) {
+    const btnText = DOM.showMoreBtn.querySelector('span');
+    if (!btnText) return;
+
+    if (window.languageManager?.translations) {
+        const key = isExpanded ? 'showLessBtn' : 'showMoreBtn';
+        const currentLang = window.languageManager.currentLanguage;
+        const translation = window.languageManager.translations[currentLang]?.[key];
+        if (translation) {
+            btnText.textContent = translation;
+        }
     }
 }
 
 // Hero Conversation Interface
 function initHeroConversation() {
-    const heroForm = document.getElementById('heroConversationForm');
-    const heroInput = document.getElementById('heroInput');
-    const suggestionPills = document.querySelectorAll('.suggestion-pill');
-    const contactChoiceModal = document.getElementById('contactChoiceModal');
-    const conversationDialogue = document.getElementById('conversationDialogue');
-    const chatInput = document.getElementById('chatInput');
-    const messagePreview = document.querySelector('.user-message-preview');
-
     let pendingMessage = '';
 
     // Function to open contact choice modal
     function openContactChoiceModal(message) {
-        if (!contactChoiceModal) return;
+        if (!DOM.contactChoiceModal) return;
 
-        // Store the message
-        pendingMessage = message;
+        try {
+            // Store the message
+            pendingMessage = message;
 
-        // Show message preview
-        if (messagePreview && message) {
-            messagePreview.textContent = `"${message}"`;
-            messagePreview.style.display = 'block';
-        }
+            // Show message preview
+            if (DOM.messagePreview && message) {
+                DOM.messagePreview.textContent = `"${message}"`;
+                DOM.messagePreview.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
+            }
 
-        // Show modal
-        contactChoiceModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+            // Show modal
+            DOM.contactChoiceModal.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
+            document.body.style.overflow = 'hidden';
 
-        // Track in analytics
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'contact_choice_modal_open', {
-                event_category: 'Engagement',
-                event_label: message.substring(0, 50)
-            });
+            // Track in analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_choice_modal_open', {
+                    event_category: 'Engagement',
+                    event_label: message.substring(0, 50)
+                });
+            }
+        } catch (error) {
+            console.error('Error opening contact modal:', error);
         }
     }
 
     // Function to close contact choice modal
     function closeContactChoiceModal() {
-        if (!contactChoiceModal) return;
-        contactChoiceModal.classList.remove('active');
+        if (!DOM.contactChoiceModal) return;
+
+        DOM.contactChoiceModal.classList.remove(CONFIG.CSS_CLASSES.ACTIVE);
         document.body.style.overflow = '';
         pendingMessage = '';
     }
 
     // Function to open conversation dialogue (chat)
     function openConversationDialogue(initialMessage = '') {
-        if (!conversationDialogue) return;
+        if (!DOM.conversationDialogue) return;
 
-        // Close choice modal first
-        closeContactChoiceModal();
+        try {
+            // Close choice modal first
+            closeContactChoiceModal();
 
-        // Create backdrop
-        const backdrop = document.createElement('div');
-        backdrop.className = 'dialogue-backdrop';
-        backdrop.id = 'dialogueBackdrop';
-        document.body.appendChild(backdrop);
+            // Create backdrop
+            const backdrop = document.createElement('div');
+            backdrop.className = 'dialogue-backdrop';
+            backdrop.id = 'dialogueBackdrop';
+            document.body.appendChild(backdrop);
 
-        // Show dialogue
-        conversationDialogue.style.display = 'block';
+            // Show dialogue
+            DOM.conversationDialogue.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
 
-        // Pre-fill chat input if there's an initial message
-        if (initialMessage && chatInput) {
-            chatInput.value = initialMessage;
-            // Auto-submit the initial message after a short delay
-            setTimeout(() => {
-                chatInput.focus();
-                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-                const chatForm = document.getElementById('chatForm');
-                if (chatForm) {
-                    chatForm.dispatchEvent(submitEvent);
-                }
-            }, 300);
-        } else if (chatInput) {
-            setTimeout(() => chatInput.focus(), 100);
+            // Pre-fill chat input if there's an initial message
+            if (initialMessage && DOM.chatInput) {
+                DOM.chatInput.value = initialMessage;
+                // Auto-submit the initial message after a short delay
+                setTimeout(() => {
+                    DOM.chatInput.focus();
+                    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                    const chatForm = document.getElementById('chatForm');
+                    if (chatForm) {
+                        chatForm.dispatchEvent(submitEvent);
+                    }
+                }, CONFIG.TIMING.CHAT_SUBMIT);
+            } else if (DOM.chatInput) {
+                setTimeout(() => DOM.chatInput.focus(), CONFIG.TIMING.CHAT_FOCUS);
+            }
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        } catch (error) {
+            console.error('Error opening conversation dialogue:', error);
         }
-
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
     }
 
     // Handle suggestion pill clicks
-    suggestionPills.forEach(pill => {
-        pill.addEventListener('click', function() {
-            const message = this.getAttribute('data-message');
-            if (message) {
-                openContactChoiceModal(message);
-            }
+    if (DOM.suggestionPills) {
+        DOM.suggestionPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                if (message) {
+                    openContactChoiceModal(message);
+                }
+            });
         });
-    });
+    }
 
     // Handle hero form submission
-    if (heroForm && heroInput) {
-        heroForm.addEventListener('submit', function(e) {
+    if (DOM.heroForm && DOM.heroInput) {
+        DOM.heroForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const message = heroInput.value.trim();
+            const message = DOM.heroInput.value.trim();
 
             if (message) {
                 openContactChoiceModal(message);
-                heroInput.value = '';
+                DOM.heroInput.value = '';
             }
         });
     }
 
     // Handle contact choice modal options
-    const modalClose = document.getElementById('modalClose');
-    const chooseWhatsApp = document.getElementById('chooseWhatsApp');
-    const chooseEmail = document.getElementById('chooseEmail');
-
-    if (modalClose) {
-        modalClose.addEventListener('click', closeContactChoiceModal);
+    if (DOM.modalClose) {
+        DOM.modalClose.addEventListener('click', closeContactChoiceModal);
     }
 
-    if (chooseWhatsApp) {
-        chooseWhatsApp.addEventListener('click', function() {
-            const whatsappNumber = '31657591440';
+    if (DOM.chooseWhatsApp) {
+        DOM.chooseWhatsApp.addEventListener('click', function() {
             const whatsappText = encodeURIComponent(`Hi Nathalja! ${pendingMessage}`);
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+            const whatsappUrl = `https://wa.me/${CONFIG.CONTACT.WHATSAPP}?text=${whatsappText}`;
 
             window.open(whatsappUrl, '_blank');
             closeContactChoiceModal();
@@ -358,11 +421,11 @@ function initHeroConversation() {
         });
     }
 
-    if (chooseEmail) {
-        chooseEmail.addEventListener('click', function() {
+    if (DOM.chooseEmail) {
+        DOM.chooseEmail.addEventListener('click', function() {
             const emailSubject = encodeURIComponent('Project aanvraag via portfolio');
             const emailBody = encodeURIComponent(`Hi Nathalja,\n\n${pendingMessage}\n\nGroet,`);
-            const emailUrl = `mailto:nathaljanijman@hotmail.com?subject=${emailSubject}&body=${emailBody}`;
+            const emailUrl = `mailto:${CONFIG.CONTACT.EMAIL}?subject=${emailSubject}&body=${emailBody}`;
 
             window.location.href = emailUrl;
             closeContactChoiceModal();
@@ -377,13 +440,16 @@ function initHeroConversation() {
     }
 
     // Close modal on backdrop click
-    if (contactChoiceModal) {
-        contactChoiceModal.querySelector('.modal-backdrop')?.addEventListener('click', closeContactChoiceModal);
+    if (DOM.contactChoiceModal) {
+        const backdrop = DOM.contactChoiceModal.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', closeContactChoiceModal);
+        }
     }
 
     // Close on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && contactChoiceModal?.classList.contains('active')) {
+        if (e.key === 'Escape' && DOM.contactChoiceModal?.classList.contains(CONFIG.CSS_CLASSES.ACTIVE)) {
             closeContactChoiceModal();
         }
     });

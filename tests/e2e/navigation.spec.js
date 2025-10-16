@@ -145,7 +145,8 @@ test.describe('Navigation & Routing', () => {
     test('should display portfolio sticker on hero section', async ({ page }) => {
       const sticker = page.locator('.portfolio-sticker');
       await expect(sticker).toBeVisible();
-      await expect(sticker).toHaveAttribute('href', 'portfolio-website.html');
+      // Portfolio sticker link is now dynamically generated with language prefix
+      await expect(sticker).toHaveAttribute('href', '/nl/portfolio-website');
     });
 
     test('should have correct sticker text', async ({ page }) => {
