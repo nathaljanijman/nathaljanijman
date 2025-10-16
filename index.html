@@ -57,28 +57,45 @@
         .send-button{background:linear-gradient(135deg,#0047ab,#06f);border-radius:22px;height:44px;width:44px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     </style>
 
-    <!-- Preload critical hero image for LCP -->
-    <link rel="preload" as="image" href="images/nathalja-work.webp" fetchpriority="high">
+    <!-- Preload critical hero image for LCP (mobile version for faster load) -->
+    <link rel="preload" as="image" href="images/nathalja-work-mobile.webp" fetchpriority="high" media="(max-width: 768px)">
+    <link rel="preload" as="image" href="images/nathalja-work-tablet.webp" fetchpriority="high" media="(min-width: 769px) and (max-width: 1280px)">
+    <link rel="preload" as="image" href="images/nathalja-work-desktop.webp" fetchpriority="high" media="(min-width: 1281px)">
 
-    <!-- Google Analytics (Deferred for Performance) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-JMLD724KEM"></script>
+    <!-- Google Analytics (Lazy loaded on interaction for optimal performance) -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-JMLD724KEM');
+
+        // Lazy load Google Analytics after page becomes interactive
+        function loadGoogleAnalytics() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-JMLD724KEM';
+            document.head.appendChild(script);
+
+            script.onload = function() {
+                gtag('js', new Date());
+                gtag('config', 'G-JMLD724KEM');
+            };
+        }
+
+        // Load on user interaction or after 3 seconds
+        const gaEvents = ['mousedown', 'touchstart', 'scroll', 'keydown'];
+        const gaTimer = setTimeout(loadGoogleAnalytics, 3000);
+
+        gaEvents.forEach(event => {
+            window.addEventListener(event, function gaLoad() {
+                clearTimeout(gaTimer);
+                loadGoogleAnalytics();
+                gaEvents.forEach(e => window.removeEventListener(e, gaLoad));
+            }, { once: true, passive: true });
+        });
     </script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/hero-simple.css">
-    <link rel="stylesheet" href="components/featured-work.css">
-    <link rel="stylesheet" href="components/ticker.css">
-    <link rel="stylesheet" href="components/about.css">
-    <link rel="stylesheet" href="components/contact.css">
-    <link rel="stylesheet" href="css/contact-choice-modal.css">
-    <link rel="stylesheet" href="css/professional-identity.css">
-    <link rel="stylesheet" href="css/innovative-services.css">
-    <link rel="stylesheet" href="components/mobile-bottom-nav.css">
-    <!-- Raleway Typography Strategy (Async loaded to prevent render blocking) -->
+    <!-- Bundled & Minified CSS (Loaded immediately to prevent CLS) -->
+    <link rel="stylesheet" href="dist/css/bundle.min.css">
+
+    <!-- Raleway Typography Strategy (Async to prevent render blocking) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"></noscript>
 </head>
@@ -132,8 +149,10 @@
         <!-- Background Image -->
         <div class="hero-background">
             <picture>
-                <source srcset="images/nathalja-work.webp" type="image/webp">
-                <img src="images/nathalja-work.webp" alt="Nathalja Nijman - Product Owner" class="hero-bg-image" width="1920" height="1080" fetchpriority="high">
+                <source media="(max-width: 768px)" srcset="images/nathalja-work-mobile.webp" type="image/webp">
+                <source media="(max-width: 1280px)" srcset="images/nathalja-work-tablet.webp" type="image/webp">
+                <source srcset="images/nathalja-work-desktop.webp" type="image/webp">
+                <img src="images/nathalja-work-mobile.webp" alt="Nathalja Nijman - Product Owner" class="hero-bg-image" width="1920" height="2692" fetchpriority="high">
             </picture>
             <div class="hero-overlay"></div>
         </div>
@@ -943,9 +962,7 @@
         </div>
     </nav>
 
-    <script src="js/translations.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/hero-whatsapp.js"></script>
-    <script src="js/analytics.js"></script>
+    <!-- Bundled & Minified JavaScript (Deferred for optimal performance) -->
+    <script defer src="dist/js/bundle.min.js"></script>
 </body>
 </html>
