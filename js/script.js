@@ -22,7 +22,8 @@ const CONFIG = {
         HIDDEN: 'hidden',
         VISIBLE: 'visible',
         FADE_IN: 'fade-in',
-        FADE_OUT: 'fade-out'
+        FADE_OUT: 'fade-out',
+        CARD_VISIBLE: 'card-visible'
     }
 };
 
@@ -95,7 +96,7 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add(CONFIG.CSS_CLASSES.VISIBLE);
+                entry.target.classList.add(CONFIG.CSS_CLASSES.FADE_IN);
             }
         });
     }, { threshold: 0.1 });
@@ -181,11 +182,11 @@ function initProjectFiltering() {
 
             if (shouldShow) {
                 card.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
-                card.classList.add(CONFIG.CSS_CLASSES.VISIBLE);
+                card.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
             } else {
                 card.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
                 setTimeout(() => {
-                    card.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.VISIBLE);
+                    card.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
                     card.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
                 }, CONFIG.TIMING.FADE_OUT);
             }
@@ -220,7 +221,7 @@ function initProjectCardAnimations() {
     // Only animate visible project cards, not hidden ones
     const cards = document.querySelectorAll('.project-card:not(.hidden-project)');
     cards.forEach(card => {
-        card.classList.add(CONFIG.CSS_CLASSES.VISIBLE);
+        card.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
     });
 }
 
@@ -237,7 +238,7 @@ function initShowMoreProjects() {
             // Show ALL projects
             DOM.projectCards.forEach(project => {
                 project.classList.remove('hidden-project', CONFIG.CSS_CLASSES.HIDDEN);
-                project.classList.add(CONFIG.CSS_CLASSES.VISIBLE);
+                project.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
             });
 
             // Update filter buttons to show "all" as active
@@ -254,7 +255,7 @@ function initShowMoreProjects() {
                 if (project.classList.contains('hidden-project')) {
                     project.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
                     setTimeout(() => {
-                        project.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.VISIBLE);
+                        project.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
                         project.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
                     }, CONFIG.TIMING.FADE_OUT);
                 }
