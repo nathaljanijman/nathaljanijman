@@ -68,7 +68,7 @@
 2. **390e8f0** - Fix: Resolve remaining test failures - 97% test success rate
 
 ### Deployment Platform
-**Vercel** - Auto-deployment triggered from main branch
+**Cloudflare Pages** - Auto-deployment triggered from main branch
 
 ### Configuration
 - ✅ Clean URLs enabled
@@ -106,9 +106,9 @@ Some projects filtering tests timeout due to smooth scrolling timing.
 ✅ Contact modal functionality verified
 
 ### Post-Deployment
-Vercel will automatically deploy the changes. You can verify at:
-- **Production URL:** https://nathaljanijman.vercel.app (or custom domain)
-- **Vercel Dashboard:** Monitor deployment status and logs
+Cloudflare Pages will automatically deploy the changes. You can verify at:
+- **Production URL:** https://nathaljanijman.com (or custom domain)
+- **Cloudflare Dashboard:** Monitor deployment status and logs
 
 ---
 
@@ -143,7 +143,7 @@ Vercel will automatically deploy the changes. You can verify at:
 1. **Playwright Keyboard Tests** - Consider using native browser events instead of Playwright simulation
 2. **Projects Filtering Tests** - Adjust timing for smooth scroll animations
 3. **Visual Regression** - Update remaining 4 snapshots for filter states
-4. **Performance Monitoring** - Set up Vercel Analytics for production insights
+4. **Performance Monitoring** - Set up Cloudflare Analytics for production insights
 
 ---
 

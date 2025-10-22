@@ -1063,7 +1063,7 @@ De website is gedeployed via Cloudflare Pages met automatische deployments:
 **Alternative Options:**
 - **GitHub Pages**: Gratis hosting via GitHub
 - **Netlify**: Drag-and-drop deployment met CI/CD
-- **Vercel**: Automatic deployments met preview URLs
+
 
 ---
 
