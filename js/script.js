@@ -321,7 +321,7 @@ function initHeroConversation() {
                 });
             }
         } catch (error) {
-            console.error('Error opening contact modal:', error);
+            // console.error('Error opening contact modal:', error);
         }
     }
 
@@ -370,7 +370,7 @@ function initHeroConversation() {
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
         } catch (error) {
-            console.error('Error opening conversation dialogue:', error);
+            // console.error('Error opening conversation dialogue:', error);
         }
     }
 

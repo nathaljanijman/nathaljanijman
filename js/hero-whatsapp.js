@@ -52,7 +52,7 @@ function initConversationalDialogue() {
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
         } catch (error) {
-            console.error('Error showing dialogue:', error);
+            // console.error('Error showing dialogue:', error);
         }
     }
 
@@ -76,7 +76,7 @@ function initConversationalDialogue() {
 
             resetConversation();
         } catch (error) {
-            console.error('Error hiding dialogue:', error);
+            // console.error('Error hiding dialogue:', error);
         }
     }
 
@@ -105,19 +105,29 @@ function initConversationalDialogue() {
         }
     }
 
-    // Add message to conversation
+    // Add message to conversation (XSS-safe)
     function addMessage(content, isUser = false) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chat-message ${isUser ? 'user-message' : 'nathalja-message'}`;
 
-        messageDiv.innerHTML = `
-            <div class="message-avatar">
-                <img src="images/nathalja-about.jpg" alt="${isUser ? 'User' : 'Nathalja'}">
-            </div>
-            <div class="message-content">
-                <p>${content}</p>
-            </div>
-        `;
+        // Create avatar container
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'message-avatar';
+        const avatarImg = document.createElement('img');
+        avatarImg.src = 'images/nathalja-about.jpg';
+        avatarImg.alt = isUser ? 'User' : 'Nathalja';
+        avatarDiv.appendChild(avatarImg);
+
+        // Create message content (safe - uses textContent)
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+        const paragraph = document.createElement('p');
+        paragraph.textContent = content; // XSS-safe: textContent escapes HTML
+        contentDiv.appendChild(paragraph);
+
+        // Assemble message
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(contentDiv);
 
         chatConversation.appendChild(messageDiv);
         chatConversation.scrollTop = chatConversation.scrollHeight;
@@ -385,3 +395,43 @@ Kun je me wat meer vertellen over je specifieke situatie? Dan kan ik je beter he
 document.addEventListener('DOMContentLoaded', function() {
     initConversationalDialogue();
 });
+// Dialogue Screen Navigation - Event Delegation (No inline handlers)
+document.addEventListener("click", function(event) {
+    const action = event.target.closest("[data-action]")?.dataset.action;
+    
+    if (!action) return;
+    
+    switch(action) {
+        case "show-main-screen":
+            showMainScreen();
+            break;
+        case "show-contact-screen":
+            showContactScreen();
+            break;
+        case "show-project-screen":
+            showProjectScreen();
+            break;
+    }
+});
+
+function showMainScreen() {
+    document.querySelectorAll(".dialogue-screen").forEach(screen => {
+        screen.style.display = "none";
+    });
+    document.getElementById("mainScreen")?.style.removeProperty("display");
+}
+
+function showContactScreen() {
+    document.querySelectorAll(".dialogue-screen").forEach(screen => {
+        screen.style.display = "none";
+    });
+    document.getElementById("contactScreen")?.style.removeProperty("display");
+}
+
+function showProjectScreen() {
+    document.querySelectorAll(".dialogue-screen").forEach(screen => {
+        screen.style.display = "none";
+    });
+    document.getElementById("projectScreen")?.style.removeProperty("display");
+}
+

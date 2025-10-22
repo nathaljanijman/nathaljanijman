@@ -672,6 +672,25 @@ class LanguageManager {
         this.updateFooterButtons();
     }
 
+    // Safe HTML sanitization for translations (whitelist approach)
+    sanitizeTranslation(html) {
+        // Only allow safe formatting tags
+        const allowedTags = ['strong', 'em', 'b', 'i', 'br'];
+        const div = document.createElement('div');
+        div.textContent = html; // First escape everything
+
+        // Then selectively allow safe tags
+        let safe = div.innerHTML;
+        allowedTags.forEach(tag => {
+            const openRegex = new RegExp(`&lt;${tag}&gt;`, 'gi');
+            const closeRegex = new RegExp(`&lt;/${tag}&gt;`, 'gi');
+            safe = safe.replace(openRegex, `<${tag}>`);
+            safe = safe.replace(closeRegex, `</${tag}>`);
+        });
+
+        return safe;
+    }
+
     applyTranslations() {
         const elements = document.querySelectorAll('[data-translate]');
         elements.forEach(element => {
@@ -689,7 +708,7 @@ class LanguageManager {
                 }
                 // For elements that may contain HTML (like <strong>, <em>)
                 else if (translation.includes('<')) {
-                    element.innerHTML = translation;
+                    element.innerHTML = this.sanitizeTranslation(translation);
                 }
                 // For regular text content
                 else {

@@ -56,6 +56,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-navigation">Skip to main content</a>
+
     <!-- Enhanced Navigation Bar -->
     <header class="header" role="banner">
         <div class="header-container">
@@ -101,10 +104,11 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-simple" role="main" aria-label="Nathalja Nijman introduction">
+    <main id="main-content">
+    <section id="home" class="hero-simple" role="region" aria-label="Nathalja Nijman introduction">
         <!-- Background Image -->
         <div class="hero-background">
-            <img src="images/nathalja-work.jpg" alt="Nathalja Nijman - Product Owner" class="hero-bg-image">
+            <img src="images/nathalja-work.jpg" alt="Nathalja Nijman - Product Owner" class="hero-bg-image" fetchpriority="high" decoding="async">
             <div class="hero-overlay"></div>
         </div>
 
@@ -197,7 +201,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-avatar">
-                    <img src="images/nathalja-about.jpg" alt="Nathalja">
+                    <img src="images/nathalja-about.jpg" alt="Nathalja" loading="lazy" decoding="async">
                     <div class="status-indicator"></div>
                 </div>
                 <div class="modal-intro">
@@ -248,7 +252,7 @@
     <div class="conversation-dialogue" id="conversationDialogue" style="display: none;">
                         <div class="dialogue-header">
                             <div class="dialogue-avatar">
-                                <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                <img src="images/nathalja-about.jpg" alt="Nathalja" loading="lazy" decoding="async">
                                 <div class="online-indicator"></div>
                             </div>
                             <div class="dialogue-intro">
@@ -264,7 +268,7 @@
                                 <div class="chat-conversation" id="chatConversation" role="log" aria-live="polite" aria-atomic="false">
                                     <div class="chat-message nathalja-message">
                                         <div class="message-avatar">
-                                            <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                            <img src="images/nathalja-about.jpg" alt="Nathalja" loading="lazy" decoding="async">
                                         </div>
                                         <div class="message-content">
                                             <p data-translate="chatWelcome">Hey! Waar kan ik je mee helpen? Vertel me gerust wat je op je hart hebt.</p>
@@ -275,7 +279,7 @@
                                 <div class="chat-input-area">
                                     <div class="typing-indicator" id="typingIndicator" style="display: none;">
                                         <div class="message-avatar">
-                                            <img src="images/nathalja-about.jpg" alt="Nathalja">
+                                            <img src="images/nathalja-about.jpg" alt="Nathalja" loading="lazy" decoding="async">
                                         </div>
                                         <div class="typing-dots">
                                             <span></span>
@@ -328,8 +332,8 @@
                                         </ul>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showContactScreen()" aria-label="Go to contact screen" data-translate="btnLetsTalk">Laten we in contact komen</button>
+                                        <button type="button" class="back-btn" data-action="show-main-screen" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" data-action="show-contact-screen" aria-label="Go to contact screen" data-translate="btnLetsTalk">Laten we in contact komen</button>
                                     </div>
                                 </div>
                             </div>
@@ -354,7 +358,7 @@
                                                 <small data-translate="contactOptionLinkedInSub">Professioneel netwerken</small>
                                             </div>
                                         </a>
-                                        <button type="button" class="contact-option" onclick="showProjectScreen()" aria-label="Schedule project discussion">
+                                        <button type="button" class="contact-option" data-action="show-project-screen" aria-label="Schedule project discussion">
                                             <div class="contact-icon">💬</div>
                                             <div class="contact-details">
                                                 <strong data-translate="contactOptionSchedule">Project gesprek plannen</strong>
@@ -363,7 +367,7 @@
                                         </button>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="back-btn" data-action="show-main-screen" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
                                     </div>
                                 </div>
                             </div>
@@ -397,7 +401,7 @@
                                             <textarea id="projectDescription" rows="3" placeholder="Vertel me meer over wat je voor ogen hebt..." data-translate="projectFormDescriptionPlaceholder"></textarea>
                                         </div>
                                         <div class="response-actions">
-                                            <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                            <button type="button" class="back-btn" data-action="show-main-screen" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
                                             <button type="submit" class="action-btn" aria-label="Submit project request" data-translate="projectFormSubmit">Verstuur aanvraag</button>
                                         </div>
                                     </form>
@@ -428,8 +432,8 @@
                                         </div>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Start collaboration" data-translate="btnCollaborate">Laten we samenwerken</button>
+                                        <button type="button" class="back-btn" data-action="show-main-screen" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" data-action="show-project-screen" aria-label="Start collaboration" data-translate="btnCollaborate">Laten we samenwerken</button>
                                     </div>
                                 </div>
                             </div>
@@ -457,8 +461,8 @@
                                         </div>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Discuss rates" data-translate="btnDiscuss">Laten we het bespreken</button>
+                                        <button type="button" class="back-btn" data-action="show-main-screen" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" data-action="show-project-screen" aria-label="Discuss rates" data-translate="btnDiscuss">Laten we het bespreken</button>
                                     </div>
                                 </div>
                             </div>
@@ -490,7 +494,7 @@
                 <div class="project-card" data-category="product-owner">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-abn-amro.png" alt="ABN AMRO Website Platform">
+                            <img src="images/project-abn-amro.png" alt="ABN AMRO Website Platform" loading="lazy" decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -533,7 +537,7 @@
                 <div class="project-card" data-category="web">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-sprintplanner.png" alt="Sprint Planner Interface">
+                            <img src="images/project-sprintplanner.png" alt="Sprint Planner Interface" loading="lazy" decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -576,7 +580,7 @@
                 <div class="project-card" data-category="product-owner">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-balr.png" alt="BALR. E-Commerce Platform">
+                            <img src="images/project-balr.png" alt="BALR. E-Commerce Platform" loading="lazy" decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -619,7 +623,7 @@
                 <div class="project-card" data-category="web">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-dhgate.png" alt="DHGate Monitor Dashboard">
+                            <img src="images/project-dhgate.png" alt="DHGate Monitor Dashboard" loading="lazy" decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -662,7 +666,7 @@
                 <div class="project-card" data-category="entrepreneurship">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-slopez.png" alt="SLOPEZ Premium Ski Goggles">
+                            <img src="images/project-slopez.png" alt="SLOPEZ Premium Ski Goggles" loading="lazy" decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -726,7 +730,7 @@
             <div class="about-content">
                 <!-- About Image -->
                 <div class="about-image">
-                    <img src="images/nathalja-about.jpg" alt="Nathalja Nijman">
+                    <img src="images/nathalja-about.jpg" alt="Nathalja Nijman" loading="lazy" decoding="async">
                 </div>
 
                 <!-- About Text -->
@@ -884,6 +888,9 @@
         </div>
     </nav>
 
+    </main>
+
+    <script src="js/error-handler.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
     <script src="js/hero-whatsapp.js"></script>
