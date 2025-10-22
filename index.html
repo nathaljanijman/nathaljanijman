@@ -44,10 +44,33 @@
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMLD724KEM"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-JMLD724KEM');
+        // Check if user has opted out of tracking
+        const gaOptOut = localStorage.getItem('ga-opt-out') === 'true';
+
+        if (!gaOptOut) {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JMLD724KEM');
+        }
+
+        // Admin opt-out function - toegankelijk via console
+        window.gaOptOut = function() {
+            localStorage.setItem('ga-opt-out', 'true');
+            console.log('✅ Google Analytics tracking uitgeschakeld voor deze browser');
+            console.log('⚠️  Refresh de pagina om effect te zien');
+        };
+
+        window.gaOptIn = function() {
+            localStorage.removeItem('ga-opt-out');
+            console.log('✅ Google Analytics tracking ingeschakeld voor deze browser');
+            console.log('⚠️  Refresh de pagina om effect te zien');
+        };
+
+        window.gaStatus = function() {
+            const status = localStorage.getItem('ga-opt-out') === 'true' ? '🔴 UIT' : '🟢 AAN';
+            console.log('Google Analytics tracking:', status);
+        };
     </script>
 
     <!-- Critical CSS - Load synchronously to prevent layout shifts -->
