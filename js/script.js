@@ -235,10 +235,12 @@ function initShowMoreProjects() {
         isExpanded = !isExpanded;
 
         if (isExpanded) {
-            // Show ALL projects
+            // Show hidden projects with animation
             DOM.projectCards.forEach(project => {
-                project.classList.remove('hidden-project', CONFIG.CSS_CLASSES.HIDDEN);
-                project.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                if (project.classList.contains('hidden-project')) {
+                    project.classList.add('revealed');
+                    project.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                }
             });
 
             // Update filter buttons to show "all" as active
@@ -250,14 +252,11 @@ function initShowMoreProjects() {
                 }
             });
         } else {
-            // Reset to default view
+            // Hide projects that were originally hidden
             DOM.projectCards.forEach(project => {
                 if (project.classList.contains('hidden-project')) {
-                    project.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
-                    setTimeout(() => {
-                        project.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
-                        project.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
-                    }, CONFIG.TIMING.FADE_OUT);
+                    project.classList.remove('revealed');
+                    project.classList.remove(CONFIG.CSS_CLASSES.CARD_VISIBLE);
                 }
             });
         }
