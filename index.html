@@ -42,18 +42,40 @@
         gtag('js', new Date());
         gtag('config', 'G-JMLD724KEM');
     </script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/hero-simple.css">
-    <link rel="stylesheet" href="components/featured-work.css">
-    <link rel="stylesheet" href="components/ticker.css">
-    <link rel="stylesheet" href="components/about.css">
-    <link rel="stylesheet" href="components/contact.css">
-    <link rel="stylesheet" href="css/contact-choice-modal.css">
-    <link rel="stylesheet" href="css/professional-identity.css">
-    <link rel="stylesheet" href="css/innovative-services.css">
-    <link rel="stylesheet" href="components/mobile-bottom-nav.css">
-    <!-- Raleway Typography Strategy -->
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Critical CSS inline preload -->
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+
+    <!-- Non-critical CSS async loading -->
+    <link rel="preload" href="css/hero-simple.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="components/featured-work.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="components/ticker.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="components/about.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="components/contact.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/contact-choice-modal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/professional-identity.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/innovative-services.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <noscript>
+        <link rel="stylesheet" href="css/hero-simple.css">
+        <link rel="stylesheet" href="components/featured-work.css">
+        <link rel="stylesheet" href="components/ticker.css">
+        <link rel="stylesheet" href="components/about.css">
+        <link rel="stylesheet" href="components/contact.css">
+        <link rel="stylesheet" href="css/contact-choice-modal.css">
+        <link rel="stylesheet" href="css/professional-identity.css">
+        <link rel="stylesheet" href="css/innovative-services.css">
+    </noscript>
+
+    <link rel="preload" href="components/mobile-bottom-nav.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="components/mobile-bottom-nav.css"></noscript>
+
+    <!-- Raleway Typography Strategy - Async -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></noscript>
 </head>
 <body>
     <!-- Skip Navigation for Accessibility -->
