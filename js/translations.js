@@ -175,7 +175,74 @@ const translations = {
         modalChatTitle: 'Direct doorpakken',
         modalChatDescription: 'Interactieve Q&A chat',
         modalChatTime: 'Binnenkort beschikbaar',
-        modalFooter: 'Kies de manier die het beste bij je past'
+        modalFooter: 'Kies de manier die het beste bij je past',
+
+        // Conversation Dialogue
+        dialogueGreeting: 'Hi! Waar kan ik je mee helpen?',
+        dialogueSubtitle: 'Kies een van de opties hieronder',
+        chatWelcome: 'Hey! Waar kan ik je mee helpen? Vertel me gerust wat je op je hart hebt.',
+        chatPlaceholder: 'Type je bericht hier...',
+        suggestionsLabel: 'Of kies een van deze onderwerpen:',
+        suggestionAbout: 'Over jou',
+        suggestionContact: 'Contact',
+        suggestionProject: 'Project bespreken',
+        suggestionRates: 'Tarieven',
+
+        // About Screen
+        aboutScreenIntro: 'Ik ben <strong>Nathalja Nijman</strong>, Product Owner bij ABN AMRO met een passie voor het creëren van gebruiksvriendelijke digitale producten.',
+        aboutScreenExperience: 'Met 3+ jaar ervaring help ik teams bij het ontwikkelen van producten die écht waarde toevoegen voor gebruikers. Mijn expertise ligt in:',
+        expertiseStrategy: 'Product Strategy & Roadmapping',
+        expertiseUX: 'User Experience Design',
+        expertiseAgile: 'Agile Product Development',
+        expertiseStakeholder: 'Stakeholder Management',
+        btnBackToOptions: '← Terug naar opties',
+        btnLetsTalk: 'Laten we in contact komen',
+
+        // Contact Screen
+        contactScreenIntro: 'Geweldig! Er zijn verschillende manieren om contact met me op te nemen:',
+        contactOptionEmail: 'Email',
+        contactOptionEmailSub: 'nathaljanijman@hotmail.com',
+        contactOptionLinkedIn: 'LinkedIn',
+        contactOptionLinkedInSub: 'Professioneel netwerken',
+        contactOptionSchedule: 'Project gesprek plannen',
+        contactOptionScheduleSub: 'Laten we je project bespreken',
+
+        // Project Screen
+        projectScreenIntro: 'Fantastisch! Ik zou graag meer willen weten over je project.',
+        projectFormName: 'Je naam',
+        projectFormEmail: 'Email',
+        projectFormType: 'Type project',
+        projectFormTypeSelect: 'Selecteer type',
+        projectFormTypeStrategy: 'Product Strategy',
+        projectFormTypeUX: 'UX Design',
+        projectFormTypeConsultation: 'Consultancy',
+        projectFormTypeTraining: 'Training/Workshop',
+        projectFormDescription: 'Beschrijf je project',
+        projectFormDescriptionPlaceholder: 'Vertel me meer over wat je voor ogen hebt...',
+        projectFormSubmit: 'Verstuur aanvraag',
+
+        // Expertise Screen
+        expertiseScreenIntro: 'Ik help organisaties met verschillende aspecten van productbeheer:',
+        expertiseCardStrategy: 'Product Strategy',
+        expertiseCardStrategyDesc: 'Van visie tot roadmap - ik help bij het definiëren van productrichting',
+        expertiseCardUX: 'User Experience',
+        expertiseCardUXDesc: 'Gebruikersonderzoek en UX design voor betere producten',
+        expertiseCardAgile: 'Agile Development',
+        expertiseCardAgileDesc: 'Scrum en Kanban implementatie voor efficiënte teams',
+        expertiseCardStakeholder: 'Stakeholder Management',
+        expertiseCardStakeholderDesc: 'Afstemming tussen business, techniek en design',
+        btnCollaborate: 'Laten we samenwerken',
+
+        // Rates Screen
+        ratesScreenIntro: 'Mijn tarieven zijn afhankelijk van het type project en de duur van de samenwerking:',
+        ratesConsultancy: 'Consultancy & Strategy',
+        ratesConsultancyPrice: '€95 - €125 per uur',
+        ratesUX: 'UX Design Projects',
+        ratesUXPrice: 'Vanaf €2.500 per project',
+        ratesWorkshops: 'Workshops & Training',
+        ratesWorkshopsPrice: '€750 - €1.250 per dag',
+        ratesNote: 'Voor langere samenwerkingen bespreek ik graag aangepaste tarieven. Laten we je specifieke situatie bespreken!',
+        btnDiscuss: 'Laten we het bespreken'
     },
     en: {
         // Navigation
@@ -352,7 +419,74 @@ const translations = {
         modalChatTitle: 'Continue directly',
         modalChatDescription: 'Interactive Q&A chat',
         modalChatTime: 'Coming soon',
-        modalFooter: 'Choose the way that suits you best'
+        modalFooter: 'Choose the way that suits you best',
+
+        // Conversation Dialogue
+        dialogueGreeting: 'Hi! How can I help you?',
+        dialogueSubtitle: 'Choose one of the options below',
+        chatWelcome: 'Hey! How can I help you? Feel free to tell me what\'s on your mind.',
+        chatPlaceholder: 'Type your message here...',
+        suggestionsLabel: 'Or choose one of these topics:',
+        suggestionAbout: 'About you',
+        suggestionContact: 'Contact',
+        suggestionProject: 'Discuss project',
+        suggestionRates: 'Rates',
+
+        // About Screen
+        aboutScreenIntro: 'I\'m <strong>Nathalja Nijman</strong>, Product Owner at ABN AMRO with a passion for creating user-friendly digital products.',
+        aboutScreenExperience: 'With 3+ years of experience, I help teams develop products that truly add value for users. My expertise includes:',
+        expertiseStrategy: 'Product Strategy & Roadmapping',
+        expertiseUX: 'User Experience Design',
+        expertiseAgile: 'Agile Product Development',
+        expertiseStakeholder: 'Stakeholder Management',
+        btnBackToOptions: '← Back to options',
+        btnLetsTalk: 'Let\'s get in touch',
+
+        // Contact Screen
+        contactScreenIntro: 'Great! There are several ways to get in touch with me:',
+        contactOptionEmail: 'Email',
+        contactOptionEmailSub: 'nathaljanijman@hotmail.com',
+        contactOptionLinkedIn: 'LinkedIn',
+        contactOptionLinkedInSub: 'Professional networking',
+        contactOptionSchedule: 'Schedule project discussion',
+        contactOptionScheduleSub: 'Let\'s discuss your project',
+
+        // Project Screen
+        projectScreenIntro: 'Fantastic! I\'d love to learn more about your project.',
+        projectFormName: 'Your name',
+        projectFormEmail: 'Email',
+        projectFormType: 'Project type',
+        projectFormTypeSelect: 'Select type',
+        projectFormTypeStrategy: 'Product Strategy',
+        projectFormTypeUX: 'UX Design',
+        projectFormTypeConsultation: 'Consultancy',
+        projectFormTypeTraining: 'Training/Workshop',
+        projectFormDescription: 'Describe your project',
+        projectFormDescriptionPlaceholder: 'Tell me more about what you have in mind...',
+        projectFormSubmit: 'Submit request',
+
+        // Expertise Screen
+        expertiseScreenIntro: 'I help organizations with various aspects of product management:',
+        expertiseCardStrategy: 'Product Strategy',
+        expertiseCardStrategyDesc: 'From vision to roadmap - I help define product direction',
+        expertiseCardUX: 'User Experience',
+        expertiseCardUXDesc: 'User research and UX design for better products',
+        expertiseCardAgile: 'Agile Development',
+        expertiseCardAgileDesc: 'Scrum and Kanban implementation for efficient teams',
+        expertiseCardStakeholder: 'Stakeholder Management',
+        expertiseCardStakeholderDesc: 'Alignment between business, technology and design',
+        btnCollaborate: 'Let\'s collaborate',
+
+        // Rates Screen
+        ratesScreenIntro: 'My rates depend on the type of project and duration of collaboration:',
+        ratesConsultancy: 'Consultancy & Strategy',
+        ratesConsultancyPrice: '€95 - €125 per hour',
+        ratesUX: 'UX Design Projects',
+        ratesUXPrice: 'From €2,500 per project',
+        ratesWorkshops: 'Workshops & Training',
+        ratesWorkshopsPrice: '€750 - €1,250 per day',
+        ratesNote: 'For longer collaborations, I\'m happy to discuss customized rates. Let\'s talk about your specific situation!',
+        btnDiscuss: 'Let\'s discuss'
     }
 };
 
@@ -543,11 +677,23 @@ class LanguageManager {
         elements.forEach(element => {
             const key = element.dataset.translate;
             if (translations[this.currentLanguage] && translations[this.currentLanguage][key]) {
+                const translation = translations[this.currentLanguage][key];
+
                 // For input placeholders
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    element.placeholder = translations[this.currentLanguage][key];
-                } else {
-                    element.textContent = translations[this.currentLanguage][key];
+                    element.placeholder = translation;
+                }
+                // For select options
+                else if (element.tagName === 'OPTION') {
+                    element.textContent = translation;
+                }
+                // For elements that may contain HTML (like <strong>, <em>)
+                else if (translation.includes('<')) {
+                    element.innerHTML = translation;
+                }
+                // For regular text content
+                else {
+                    element.textContent = translation;
                 }
             }
         });

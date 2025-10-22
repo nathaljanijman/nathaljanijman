@@ -201,7 +201,7 @@
                     <div class="status-indicator"></div>
                 </div>
                 <div class="modal-intro">
-                    <h3>Perfect! Hoe zullen we dit aanpakken?</h3>
+                    <h3 data-translate="modalTitle">Perfect! Hoe zullen we dit aanpakken?</h3>
                     <p class="user-message-preview"></p>
                 </div>
                 <button type="button" class="modal-close" id="modalClose" aria-label="Close modal">×</button>
@@ -215,9 +215,9 @@
                         </svg>
                     </div>
                     <div class="option-content">
-                        <h4>Whatsapp chat</h4>
-                        <p>Direct en persoonlijk bespreken</p>
-                        <span class="response-time">Antwoord binnen 2 uur</span>
+                        <h4 data-translate="modalWhatsAppTitle">Whatsapp chat</h4>
+                        <p data-translate="modalWhatsAppDescription">Direct en persoonlijk bespreken</p>
+                        <span class="response-time" data-translate="modalWhatsAppTime">Antwoord binnen 2 uur</span>
                     </div>
                     <div class="option-arrow">→</div>
                 </button>
@@ -230,16 +230,16 @@
                         </svg>
                     </div>
                     <div class="option-content">
-                        <h4>Email contact</h4>
-                        <p>Stuur me alle details van je project</p>
-                        <span class="response-time">Antwoord binnen 24 uur</span>
+                        <h4 data-translate="modalEmailTitle">Email contact</h4>
+                        <p data-translate="modalEmailDescription">Stuur me alle details van je project</p>
+                        <span class="response-time" data-translate="modalEmailTime">Antwoord binnen 24 uur</span>
                     </div>
                     <div class="option-arrow">→</div>
                 </button>
             </div>
 
             <div class="modal-footer">
-                <p>Kies de manier die het beste bij je past</p>
+                <p data-translate="modalFooter">Kies de manier die het beste bij je past</p>
             </div>
         </div>
     </div>
@@ -252,8 +252,8 @@
                                 <div class="online-indicator"></div>
                             </div>
                             <div class="dialogue-intro">
-                                <span class="dialogue-greeting">Hi! Waar kan ik je mee helpen?</span>
-                                <span class="dialogue-subtitle">Kies een van de opties hieronder</span>
+                                <span class="dialogue-greeting" data-translate="dialogueGreeting">Hi! Waar kan ik je mee helpen?</span>
+                                <span class="dialogue-subtitle" data-translate="dialogueSubtitle">Kies een van de opties hieronder</span>
                             </div>
                             <button type="button" class="close-dialogue" id="closeDialogue" aria-label="Close dialogue">×</button>
                         </div>
@@ -267,7 +267,7 @@
                                             <img src="images/nathalja-about.jpg" alt="Nathalja">
                                         </div>
                                         <div class="message-content">
-                                            <p>Hey! Waar kan ik je mee helpen? Vertel me gerust wat je op je hart hebt.</p>
+                                            <p data-translate="chatWelcome">Hey! Waar kan ik je mee helpen? Vertel me gerust wat je op je hart hebt.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -290,6 +290,7 @@
                                                 type="text"
                                                 id="chatInput"
                                                 placeholder="Type je bericht hier..."
+                                                data-translate="chatPlaceholder"
                                                 autocomplete="off"
                                                 maxlength="500"
                                             >
@@ -302,12 +303,12 @@
                                     </form>
 
                                     <div class="quick-suggestions" id="quickSuggestions">
-                                        <p class="suggestions-label">Of kies een van deze onderwerpen:</p>
+                                        <p class="suggestions-label" data-translate="suggestionsLabel">Of kies een van deze onderwerpen:</p>
                                         <div class="suggestion-chips">
-                                            <button type="button" class="suggestion-chip" data-message="Ik wil meer over je weten" aria-label="Ask about Nathalja">Over jou</button>
-                                            <button type="button" class="suggestion-chip" data-message="Hoe kan ik contact met je opnemen?" aria-label="Ask about contact">Contact</button>
-                                            <button type="button" class="suggestion-chip" data-message="Ik heb een project idee" aria-label="Discuss a project">Project bespreken</button>
-                                            <button type="button" class="suggestion-chip" data-message="Wat zijn je tarieven?" aria-label="Ask about rates">Tarieven</button>
+                                            <button type="button" class="suggestion-chip" data-message="Ik wil meer over je weten" aria-label="Ask about Nathalja" data-translate="suggestionAbout">Over jou</button>
+                                            <button type="button" class="suggestion-chip" data-message="Hoe kan ik contact met je opnemen?" aria-label="Ask about contact" data-translate="suggestionContact">Contact</button>
+                                            <button type="button" class="suggestion-chip" data-message="Ik heb een project idee" aria-label="Discuss a project" data-translate="suggestionProject">Project bespreken</button>
+                                            <button type="button" class="suggestion-chip" data-message="Wat zijn je tarieven?" aria-label="Ask about rates" data-translate="suggestionRates">Tarieven</button>
                                         </div>
                                     </div>
                                 </div>
@@ -317,18 +318,18 @@
                             <div class="dialogue-screen response-screen" id="aboutScreen" style="display: none;">
                                 <div class="response-content">
                                     <div class="response-text">
-                                        <p>Ik ben <strong>Nathalja Nijman</strong>, Product Owner bij ABN AMRO met een passie voor het creëren van gebruiksvriendelijke digitale producten.</p>
-                                        <p>Met 3+ jaar ervaring help ik teams bij het ontwikkelen van producten die écht waarde toevoegen voor gebruikers. Mijn expertise ligt in:</p>
+                                        <p data-translate="aboutScreenIntro">Ik ben <strong>Nathalja Nijman</strong>, Product Owner bij ABN AMRO met een passie voor het creëren van gebruiksvriendelijke digitale producten.</p>
+                                        <p data-translate="aboutScreenExperience">Met 3+ jaar ervaring help ik teams bij het ontwikkelen van producten die écht waarde toevoegen voor gebruikers. Mijn expertise ligt in:</p>
                                         <ul>
-                                            <li>Product Strategy & Roadmapping</li>
-                                            <li>User Experience Design</li>
-                                            <li>Agile Product Development</li>
-                                            <li>Stakeholder Management</li>
+                                            <li data-translate="expertiseStrategy">Product Strategy & Roadmapping</li>
+                                            <li data-translate="expertiseUX">User Experience Design</li>
+                                            <li data-translate="expertiseAgile">Agile Product Development</li>
+                                            <li data-translate="expertiseStakeholder">Stakeholder Management</li>
                                         </ul>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showContactScreen()" aria-label="Go to contact screen">Laten we in contact komen</button>
+                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" onclick="showContactScreen()" aria-label="Go to contact screen" data-translate="btnLetsTalk">Laten we in contact komen</button>
                                     </div>
                                 </div>
                             </div>
@@ -336,33 +337,33 @@
                             <div class="dialogue-screen response-screen" id="contactScreen" style="display: none;">
                                 <div class="response-content">
                                     <div class="response-text">
-                                        <p>Geweldig! Er zijn verschillende manieren om contact met me op te nemen:</p>
+                                        <p data-translate="contactScreenIntro">Geweldig! Er zijn verschillende manieren om contact met me op te nemen:</p>
                                     </div>
                                     <div class="contact-options">
                                         <a href="mailto:nathaljanijman@hotmail.com" class="contact-option">
                                             <div class="contact-icon">📧</div>
                                             <div class="contact-details">
-                                                <strong>Email</strong>
-                                                <small>nathaljanijman@hotmail.com</small>
+                                                <strong data-translate="contactOptionEmail">Email</strong>
+                                                <small data-translate="contactOptionEmailSub">nathaljanijman@hotmail.com</small>
                                             </div>
                                         </a>
                                         <a href="https://linkedin.com/in/nathalja-nijman-86410389" class="contact-option">
                                             <div class="contact-icon">💼</div>
                                             <div class="contact-details">
-                                                <strong>LinkedIn</strong>
-                                                <small>Professioneel netwerken</small>
+                                                <strong data-translate="contactOptionLinkedIn">LinkedIn</strong>
+                                                <small data-translate="contactOptionLinkedInSub">Professioneel netwerken</small>
                                             </div>
                                         </a>
                                         <button type="button" class="contact-option" onclick="showProjectScreen()" aria-label="Schedule project discussion">
                                             <div class="contact-icon">💬</div>
                                             <div class="contact-details">
-                                                <strong>Project gesprek plannen</strong>
-                                                <small>Laten we je project bespreken</small>
+                                                <strong data-translate="contactOptionSchedule">Project gesprek plannen</strong>
+                                                <small data-translate="contactOptionScheduleSub">Laten we je project bespreken</small>
                                             </div>
                                         </button>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen">← Terug naar opties</button>
+                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
                                     </div>
                                 </div>
                             </div>
@@ -370,34 +371,34 @@
                             <div class="dialogue-screen response-screen" id="projectScreen" style="display: none;">
                                 <div class="response-content">
                                     <div class="response-text">
-                                        <p>Fantastisch! Ik zou graag meer willen weten over je project.</p>
+                                        <p data-translate="projectScreenIntro">Fantastisch! Ik zou graag meer willen weten over je project.</p>
                                     </div>
                                     <form class="project-form" id="projectForm">
                                         <div class="field-group">
-                                            <label for="projectName">Je naam</label>
+                                            <label for="projectName" data-translate="projectFormName">Je naam</label>
                                             <input type="text" id="projectName" required>
                                         </div>
                                         <div class="field-group">
-                                            <label for="projectEmail">Email</label>
+                                            <label for="projectEmail" data-translate="projectFormEmail">Email</label>
                                             <input type="email" id="projectEmail" required>
                                         </div>
                                         <div class="field-group">
-                                            <label for="projectType">Type project</label>
+                                            <label for="projectType" data-translate="projectFormType">Type project</label>
                                             <select id="projectType" required>
-                                                <option value="">Selecteer type</option>
-                                                <option value="product-strategy">Product Strategy</option>
-                                                <option value="ux-design">UX Design</option>
-                                                <option value="consultation">Consultancy</option>
-                                                <option value="training">Training/Workshop</option>
+                                                <option value="" data-translate="projectFormTypeSelect">Selecteer type</option>
+                                                <option value="product-strategy" data-translate="projectFormTypeStrategy">Product Strategy</option>
+                                                <option value="ux-design" data-translate="projectFormTypeUX">UX Design</option>
+                                                <option value="consultation" data-translate="projectFormTypeConsultation">Consultancy</option>
+                                                <option value="training" data-translate="projectFormTypeTraining">Training/Workshop</option>
                                             </select>
                                         </div>
                                         <div class="field-group">
-                                            <label for="projectDescription">Beschrijf je project</label>
-                                            <textarea id="projectDescription" rows="3" placeholder="Vertel me meer over wat je voor ogen hebt..."></textarea>
+                                            <label for="projectDescription" data-translate="projectFormDescription">Beschrijf je project</label>
+                                            <textarea id="projectDescription" rows="3" placeholder="Vertel me meer over wat je voor ogen hebt..." data-translate="projectFormDescriptionPlaceholder"></textarea>
                                         </div>
                                         <div class="response-actions">
-                                            <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen">← Terug naar opties</button>
-                                            <button type="submit" class="action-btn" aria-label="Submit project request">Verstuur aanvraag</button>
+                                            <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                            <button type="submit" class="action-btn" aria-label="Submit project request" data-translate="projectFormSubmit">Verstuur aanvraag</button>
                                         </div>
                                     </form>
                                 </div>
@@ -406,29 +407,29 @@
                             <div class="dialogue-screen response-screen" id="expertiseScreen" style="display: none;">
                                 <div class="response-content">
                                     <div class="response-text">
-                                        <p>Ik help organisaties met verschillende aspecten van productbeheer:</p>
+                                        <p data-translate="expertiseScreenIntro">Ik help organisaties met verschillende aspecten van productbeheer:</p>
                                     </div>
                                     <div class="expertise-grid">
                                         <div class="expertise-item">
-                                            <h4>Product Strategy</h4>
-                                            <p>Van visie tot roadmap - ik help bij het definiëren van productrichting</p>
+                                            <h4 data-translate="expertiseCardStrategy">Product Strategy</h4>
+                                            <p data-translate="expertiseCardStrategyDesc">Van visie tot roadmap - ik help bij het definiëren van productrichting</p>
                                         </div>
                                         <div class="expertise-item">
-                                            <h4>User Experience</h4>
-                                            <p>Gebruikersonderzoek en UX design voor betere producten</p>
+                                            <h4 data-translate="expertiseCardUX">User Experience</h4>
+                                            <p data-translate="expertiseCardUXDesc">Gebruikersonderzoek en UX design voor betere producten</p>
                                         </div>
                                         <div class="expertise-item">
-                                            <h4>Agile Development</h4>
-                                            <p>Scrum en Kanban implementatie voor efficiënte teams</p>
+                                            <h4 data-translate="expertiseCardAgile">Agile Development</h4>
+                                            <p data-translate="expertiseCardAgileDesc">Scrum en Kanban implementatie voor efficiënte teams</p>
                                         </div>
                                         <div class="expertise-item">
-                                            <h4>Stakeholder Management</h4>
-                                            <p>Afstemming tussen business, techniek en design</p>
+                                            <h4 data-translate="expertiseCardStakeholder">Stakeholder Management</h4>
+                                            <p data-translate="expertiseCardStakeholderDesc">Afstemming tussen business, techniek en design</p>
                                         </div>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Start collaboration">Laten we samenwerken</button>
+                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Start collaboration" data-translate="btnCollaborate">Laten we samenwerken</button>
                                     </div>
                                 </div>
                             </div>
@@ -436,28 +437,28 @@
                             <div class="dialogue-screen response-screen" id="ratesScreen" style="display: none;">
                                 <div class="response-content">
                                     <div class="response-text">
-                                        <p>Mijn tarieven zijn afhankelijk van het type project en de duur van de samenwerking:</p>
+                                        <p data-translate="ratesScreenIntro">Mijn tarieven zijn afhankelijk van het type project en de duur van de samenwerking:</p>
                                     </div>
                                     <div class="rates-info">
                                         <div class="rate-item">
-                                            <strong>Consultancy & Strategy</strong>
-                                            <span>€95 - €125 per uur</span>
+                                            <strong data-translate="ratesConsultancy">Consultancy & Strategy</strong>
+                                            <span data-translate="ratesConsultancyPrice">€95 - €125 per uur</span>
                                         </div>
                                         <div class="rate-item">
-                                            <strong>UX Design Projects</strong>
-                                            <span>Vanaf €2.500 per project</span>
+                                            <strong data-translate="ratesUX">UX Design Projects</strong>
+                                            <span data-translate="ratesUXPrice">Vanaf €2.500 per project</span>
                                         </div>
                                         <div class="rate-item">
-                                            <strong>Workshops & Training</strong>
-                                            <span>€750 - €1.250 per dag</span>
+                                            <strong data-translate="ratesWorkshops">Workshops & Training</strong>
+                                            <span data-translate="ratesWorkshopsPrice">€750 - €1.250 per dag</span>
                                         </div>
                                         <div class="rate-note">
-                                            <p><em>Voor langere samenwerkingen bespreek ik graag aangepaste tarieven. Laten we je specifieke situatie bespreken!</em></p>
+                                            <p><em data-translate="ratesNote">Voor langere samenwerkingen bespreek ik graag aangepaste tarieven. Laten we je specifieke situatie bespreken!</em></p>
                                         </div>
                                     </div>
                                     <div class="response-actions">
-                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen">← Terug naar opties</button>
-                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Discuss rates">Laten we het bespreken</button>
+                                        <button type="button" class="back-btn" onclick="showMainScreen()" aria-label="Back to main screen" data-translate="btnBackToOptions">← Terug naar opties</button>
+                                        <button type="button" class="action-btn" onclick="showProjectScreen()" aria-label="Discuss rates" data-translate="btnDiscuss">Laten we het bespreken</button>
                                     </div>
                                 </div>
                             </div>

@@ -91,7 +91,7 @@
 }
 
 /* Fade in when visible */
-.project-card.visible {
+.project-card.card-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
@@ -545,7 +545,7 @@
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fade-in.visible {
+.fade-in.card-visible {
     opacity: 1;
     transform: translateY(0);
 }
