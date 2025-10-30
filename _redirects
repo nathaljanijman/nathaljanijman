@@ -8,6 +8,8 @@
 /en   /index.html   200
 /nl/portfolio-website   /portfolio-website.html   200
 /en/portfolio-website   /portfolio-website.html   200
+/nl/product-consultancy   /product-consultancy.html   200
+/en/product-consultancy   /product-consultancy.html   200
 
 # Legacy home redirect
 /home   /index.html   200
