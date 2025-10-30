@@ -97,8 +97,9 @@ const translations = {
         project1Type: 'Product Owner',
         project1Title: 'ABN AMRO - Website & Content Platform',
         project1Description: 'Het ABN AMRO Website & Content Platform is het centrale digitale fundament voor klantinteractie en merkbeleving. Met meer dan 60 miljoen jaarlijkse bezoekers, 11.000+ pagina\'s verdeeld over 8 markten in Noordwest-Europa en integratie van CMS, DAM en Content API, faciliteert het platform schaalbare contentdistributie naar alle owned channels. Het zorgt voor consistente governance, verhoogde conversie en strategische waardecreatie door het verbinden van proposities met miljoenen klanten.',
-        project1Impact1: 'Pagina\'s beheerd',
-        project1Impact2: 'Stakeholders',
+        project1Impact1: 'Jaarlijkse bezoekers',
+        project1Impact2: 'Pagina\'s',
+        project1Impact3: 'Markten NW-Europa',
         project1LinkSite: 'Website',
 
         // Project 2 - BALR.
@@ -298,8 +299,9 @@ const translations = {
         project1Type: 'Product Owner',
         project1Title: 'ABN AMRO - Website & Content Platform',
         project1Description: 'The ABN AMRO Website & Content Platform is the central digital foundation for customer interaction and brand experience. With over 60 million annual visitors, 11,000+ pages across 8 markets in Northwest Europe and integration of CMS, DAM and Content API, the platform enables scalable content distribution to all owned channels. It ensures consistent governance, increased conversion and strategic value creation by connecting propositions with millions of customers.',
-        project1Impact1: 'Pages managed',
-        project1Impact2: 'Stakeholders',
+        project1Impact1: 'Annual visitors',
+        project1Impact2: 'Pages',
+        project1Impact3: 'Markets NW-Europe',
         project1LinkSite: 'Website',
 
         // Project 2 - BALR.
