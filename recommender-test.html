@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keuzehulp – Testpagina</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { color-scheme: dark; }
+        body { margin: 0; font-family: Raleway, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background:#0b0b0b; color:#fff; }
+        .wrap { max-width: 960px; margin: 32px auto; padding: 0 16px; }
+        .toolbar { display:flex; gap:12px; align-items:center; margin-bottom:16px }
+        .btn { background:#0b5cff; border:0; color:#fff; padding:10px 14px; border-radius:8px; cursor:pointer; text-decoration:none }
+        .link { color:#9bbcff; text-decoration:none }
+        .note { margin-top:10px; opacity:.7; font-size:13px }
+        /* Backdrop/container kept inline in DOM for parity met index.html */
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="toolbar">
+            <a class="link" href="/">← Terug naar home</a>
+            <button id="openModalBtn" class="btn" type="button">Open Keuzehulp</button>
+        </div>
+        <p>Dit is een testpagina met de laatste 3-staps implementatie van de diensten keuzehulp.</p>
+        <p class="note">De modal opent ook automatisch, zodat je direct kunt testen.</p>
+    </div>
+
+    <!-- Keuzehulp Modal (3 stappen) - zelfde implementatie als index.html -->
+    <div id="serviceRecommenderModal" style="display:none;position:fixed;inset:0;z-index:1000;">
+        <div class="sr-backdrop" style="position:absolute;inset:0;background:rgba(0,0,0,.5);"></div>
+        <div class="sr-container" role="dialog" aria-modal="true" aria-labelledby="srTitle"
+             style="position:relative;margin:6vh auto;background:#0d0d0d;color:#fff;max-width:680px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);overflow:hidden">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08)">
+                <div>
+                    <div id="srProgress" style="opacity:.7;font-size:12px">Stap <span id="srStepNum">1</span>/3</div>
+                    <h3 id="srTitle" style="margin:2px 0 0;font-size:18px;">Welke dienst past bij je doel?</h3>
+                </div>
+                <button type="button" id="srClose" aria-label="Sluiten" style="background:none;border:0;color:#aaa;font-size:22px;line-height:1;cursor:pointer">×</button>
+            </div>
+
+            <!-- Stap 1: Doel (3 opties met voorbeelden) -->
+            <div id="srStep1" style="padding:16px 20px;display:grid;gap:12px">
+                <button type="button" class="sr-option" data-choice="leads" style="text-align:left;border:1px solid rgba(255,255,255,.12);background:#121212;padding:14px;border-radius:10px;cursor:pointer">
+                    <strong>Meer leads met een persoonlijke site</strong>
+                    <div style="opacity:.8;font-size:14px;margin-top:4px">Voorbeelden: portfolio website • snelle launchen • SEO-basics</div>
+                </button>
+                <button type="button" class="sr-option" data-choice="richting" style="text-align:left;border:1px solid rgba(255,255,255,.12);background:#121212;padding:14px;border-radius:10px;cursor:pointer">
+                    <strong>Richting en focus voor je product</strong>
+                    <div style="opacity:.8;font-size:14px;margin-top:4px">Voorbeelden: roadmap/visie • stakeholder alignment • prioriteren</div>
+                </button>
+                <button type="button" class="sr-option" data-choice="optimalisatie" style="text-align:left;border:1px solid rgba(255,255,255,.12);background:#121212;padding:14px;border-radius:10px;cursor:pointer">
+                    <strong>Optimaliseren van UX en conversie</strong>
+                    <div style="opacity:.8;font-size:14px;margin-top:4px">Voorbeelden: funnel quick wins • gebruikertests • AB-test suggesties</div>
+                </button>
+                <div style="opacity:.7;font-size:13px;margin-top:4px">Korte vraag hierna helpt om de beste volgende stap te bepalen.</div>
+            </div>
+
+            <!-- Stap 2: Kwalificatie (contextueel) -->
+            <div id="srStep2" style="display:none;padding:16px 20px;">
+                <div id="srQualTitle" style="margin-bottom:10px;opacity:.85">Snelle vervolgvraag:</div>
+                <div id="srQualGrid" style="display:grid;gap:10px"></div>
+            </div>
+
+            <!-- Stap 3: Resultaat -->
+            <div id="srStep3" style="display:none;padding:16px 20px;">
+                <h4 id="srResultTitle" style="margin:0 0 8px">Beste volgende stap voor jou</h4>
+                <ul id="srBullets" style="margin:0 0 12px 18px;opacity:.9"></ul>
+                <div style="display:flex;gap:8px;justify-content:flex-end">
+                    <a id="srSecondary" class="sr-btn" href="#contact" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.12);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none">WhatsApp</a>
+                    <a id="srPrimary" class="sr-btn" href="#contact" style="background:#0b5cff;border:0;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none">Doorgaan</a>
+                </div>
+            </div>
+
+            <div style="padding:12px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;gap:8px;justify-content:space-between">
+                <button type="button" id="srBack" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.12);color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;visibility:hidden">Terug</button>
+                <div style="display:flex;gap:8px;justify-content:flex-end">
+                    <button type="button" id="srCancel" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.12);color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer">Sluiten</button>
+                    <button type="button" id="srNext" style="background:#0b5cff;border:0;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer">Volgende</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        const modal = document.getElementById('serviceRecommenderModal');
+        const closeEls = [document.getElementById('srClose'), document.getElementById('srCancel')];
+        const backBtn = document.getElementById('srBack');
+        const nextBtn = document.getElementById('srNext');
+        const stepNum = document.getElementById('srStepNum');
+        const step1 = document.getElementById('srStep1');
+        const step2 = document.getElementById('srStep2');
+        const step3 = document.getElementById('srStep3');
+        const qualGrid = document.getElementById('srQualGrid');
+        const qualTitle = document.getElementById('srQualTitle');
+        const bullets = document.getElementById('srBullets');
+        const primary = document.getElementById('srPrimary');
+        const secondary = document.getElementById('srSecondary');
+        let state = { step: 1, goal: null, qual: {} };
+
+        function openModal(){ modal.style.display = 'block'; document.body.style.overflow = 'hidden'; go(1); }
+        function closeModal(){ modal.style.display = 'none'; document.body.style.overflow = ''; }
+        function go(n){
+            state.step = n; stepNum.textContent = n;
+            step1.style.display = n===1 ? 'grid' : 'none';
+            step2.style.display = n===2 ? 'block' : 'none';
+            step3.style.display = n===3 ? 'block' : 'none';
+            backBtn.style.visibility = n>1 ? 'visible' : 'hidden';
+            nextBtn.style.display = n<3 ? 'inline-block' : 'none';
+        }
+
+        // Open per knop en auto-open op testpagina
+        document.getElementById('openModalBtn').addEventListener('click', openModal);
+        window.addEventListener('load', openModal);
+
+        closeEls.forEach(el=> el && el.addEventListener('click', closeModal));
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+        backBtn.addEventListener('click', () => { if(state.step>1) go(state.step-1); });
+        nextBtn.addEventListener('click', () => { if(state.step<3) go(state.step+1); });
+
+        // Stap 1 keuze (3 opties)
+        step1.querySelectorAll('.sr-option').forEach(btn=>{
+            btn.addEventListener('click', () => {
+                state.goal = btn.getAttribute('data-choice');
+                // Configure kwalificatievragen per goal
+                qualGrid.innerHTML = '';
+                if(state.goal==='leads'){
+                    qualTitle.textContent = 'Wat past het beste bij je timing en budget?';
+                    qualGrid.appendChild(makeChoice('time','Binnen 2 weken','Flexibel'));
+                    qualGrid.appendChild(makeChoice('budget','< €1.000','€1–3k','> €3k'));
+                } else if(state.goal==='richting'){
+                    qualTitle.textContent = 'Wat is nu het meest urgent?';
+                    qualGrid.appendChild(makeChoice('focus','Roadmap/visie','Stakeholders','Team/ritme'));
+                } else if(state.goal==='optimalisatie'){
+                    qualTitle.textContent = 'Hoe is je huidige data/validatie?';
+                    qualGrid.appendChild(makeChoice('data','Geen data','Light analytics','Volledige funnel'));
+                }
+                go(2);
+            });
+        });
+
+        function makeChoice(key, ...labels){
+            const row = document.createElement('div');
+            row.style.display = 'flex'; row.style.gap = '8px'; row.style.flexWrap = 'wrap';
+            labels.forEach(l=>{
+                const b = document.createElement('button');
+                b.type = 'button'; b.textContent = l;
+                b.style.cssText = 'background:#121212;border:1px solid rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer';
+                b.addEventListener('click', ()=>{ state.qual[key]=l; synthesizeResult(); go(3); });
+                row.appendChild(b);
+            });
+            return row;
+        }
+
+        function synthesizeResult(){
+            bullets.innerHTML='';
+            let res = { title:'', bullets:[], primary:{href:'#contact',label:'Contact opnemen'}, secondary:{href:'https://wa.me/31657591440',label:'WhatsApp'} };
+            if(state.goal==='leads'){
+                res.title='Portfolio website – beste volgende stap';
+                res.bullets=['Klaar om te publiceren in korte doorlooptijd','SEO-basics + snelle laadtijden','Pakketten passend bij je budget'];
+                res.primary={href:'/portfolio-website.html',label:'Bekijk pakketten'};
+            } else if(state.goal==='richting'){
+                res.title='Product consultancy – beste volgende stap';
+                res.bullets=['Heldere “nu vs straks”-roadmap','Stakeholder alignment in 2 sessies','Meetbare doelen en ritme'];
+                res.primary={href:'/index.html#contact',label:'Plan consultancy call'};
+            } else if(state.goal==='optimalisatie'){
+                res.title='UX / Research – beste volgende stap';
+                res.bullets=['Snelle funnel-scan + quick wins','Gebruikertests binnen 1 week','AB-test suggesties met impact'];
+                res.primary={href:'/index.html#projects',label:'Bekijk cases'};
+            }
+            document.getElementById('srResultTitle').textContent = res.title;
+            res.bullets.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; bullets.appendChild(li); });
+            primary.href = res.primary.href; primary.textContent = res.primary.label;
+            secondary.href = res.secondary.href; secondary.textContent = res.secondary.label;
+        }
+    })();
+    </script>
+</body>
+</html>
+
+

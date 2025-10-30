@@ -984,8 +984,101 @@
             </a>
         </div>
     </nav>
-
+    
     </main>
+
+
+    <script>
+    (function(){
+        const modal = document.getElementById('serviceRecommenderModal');
+        const closeEls = [document.getElementById('srClose'), document.getElementById('srCancel')];
+        const backBtn = document.getElementById('srBack');
+        const nextBtn = document.getElementById('srNext');
+        const stepNum = document.getElementById('srStepNum');
+        const step1 = document.getElementById('srStep1');
+        const step2 = document.getElementById('srStep2');
+        const step3 = document.getElementById('srStep3');
+        const qualGrid = document.getElementById('srQualGrid');
+        const qualTitle = document.getElementById('srQualTitle');
+        const bullets = document.getElementById('srBullets');
+        const primary = document.getElementById('srPrimary');
+        const secondary = document.getElementById('srSecondary');
+        let state = { step: 1, goal: null, qual: {} };
+
+        function openModal(){ modal.style.display = 'block'; document.body.style.overflow = 'hidden'; go(1); }
+        function closeModal(){ modal.style.display = 'none'; document.body.style.overflow = ''; }
+        function go(n){
+            state.step = n; stepNum.textContent = n;
+            step1.style.display = n===1 ? 'grid' : 'none';
+            step2.style.display = n===2 ? 'block' : 'none';
+            step3.style.display = n===3 ? 'block' : 'none';
+            backBtn.style.visibility = n>1 ? 'visible' : 'hidden';
+            nextBtn.style.display = n<3 ? 'inline-block' : 'none';
+        }
+
+        document.getElementById('openModalBtn').addEventListener('click', openModal);
+        window.addEventListener('load', openModal);
+
+        closeEls.forEach(el=> el and el.addEventListener('click', closeModal));
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+        backBtn.addEventListener('click', () => { if(state.step>1) go(state.step-1); });
+        nextBtn.addEventListener('click', () => { if(state.step<3) go(state.step+1); });
+
+        step1.querySelectorAll('.sr-option').forEach(btn=>{
+            btn.addEventListener('click', () => {
+                state.goal = btn.getAttribute('data-choice');
+                qualGrid.innerHTML = '';
+                if(state.goal==='leads'){
+                    qualTitle.textContent = 'Wat past het beste bij je timing en budget?';
+                    qualGrid.appendChild(makeChoice('time','Binnen 2 weken','Flexibel'));
+                    qualGrid.appendChild(makeChoice('budget','< €1.000','€1–3k','> €3k'));
+                } else if(state.goal==='richting'){
+                    qualTitle.textContent = 'Wat is nu het meest urgent?';
+                    qualGrid.appendChild(makeChoice('focus','Roadmap/visie','Stakeholders','Team/ritme'));
+                } else if(state.goal==='optimalisatie'){
+                    qualTitle.textContent = 'Hoe is je huidige data/validatie?';
+                    qualGrid.appendChild(makeChoice('data','Geen data','Light analytics','Volledige funnel'));
+                }
+                go(2);
+            });
+        });
+
+        function makeChoice(key, ...labels){
+            const row = document.createElement('div');
+            row.style.display = 'flex'; row.style.gap = '8px'; row.style.flexWrap = 'wrap';
+            labels.forEach(l=>{
+                const b = document.createElement('button');
+                b.type = 'button'; b.textContent = l;
+                b.style.cssText = 'background:#121212;border:1px solid rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer';
+                b.addEventListener('click', ()=>{ state.qual[key]=l; synthesizeResult(); go(3); });
+                row.appendChild(b);
+            });
+            return row;
+        }
+
+        function synthesizeResult(){
+            bullets.innerHTML='';
+            let res = { title:'', bullets:[], primary:{href:'#contact',label:'Contact opnemen'}, secondary:{href:'https://wa.me/31657591440',label:'WhatsApp'} };
+            if(state.goal==='leads'){
+                res.title='Portfolio website – beste volgende stap';
+                res.bullets=['Klaar om te publiceren in korte doorlooptijd','SEO-basics + snelle laadtijden','Pakketten passend bij je budget'];
+                res.primary={href:'/portfolio-website.html',label:'Bekijk pakketten'};
+            } else if(state.goal==='richting'){
+                res.title='Product consultancy – beste volgende stap';
+                res.bullets=['Heldere “nu vs straks”-roadmap','Stakeholder alignment in 2 sessies','Meetbare doelen en ritme'];
+                res.primary={href:'/index.html#contact',label:'Plan consultancy call'};
+            } else if(state.goal==='optimalisatie'){
+                res.title='UX / Research – beste volgende stap';
+                res.bullets=['Snelle funnel-scan + quick wins','Gebruikertests binnen 1 week','AB-test suggesties met impact'];
+                res.primary={href:'/index.html#projects',label:'Bekijk cases'};
+            }
+            document.getElementById('srResultTitle').textContent = res.title;
+            res.bullets.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; bullets.appendChild(li); });
+            primary.href = res.primary.href; primary.textContent = res.primary.label;
+            secondary.href = res.secondary.href; secondary.textContent = res.secondary.label;
+        }
+    })();
+    </script>
 
     <script src="js/error-handler.js"></script>
     <script src="js/translations.js?v=20251030v4"></script>

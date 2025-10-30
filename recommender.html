@@ -1,3 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diensten Keuzehulp - Test</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { color-scheme: dark; }
+        body { margin: 0; font-family: Raleway, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:#0b0b0b; color:#fff; }
+        .page { max-width: 960px; margin: 32px auto; padding: 0 16px; }
+        .card { background:#111; border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.6); overflow:hidden; }
+        .card-header { display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid rgba(255,255,255,.08) }
+        .title { margin:0; font-size:20px; }
+        .desc { margin: 6px 0 0; opacity:.75; font-size:14px; }
+        .grid { padding:16px; display:grid; gap:12px; }
+        .option { text-align:left; border:1px solid rgba(255,255,255,.12); background:#121212; padding:14px; border-radius:10px; cursor:pointer; transition: border-color .15s, transform .05s; }
+        .option:hover { border-color: rgba(91, 158, 255, .6); }
+        .option:active { transform: translateY(1px); }
+        .option strong { display:block; }
+        .footer { padding:12px 16px; border-top:1px solid rgba(255,255,255,.08); display:flex; gap:8px; justify-content:flex-end }
+        .btn { background:#1a1a1a; border:1px solid rgba(255,255,255,.12); color:#fff; padding:10px 14px; border-radius:8px; cursor:pointer; text-decoration:none }
+        .btn-primary { background:#0b5cff; border:0; color:#fff }
+        .result { margin-top:16px; opacity:.85; font-size:14px }
+        .hint { margin-top:8px; opacity:.6; font-size:12px }
+        .nav { margin-bottom:16px }
+        .nav a { color:#9bbcff; text-decoration:none }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="nav"><a href="/">← Terug naar home</a></div>
+        <div class="card" role="region" aria-labelledby="srTitle">
+            <div class="card-header">
+                <div>
+                    <h1 id="srTitle" class="title">Diensten Keuzehulp (Test)</h1>
+                    <p class="desc">Kies wat je wil bereiken – we sturen je naar de beste volgende stap.</p>
+                </div>
+            </div>
+            <div class="grid">
+                <button type="button" class="option" data-choice="portfolio">
+                    <strong>Portfolio website</strong>
+                    <span>Persoonlijke site die leads oplevert</span>
+                </button>
+                <button type="button" class="option" data-choice="consultancy">
+                    <strong>Product consultancy</strong>
+                    <span>Strategie, roadmap, stakeholder alignment</span>
+                </button>
+                <button type="button" class="option" data-choice="ux">
+                    <strong>UX / Research</strong>
+                    <span>Flows, validatie, betere conversie</span>
+                </button>
+                <button type="button" class="option" data-choice="training">
+                    <strong>Training / Workshop</strong>
+                    <span>Teams versnellen met focus en ritme</span>
+                </button>
+            </div>
+            <div class="footer">
+                <a class="btn" href="/#contact">Contact</a>
+                <a id="ctaLink" class="btn btn-primary" href="/#contact">Doorgaan</a>
+            </div>
+        </div>
+        <div id="srResult" class="result" aria-live="polite"></div>
+        <div class="hint">Tip: Je kunt deze testpagina direct openen zonder lokale server via je hosting wanneer gedeployed.</div>
+    </div>
+
+    <script>
+    (function(){
+        const result = document.getElementById('srResult');
+        const cta = document.getElementById('ctaLink');
+        function setChoice(choice){
+            let target = '/#contact';
+            let label = 'Contact opnemen';
+            if(choice === 'portfolio'){ target = '/portfolio-website.html'; label = 'Bekijk portfolio pakketten'; }
+            if(choice === 'consultancy'){ target = '/#contact'; label = 'Plan consultancy gesprek'; }
+            if(choice === 'ux'){ target = '/#projects'; label = 'Bekijk cases'; }
+            if(choice === 'training'){ target = '/#contact'; label = 'Plan een workshop'; }
+            cta.href = target;
+            cta.textContent = label;
+            result.textContent = 'Gekozen: ' + choice;
+        }
+        document.querySelectorAll('.option').forEach(btn =>{
+            btn.addEventListener('click', () => setChoice(btn.getAttribute('data-choice')));
+        });
+        // Default selectie voor snelle test
+        setChoice('portfolio');
+    })();
+    </script>
+</body>
+</html>
+
 
 <!DOCTYPE html>
 <html lang="nl" data-theme="dark">
