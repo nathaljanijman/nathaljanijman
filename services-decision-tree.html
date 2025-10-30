@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Selector - Nathalja Nijman</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .decision-tree-container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Header */
+        .tree-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .tree-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tree-header p {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0047AB, #1E5FBF);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Step Container */
+        .step-container {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .step {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: all;
+            animation: fadeInScale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Question */
+        .question {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .question h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .question p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .option-card {
+            background: rgba(255,255,255,0.03);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,71,171,0.1), rgba(30,95,191,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0,71,171,0.5);
+            box-shadow: 0 20px 40px rgba(0,71,171,0.3);
+        }
+
+        .option-card:hover::before {
+            opacity: 1;
+        }
+
+        .option-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .option-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #0047AB;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover .option-icon {
+            background: rgba(0, 71, 171, 0.1);
+            border-color: rgba(0, 71, 171, 0.3);
+            transform: scale(1.1);
+        }
+
+        .option-card:hover .option-icon svg {
+            color: #1E5FBF;
+            transform: scale(1.1);
+        }
+
+        .option-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-description {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: linear-gradient(135deg, rgba(0,71,171,0.1), rgba(30,95,191,0.05));
+            border: 2px solid rgba(0,71,171,0.3);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            border: 2px solid rgba(0,71,171,0.3);
+            position: relative;
+        }
+
+        .result-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #0047AB;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .result-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .result-card .result-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+        }
+
+        .result-features {
+            text-align: left;
+            margin: 32px 0;
+            display: inline-block;
+        }
+
+        .result-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .result-feature svg {
+            width: 24px;
+            height: 24px;
+            color: #1E5FBF;
+            flex-shrink: 0;
+        }
+
+        .result-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 32px 0;
+            background: linear-gradient(135deg, #0047AB, #1E5FBF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-price span {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0047AB, #1E5FBF);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,71,171,0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            padding: 12px 24px;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card {
+                padding: 32px 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Step indicator dots */
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: #0047AB;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .step-dot.completed {
+            background: #1E5FBF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="decision-tree-container">
+    <!-- Header -->
+    <div class="tree-header">
+        <h1>Welke service past bij jouw situatie?</h1>
+        <p>Beantwoord enkele vragen voor een persoonlijk advies op maat</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Step Indicators -->
+    <div class="step-indicators" id="stepIndicators">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+    </div>
+
+    <!-- Steps Container -->
+    <div class="step-container">
+
+        <!-- Step 1: Starter or Existing -->
+        <div class="step active" data-step="1">
+            <div class="question">
+                <h2>Wat is je huidige situatie?</h2>
+                <p>Dit helpt me de meest geschikte aanpak voor je te bepalen</p>
+            </div>
+            <div class="options-grid">
+                <div class="option-card" data-next="step2-starter">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Starting fase</div>
+                    <div class="option-description">Ik heb een idee en wil dit realiseren</div>
+                </div>
+                <div class="option-card" data-next="step2-existing">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Bestaand product</div>
+                    <div class="option-description">Ik wil optimaliseren of doorontwikkelen</div>
+                </div>
+                <div class="option-card" data-next="result-unsure">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Nog onduidelijk</div>
+                    <div class="option-description">Ik wil eerst advies op maat</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2A: Starter - Budget -->
+        <div class="step" data-step="2">
+            <div class="question">
+                <h2>Wat is je investeringsbudget?</h2>
+                <p>Dit bepaalt de scope en aanpak van het project</p>
+            </div>
+            <div class="options-grid">
+                <div class="option-card" data-next="result-portfolio">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Onder €1.000</div>
+                    <div class="option-description">Compacte oplossing met directe impact</div>
+                </div>
+                <div class="option-card" data-next="result-mvp">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">€1.000 - €5.000</div>
+                    <div class="option-description">Volledige product development cyclus</div>
+                </div>
+                <div class="option-card" data-next="result-full-product">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Boven €5.000</div>
+                    <div class="option-description">Enterprise-scale product ownership</div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="goBack()">
+                    ← Terug
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2B: Existing Product -->
+        <div class="step" data-step="2">
+            <div class="question">
+                <h2>Wat is je primaire doelstelling?</h2>
+                <p>Kies het gebied waar je de grootste impact wilt maken</p>
+            </div>
+            <div class="options-grid">
+                <div class="option-card" data-next="result-optimize">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Optimaliseren</div>
+                    <div class="option-description">Betere conversie en gebruikerservaring</div>
+                </div>
+                <div class="option-card" data-next="result-consultancy">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Strategische richting</div>
+                    <div class="option-description">Roadmap en product strategie</div>
+                </div>
+                <div class="option-card" data-next="result-scale">
+                    <div class="option-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <div class="option-title">Schalen & Groeien</div>
+                    <div class="option-description">Van MVP naar volwassen product</div>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="goBack()">
+                    ← Terug
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+
+        <!-- Result: Portfolio Website -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                    </svg>
+                </div>
+                <h3>Portfolio Website</h3>
+                <div class="result-subtitle">Perfect voor jouw situatie: snel, professioneel en betaalbaar</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Modern, responsief design</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>SEO & performance optimalisatie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Contactformulier & analytics</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Klaar in 1-2 weken</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    €350 <span>vanaf</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Bekijk pakketten
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        Vragen? WhatsApp me
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: MVP Product -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                </div>
+                <h3>MVP Development</h3>
+                <div class="result-subtitle">Van idee naar werkend product in 4-6 weken</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Product strategie & roadmap</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>UX/UI design & prototyping</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Development & testing</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Launch & handover documentatie</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    €1.850 <span>vanaf</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Start je MVP
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        Bespreek je idee
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: Full Product -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <h3>Full Product Development</h3>
+                <div class="result-subtitle">End-to-end product ownership: van visie tot launch</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Complete product strategie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>User research & testing</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Full stack development</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Agile sprints met je team</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Post-launch support & iteratie</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    Op maat <span>vanaf €5.000</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://wa.me/31657591440" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        Plan een gesprek
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        WhatsApp voor advies
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: Optimize -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h3>Product Optimalisatie</h3>
+                <div class="result-subtitle">Verbeter conversie en gebruikerservaring</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>UX audit & heuristic analysis</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>User testing & feedback sessies</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>A/B test strategie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Quick wins implementatie</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    €95/uur <span>of projectbasis</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Start optimalisatie
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        Vraag offerte aan
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: Consultancy -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                </div>
+                <h3>Product Consultancy</h3>
+                <div class="result-subtitle">Heldere roadmap en strategische richting</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Product visie & roadmap workshop</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Stakeholder alignment sessie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Prioriteit & scope definitie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Success metrics framework</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    €750/dag <span>2-5 dagen</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://wa.me/31657591440" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        Plan consultancy
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        Bespreek je situatie
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: Scale -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                    </svg>
+                </div>
+                <h3>Product Scaling</h3>
+                <div class="result-subtitle">Van MVP naar enterprise-ready product</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Architecture & tech stack review</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Performance & security audit</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Team proces optimalisatie</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Growth strategie & roadmap</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Embedding als interim PO</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    Op maat <span>traject basis</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://wa.me/31657591440" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        Plan scaling gesprek
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="https://wa.me/31657591440" class="btn btn-secondary">
+                        WhatsApp voor intake
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+        <!-- Result: Unsure -->
+        <div class="step" data-step="3">
+            <div class="result-card">
+                <div class="result-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <h3>Persoonlijk adviesgesprek</h3>
+                <div class="result-subtitle">Laten we samen jouw situatie in kaart brengen en de beste aanpak bepalen</div>
+
+                <div class="result-features">
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>30 minuten vrijblijvend kennismakingsgesprek</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Situatieanalyse en doelstellingen</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Advies op maat voor jouw context</span>
+                    </div>
+                    <div class="result-feature">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Duidelijke vervolgstappen</span>
+                    </div>
+                </div>
+
+                <div class="result-price">
+                    Gratis <span>intake gesprek</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://wa.me/31657591440?text=Hi%20Nathalja%2C%20ik%20wil%20graag%20een%20adviesgesprek%20inplannen" class="btn btn-primary">
+                        Plan adviesgesprek
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="mailto:nathaljanijman@hotmail.com" class="btn btn-secondary">
+                        Of stuur een email
+                    </a>
+                </div>
+            </div>
+            <div class="navigation">
+                <button class="btn btn-back" onclick="restart()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Opnieuw beginnen
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    let stepHistory = [];
+    const totalSteps = 3;
+
+    // Map results to their target elements
+    const resultMap = {
+        'step2-starter': document.querySelectorAll('[data-step="2"]')[0],
+        'step2-existing': document.querySelectorAll('[data-step="2"]')[1],
+        'result-portfolio': document.querySelectorAll('[data-step="3"]')[0],
+        'result-mvp': document.querySelectorAll('[data-step="3"]')[1],
+        'result-full-product': document.querySelectorAll('[data-step="3"]')[2],
+        'result-optimize': document.querySelectorAll('[data-step="3"]')[3],
+        'result-consultancy': document.querySelectorAll('[data-step="3"]')[4],
+        'result-scale': document.querySelectorAll('[data-step="3"]')[5],
+        'result-unsure': document.querySelectorAll('[data-step="3"]')[6]
+    };
+
+    // Initialize
+    document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const next = this.getAttribute('data-next');
+            const currentStepEl = document.querySelector('.step.active');
+
+            // Save current step to history
+            stepHistory.push(currentStepEl);
+
+            // Hide current step
+            currentStepEl.classList.remove('active');
+
+            // Show next step
+            const nextStep = resultMap[next];
+            if (nextStep) {
+                nextStep.classList.add('active');
+
+                // Update progress
+                const stepNum = parseInt(nextStep.getAttribute('data-step'));
+                currentStep = stepNum;
+                updateProgress();
+                updateStepIndicators();
+            }
+        });
+    });
+
+    function updateProgress() {
+        const progress = (currentStep / totalSteps) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function updateStepIndicators() {
+        const dots = document.querySelectorAll('.step-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.remove('active', 'completed');
+            if (index < currentStep - 1) {
+                dot.classList.add('completed');
+            } else if (index === currentStep - 1) {
+                dot.classList.add('active');
+            }
+        });
+    }
+
+    function goBack() {
+        if (stepHistory.length > 0) {
+            // Hide current step
+            document.querySelector('.step.active').classList.remove('active');
+
+            // Show previous step
+            const previousStep = stepHistory.pop();
+            previousStep.classList.add('active');
+
+            // Update progress
+            currentStep = parseInt(previousStep.getAttribute('data-step'));
+            updateProgress();
+            updateStepIndicators();
+        }
+    }
+
+    function restart() {
+        // Hide all steps
+        document.querySelectorAll('.step').forEach(step => {
+            step.classList.remove('active');
+        });
+
+        // Show first step
+        document.querySelector('[data-step="1"]').classList.add('active');
+
+        // Reset state
+        currentStep = 1;
+        stepHistory = [];
+        updateProgress();
+        updateStepIndicators();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize progress
+    updateProgress();
+</script>
+
+</body>
+</html>

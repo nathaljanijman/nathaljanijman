@@ -1,0 +1,117 @@
+<!-- Service Selector CTA Button -->
+<!-- Add this CSS to your stylesheet or inline -->
+<style>
+    .service-selector-cta-wrapper {
+        margin: 48px 0;
+        text-align: center;
+    }
+
+    .service-selector-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 32px;
+        background: linear-gradient(135deg, #0047AB 0%, #1E5FBF 50%, #0066FF 100%);
+        color: #fff;
+        border: none;
+        border-radius: 16px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 20px rgba(0, 71, 171, 0.3);
+        text-decoration: none;
+    }
+
+    .service-selector-cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 71, 171, 0.5);
+    }
+
+    .service-selector-cta:active {
+        transform: translateY(-2px);
+    }
+
+    .service-selector-cta svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .service-selector-cta:hover svg {
+        transform: translateX(4px);
+    }
+
+    .service-selector-cta-subtitle {
+        display: block;
+        font-size: 0.95rem;
+        color: rgba(255,255,255,0.6);
+        margin-top: 12px;
+        font-weight: 400;
+    }
+
+    /* Alternative: Subtle version */
+    .service-selector-cta-subtle {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 28px;
+        background: rgba(0, 71, 171, 0.1);
+        color: #fff;
+        border: 2px solid rgba(0, 71, 171, 0.3);
+        border-radius: 12px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none;
+    }
+
+    .service-selector-cta-subtle:hover {
+        background: rgba(0, 71, 171, 0.2);
+        border-color: rgba(0, 71, 171, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .service-selector-cta-subtle svg {
+        width: 18px;
+        height: 18px;
+        color: #1E5FBF;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .service-selector-cta,
+        .service-selector-cta-subtle {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<!-- Option 1: Bold CTA (Recommended for About section) -->
+<div class="service-selector-cta-wrapper">
+    <button class="service-selector-cta" onclick="openServiceSelector()" type="button">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <span>Welke service past bij jou?</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+    </button>
+    <span class="service-selector-cta-subtitle">2 minuten • Persoonlijk advies op maat</span>
+</div>
+
+<!-- Option 2: Subtle CTA (Alternative) -->
+<!-- <div class="service-selector-cta-wrapper">
+    <button class="service-selector-cta-subtle" onclick="openServiceSelector()" type="button">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        <span>Ontdek welke service bij je past</span>
+    </button>
+    <span class="service-selector-cta-subtitle">Persoonlijk advies in 2 minuten</span>
+</div> -->

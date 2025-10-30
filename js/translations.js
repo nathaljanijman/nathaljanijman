@@ -42,10 +42,25 @@ const translations = {
         aboutStatLabel2: 'Jaar Topsport',
         aboutStatLabel3: 'Wereldwijd Remote',
 
+        // Service Selector
+        serviceBridgeIntro: 'Ik ben beschikbaar om je te helpen met je digital project',
+        serviceSelectorCTA: 'Zit je ergens mee?',
+        serviceSelectorSubtitle: 'Ontdek welke aanpak bij je past →',
+
+        // Your Project Card
+        yourProjectYear: '2025',
+        yourProjectType: 'Beschikbaar',
+        yourProjectTitle: 'Jouw project?',
+        yourProjectDescription: 'Ik ben beschikbaar om met je mee te denken! Klik hier om te ontdekken hoe ik je kan helpen.',
+        yourProjectImpact1: 'Altijd een idee',
+        yourProjectImpact2: 'Persoonlijk',
+        yourProjectCTA: 'Laten we praten',
+
         filterAll: 'Alle projecten',
         filterProductOwner: 'Product Owner',
         filterWeb: 'Web Apps',
         filterEntrepreneurship: 'Ondernemerschap',
+        filterStickerText: 'Jouw project?',
         showMoreBtn: 'Toon meer projecten',
         showLessBtn: 'Toon minder',
 
@@ -333,10 +348,25 @@ const translations = {
         aboutStatLabel2: 'Years Top Athlete',
         aboutStatLabel3: 'Remote Worldwide',
 
+        // Service Selector
+        serviceBridgeIntro: 'I\'m available to help you with your digital project',
+        serviceSelectorCTA: 'Need help with something?',
+        serviceSelectorSubtitle: 'Find the right approach →',
+
+        // Your Project Card
+        yourProjectYear: '2025',
+        yourProjectType: 'Available',
+        yourProjectTitle: 'Your project?',
+        yourProjectDescription: 'I\'m available to think along with you! Click here to discover how I can help.',
+        yourProjectImpact1: 'Always an idea',
+        yourProjectImpact2: 'Personal',
+        yourProjectCTA: 'Let\'s talk',
+
         filterAll: 'All projects',
         filterProductOwner: 'Product Owner',
         filterWeb: 'Web Apps',
         filterEntrepreneurship: 'Entrepreneurship',
+        filterStickerText: 'Your project?',
         showMoreBtn: 'Show more projects',
         showLessBtn: 'Show less',
 

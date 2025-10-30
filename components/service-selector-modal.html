@@ -1,0 +1,143 @@
+<!-- Service Selector Modal Component -->
+<!-- Add this CSS to your main stylesheet or in a <style> tag -->
+<style>
+    .service-selector-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .service-selector-modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .service-selector-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+    }
+
+    .service-selector-container {
+        position: relative;
+        max-width: 900px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #000;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 40px;
+        z-index: 10001;
+        animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .service-selector-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    .service-selector-close:hover {
+        background: rgba(255,255,255,0.1);
+        transform: rotate(90deg);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .service-selector-container {
+            width: 100%;
+            max-height: 100vh;
+            border-radius: 0;
+            padding: 24px;
+        }
+    }
+
+    /* Hide body scroll when modal is open */
+    body.service-selector-open {
+        overflow: hidden;
+    }
+</style>
+
+<!-- Modal HTML -->
+<div class="service-selector-modal" id="serviceSelectorModal">
+    <div class="service-selector-backdrop" onclick="closeServiceSelector()"></div>
+    <div class="service-selector-container">
+        <button class="service-selector-close" onclick="closeServiceSelector()" aria-label="Sluit service selector">
+            ×
+        </button>
+        <iframe
+            src="services-decision-tree.html"
+            width="100%"
+            height="600px"
+            frameborder="0"
+            style="border-radius: 16px;"
+            title="Service Selector">
+        </iframe>
+    </div>
+</div>
+
+<!-- Modal JavaScript -->
+<script>
+    function openServiceSelector() {
+        const modal = document.getElementById('serviceSelectorModal');
+        document.body.classList.add('service-selector-open');
+        modal.classList.add('active');
+    }
+
+    function closeServiceSelector() {
+        const modal = document.getElementById('serviceSelectorModal');
+        document.body.classList.remove('service-selector-open');
+        modal.classList.remove('active');
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeServiceSelector();
+        }
+    });
+</script>

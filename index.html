@@ -139,6 +139,7 @@
     <link rel="preload" href="css/contact-choice-modal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="css/professional-identity.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="css/innovative-services.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/service-selector.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     <noscript>
         <link rel="stylesheet" href="components/featured-work.css">
@@ -148,6 +149,7 @@
         <link rel="stylesheet" href="css/contact-choice-modal.css">
         <link rel="stylesheet" href="css/professional-identity.css">
         <link rel="stylesheet" href="css/innovative-services.css">
+        <link rel="stylesheet" href="css/service-selector.css">
     </noscript>
 
     <!-- Raleway Typography - Standard loading met display=swap -->
@@ -292,8 +294,6 @@
             </div>
         </div>
     </div>
-
-    <iframe src="services-improved.html" width="100%" height="800px" frameborder="0"></iframe>
 
     <!-- Contact Choice Modal -->
     <div class="contact-choice-modal" id="contactChoiceModal">
@@ -584,6 +584,11 @@
                 <button type="button" class="filter-btn" data-filter="product-owner" data-translate="filterProductOwner" aria-label="Filter Product Owner projects">Product Owner</button>
                 <button type="button" class="filter-btn" data-filter="web" data-translate="filterWeb" aria-label="Filter Web Apps projects">Web Apps</button>
                 <button type="button" class="filter-btn" data-filter="entrepreneurship" data-translate="filterEntrepreneurship" aria-label="Filter Entrepreneurship projects">Ondernemerschap</button>
+
+                <!-- Service Selector Sticker -->
+                <button type="button" class="filter-sticker" onclick="openServiceSelector()" aria-label="Open service selector">
+                    <span data-translate="filterStickerText">Jouw project?</span>
+                </button>
             </div>
 
             <!-- Accessibility: Announce filter changes to screen readers -->
@@ -637,8 +642,67 @@
                     </div>
                 </div>
 
-                <!-- Sprint Planner - Web App -->
-                <div class="project-card" data-category="web">
+                <!-- Your Project? - Interactive Service Selector Card -->
+                <div class="project-card project-card-interactive" data-category="all" onclick="openServiceSelector()" style="cursor: pointer;">
+                    <div>
+                        <div class="project-image project-image-placeholder">
+                            <div class="placeholder-content">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-meta">
+                                <span class="project-year" data-translate="yourProjectYear">2025</span>
+                                <span class="project-type" data-translate="yourProjectType">Beschikbaar</span>
+                            </div>
+                            <h3 data-translate="yourProjectTitle">Jouw project?</h3>
+                            <p data-translate="yourProjectDescription">Ik ben beschikbaar om met je mee te denken! Klik hier om te ontdekken hoe ik je kan helpen.</p>
+                            <div class="project-impact">
+                                <div class="impact-item">
+                                    <span class="impact-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 18h6"/>
+                                            <path d="M10 22h4"/>
+                                            <path d="M15 8a5 5 0 0 0-10 0c0 2.49 1.51 4.63 3.66 5.56.44.19.66.58.66 1.03V15c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-.41c0-.45.22-.84.66-1.03A5.01 5.01 0 0 0 15 8z"/>
+                                        </svg>
+                                    </span>
+                                    <span class="impact-text" data-translate="yourProjectImpact1">Altijd een idee</span>
+                                </div>
+                                <div class="impact-item">
+                                    <span class="impact-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        </svg>
+                                    </span>
+                                    <span class="impact-text" data-translate="yourProjectImpact2">Persoonlijk</span>
+                                </div>
+                            </div>
+                            <div class="project-tags">
+                                <span class="tag">Strategy</span>
+                                <span class="tag">UX Design</span>
+                                <span class="tag">Development</span>
+                                <span class="tag">Consultancy</span>
+                            </div>
+                            <div class="project-links">
+                                <span class="project-link project-link-cta">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                    <span data-translate="yourProjectCTA">Laten we praten</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprint Planner - Web App (Hidden by default) -->
+                <div class="project-card hidden-project" data-category="web">
                     <div>
                         <div class="project-image">
                             <img src="images/project-sprintplanner.webp" alt="Sprint Planner Interface" width="800" height="449" loading="lazy" decoding="async">
@@ -1078,6 +1142,46 @@
             secondary.href = res.secondary.href; secondary.textContent = res.secondary.label;
         }
     })();
+    </script>
+
+    <!-- Service Selector Modal -->
+    <div class="service-selector-modal" id="serviceSelectorModal">
+        <div class="service-selector-backdrop" onclick="closeServiceSelector()"></div>
+        <div class="service-selector-container">
+            <button class="service-selector-close" onclick="closeServiceSelector()" aria-label="Sluit service selector">
+                ×
+            </button>
+            <iframe
+                src="services-decision-tree.html"
+                width="100%"
+                height="650"
+                frameborder="0"
+                title="Service Selector"
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Service Selector JavaScript -->
+    <script>
+        function openServiceSelector() {
+            const modal = document.getElementById('serviceSelectorModal');
+            document.body.classList.add('service-selector-open');
+            modal.classList.add('active');
+        }
+
+        function closeServiceSelector() {
+            const modal = document.getElementById('serviceSelectorModal');
+            document.body.classList.remove('service-selector-open');
+            modal.classList.remove('active');
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('serviceSelectorModal').classList.contains('active')) {
+                closeServiceSelector();
+            }
+        });
     </script>
 
     <script src="js/error-handler.js"></script>
