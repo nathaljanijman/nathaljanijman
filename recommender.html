@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diensten Keuzehulp</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body, html {
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .recommender-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: #080808;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            z-index: 1001;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-inner {
+            width: 0%;
+            height: 100%;
+            background: #007bff;
+            transition: width 0.5s ease;
+        }
+
+        .recommender-content {
+            padding: 32px;
+            text-align: center;
+        }
+
+        .question-screen {
+            display: none;
+        }
+
+        .question-screen.active {
+            display: block;
+        }
+
+        .question-screen h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .answer-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .answer-btn:hover {
+            background: rgba(0, 123, 255, 0.1);
+            border-color: #007bff;
+        }
+
+        .recommendation-screen {
+            display: none;
+        }
+
+        .recommendation-screen.active {
+            display: block;
+        }
+
+        .recommendation-screen h2 {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+        
+        .recommendation-screen p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+
+        .recommended-service {
+            background: rgba(0, 123, 255, 0.1);
+            border: 1px solid #007bff;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+        }
+
+        .recommended-service h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .recommended-service .reason {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .recommendation-cta {
+            display: inline-block;
+            background: #007bff;
+            color: #ffffff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .recommendation-cta:hover {
+            background: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="recommender-modal">
+    <div class="progress-bar">
+        <div class="progress-bar-inner"></div>
+    </div>
+    <div class="recommender-content">
+        <div id="quiz">
+            <div class="question-screen active" data-question="1">
+                <h2>Wat is je hoofddoel?</h2>
+                <div class="answers">
+                    <button class="answer-btn" data-value="idea">Een nieuw idee lanceren</button>
+                    <button class="answer-btn" data-value="website">Een professionele website krijgen</button>
+                    <button class="answer-btn" data-value="improve">Een bestaand product verbeteren</button>
+                </div>
+            </div>
+            <div class="question-screen" data-question="2">
+                <h2>In welke fase bevind je je?</h2>
+                <div class="answers">
+                    <button class="answer-btn" data-value="idea-only">Nog maar een idee</button>
+                    <button class="answer-btn" data-value="design">Ik heb al een ontwerp</button>
+                    <button class="answer-btn" data-value="team">Ik heb een team</button>
+                </div>
+            </div>
+            <div class="question-screen" data-question="3">
+                <h2>Wat is je geschatte budget?</h2>
+                <div class="answers">
+                    <button class="answer-btn" data-value="<1000">&lt; €1000</button>
+                    <button class="answer-btn" data-value="1000-5000">€1000 - €5000</button>
+                    <button class="answer-btn" data-value=">5000">&gt; €5000</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="recommendation" class="recommendation-screen">
+            <h2>Jouw aanbevolen dienst:</h2>
+            <div class="recommended-service">
+                <h3 id="recommended-service-title"></h3>
+                <p id="recommended-service-reason" class="reason"></p>
+            </div>
+            <a href="#" id="recommendation-cta" class="recommendation-cta">Lees meer</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quiz = document.getElementById('quiz');
+    const recommendation = document.getElementById('recommendation');
+    const progressBar = document.querySelector('.progress-bar-inner');
+    const questionScreens = document.querySelectorAll('.question-screen');
+    const answerButtons = document.querySelectorAll('.answer-btn');
+
+    let currentQuestion = 1;
+    const totalQuestions = questionScreens.length;
+    const userAnswers = {};
+
+    answerButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const question = button.closest('.question-screen').dataset.question;
+            userAnswers[question] = button.dataset.value;
+            
+            if (currentQuestion < totalQuestions) {
+                goToNextQuestion();
+            } else {
+                showRecommendation();
+            }
+        });
+    });
+
+    function goToNextQuestion() {
+        const currentScreen = document.querySelector(`.question-screen[data-question="${currentQuestion}"]`);
+        currentScreen.classList.remove('active');
+        currentQuestion++;
+        const nextScreen = document.querySelector(`.question-screen[data-question="${currentQuestion}"]`);
+        nextScreen.classList.add('active');
+        updateProgressBar();
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentQuestion - 1) / totalQuestions) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    function showRecommendation() {
+        quiz.style.display = 'none';
+        recommendation.classList.add('active');
+        progressBar.style.width = '100%';
+
+        const title = document.getElementById('recommended-service-title');
+        const reason = document.getElementById('recommended-service-reason');
+        const cta = document.getElementById('recommendation-cta');
+
+        // Simple recommendation logic
+        if (userAnswers['1'] === 'website' || userAnswers['3'] === '<1000') {
+            title.textContent = 'Een website bouwen';
+            reason.textContent = 'Omdat je een professionele website wilt of een kleiner budget hebt, is dit de perfecte start.';
+            cta.href = '#'; // Link to website package
+        } else {
+            title.textContent = 'Van idee naar werkend product';
+            reason.textContent = 'Omdat je een idee wilt lanceren of een bestaand product wilt verbeteren, past deze uitgebreide service het beste bij jou.';
+            cta.href = '#'; // Link to consultancy package
+        }
+    }
+
+    updateProgressBar();
+</script>
+
+</body>
+</html>
