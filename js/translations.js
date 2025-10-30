@@ -138,6 +138,19 @@ const translations = {
         project5Impact2: 'Actief gebruik',
         project5LinkDemo: 'Website',
 
+        // Services Choice Section
+        servicesTitle: 'Hoe kan ik je helpen?',
+        servicesSubtitle: 'Kies wat het beste bij jou past',
+        serviceWebsiteTitle: 'Een website bouwen',
+        serviceWebsiteSubtitle: 'Portfolio, personal brand, of lead generator',
+        serviceWebsitePrice: 'Vanaf €350',
+        serviceWebsiteCta: 'Bekijk packages',
+        serviceNewBadge: 'Nieuw',
+        serviceConsultancyTitle: 'Van idee naar werkend product',
+        serviceConsultancySubtitle: 'Met een Product Owner die dit dagelijks doet',
+        serviceConsultancyPrice: 'Vanaf €1.850',
+        serviceConsultancyCta: 'Zie hoe het werkt',
+
         // Contact Section
         contactTitle: 'Laten we in contact komen',
         contactSubtitle: 'Ik sta open voor nieuwe kansen, samenwerkingen en gesprekken',
@@ -339,6 +352,19 @@ const translations = {
         project5Impact1: 'Predictability',
         project5Impact2: 'Active usage',
         project5LinkDemo: 'Website',
+
+        // Services Choice Section
+        servicesTitle: 'How can I help you?',
+        servicesSubtitle: 'Choose what fits you best',
+        serviceWebsiteTitle: 'Build a website',
+        serviceWebsiteSubtitle: 'Portfolio, personal brand, or lead generator',
+        serviceWebsitePrice: 'From €350',
+        serviceWebsiteCta: 'View packages',
+        serviceNewBadge: 'New',
+        serviceConsultancyTitle: 'From idea to working product',
+        serviceConsultancySubtitle: 'With a Product Owner who does this daily',
+        serviceConsultancyPrice: 'From €1,850',
+        serviceConsultancyCta: 'See how it works',
 
         // Contact Section
         contactTitle: 'Let\'s connect',
@@ -725,6 +751,16 @@ class LanguageManager {
         const portfolioLink = document.getElementById('portfolioStickerLink');
         if (portfolioLink) {
             portfolioLink.href = `/${this.currentLanguage}/portfolio-website`;
+        }
+
+        // Update service card links
+        const serviceWebsiteLink = document.getElementById('serviceWebsiteLink');
+        const serviceConsultancyLink = document.getElementById('serviceConsultancyLink');
+        if (serviceWebsiteLink) {
+            serviceWebsiteLink.href = `/${this.currentLanguage}/portfolio-website`;
+        }
+        if (serviceConsultancyLink) {
+            serviceConsultancyLink.href = `/${this.currentLanguage}/product-consultancy`;
         }
 
         // Update mobile nav links to home
