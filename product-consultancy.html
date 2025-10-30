@@ -39,12 +39,42 @@
         </div>
     </header>
 
+    <!-- Urgency Bar -->
+    <div class="urgency-bar">
+        <div class="container">
+            <span class="urgency-icon">⚠️</span>
+            <span class="urgency-text">Nog <strong>1 plek beschikbaar</strong> voor Q4 2025 • Volgende intake: Donderdag 14:00 of Vrijdag 10:00</span>
+            <a href="#contact" class="urgency-cta">Claim je plek →</a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="offering-hero">
         <div class="container">
-            <h1>Van "ik heb een idee" naar "we zijn live" 🚀</h1>
-            <p class="hero-subtitle">Zonder dat je verdwaalt in Jira boards, sprint ceremonies, en developers die in code praten</p>
-            <p class="hero-description">Je hebt een goed idee. Maar geen development team. Geen technische kennis. En eerlijk? Geen idee waar je moet beginnen. Precies daarvoor ben ik er. Ik help je van chaos naar clarity - en van idee naar werkend product.</p>
+            <h1>Van idee naar werkend product</h1>
+            <p class="hero-subtitle">Zonder dat je verdwaalt in technische jargon</p>
+            <div class="hero-cta-group">
+                <a href="#contact" class="hero-cta-primary">Plan gratis intake gesprek</a>
+                <span class="hero-cta-note">30 minuten • Geen verplichtingen</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <p class="trust-label">Ervaring bij</p>
+            <div class="trust-companies">
+                <span class="trust-company">ABN AMRO</span>
+                <span class="trust-separator">•</span>
+                <span class="trust-company">BALR.</span>
+                <span class="trust-separator">•</span>
+                <span class="trust-company">60M+ bezoekers</span>
+            </div>
+            <div class="trust-testimonial">
+                <p class="testimonial-quote">"Nathalja vertaalt complexe product vraagstukken naar concrete actie. In 6 weken hadden we een werkend MVP waar we voorheen maanden over discussieerden."</p>
+                <p class="testimonial-author">— Founder, Tech Scale-up</p>
+            </div>
         </div>
     </section>
 
@@ -55,60 +85,37 @@
             <!-- Comparison Grid -->
             <div class="comparison-grid">
                 <!-- MVP Builder Package -->
-                <div class="package-card" data-package="mvp">
-                    <div class="package-header">
+                <div class="package-card-v2" data-package="mvp">
+                    <div class="package-summary">
                         <h3>MVP Builder</h3>
-                        <p class="package-subtitle">Wat moet ik eigenlijk bouwen?</p>
-                    </div>
-                    <div class="package-pricing">
-                        <div>
+                        <div class="package-price-compact">
                             <span class="price">€1.850</span>
-                            <span class="price-period">eenmalig</span>
+                            <span class="period">• 2 weken</span>
                         </div>
-                        <span class="price-badge">2 weken</span>
+                        <p class="package-for-who-compact">Je hebt een idee, maar geen plan. Je wil weten wát je moet bouwen voordat je €50k bij een agency neerlegt.</p>
+                        <button class="expand-toggle" data-target="mvp-details">
+                            <span>Bekijk details</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
                     </div>
-                    <ul class="package-features">
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>Product discovery workshop (we gaan diep)</span>
-                        </li>
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>Markt & concurrent analyse (wie doet wat al?)</span>
-                        </li>
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>Feature prioritering (wat moet er in v1.0?)</span>
-                        </li>
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>Tech stack advies (zonder technobabble)</span>
-                        </li>
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span>Budget & tijdlijn (realistische planning)</span>
-                        </li>
-                        <li class="feature-item">
-                            <svg class="check-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <span><strong>Je krijgt:</strong> MVP Playbook + feature roadmap</span>
-                        </li>
-                    </ul>
-                    <div class="package-for-who">
-                        <p><strong>Voor wie:</strong> Je hebt een idee, maar geen plan. Je wil weten wát je moet bouwen voordat je €50k bij een agency neerlegt.</p>
+
+                    <div class="package-details" id="mvp-details" style="display: none;">
+                        <div class="details-header">
+                            <h4>Wat krijg je:</h4>
+                        </div>
+                        <ul class="package-features-compact">
+                            <li>Product discovery workshop</li>
+                            <li>Markt & concurrent analyse</li>
+                            <li>Feature prioritering (wat moet er in v1.0?)</li>
+                            <li>Tech stack advies (zonder technobabble)</li>
+                            <li>Budget & tijdlijn (realistische planning)</li>
+                            <li><strong>Deliverable:</strong> MVP Playbook + feature roadmap</li>
+                        </ul>
                     </div>
-                    <button class="package-cta">
+
+                    <button class="package-cta-v2">
                         <span>Kies MVP Builder</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -253,23 +260,27 @@
     <!-- Why Me Section -->
     <section class="why-me-section">
         <div class="container">
-            <h2>Waarom met mij werken?</h2>
+            <h2>Wat maakt dit anders?</h2>
             <div class="why-grid">
-                <div class="why-card">
-                    <h3>✅ Enterprise ervaring, scale-up prijzen</h3>
-                    <p>Ik manage 60M+ bezoekers bij ABN AMRO. Maar ik herinner me nog hoe het is om te beginnen. Geen corporate bloat, geen oneindige meetings.</p>
+                <div class="why-card-v2">
+                    <div class="why-icon">🎯</div>
+                    <h3>Geen junior experimenten</h3>
+                    <p>Je krijgt 60M+ bezoekers ervaring vanaf dag 1. Geen "laten we dit proberen" - we doen wat bewezen werkt bij enterprise scale.</p>
                 </div>
-                <div class="why-card">
-                    <h3>✅ Ik spreek beide talen</h3>
-                    <p>Business (jouw idee) ⟷ Tech (wat developers bouwen). Ik vertaal tussen beide zonder dat je hoeft te googlen wat een "API" is.</p>
+                <div class="why-card-v2">
+                    <div class="why-icon">💬</div>
+                    <h3>Je begrijpt altijd wat er gebeurt</h3>
+                    <p>Vertaling tussen business en tech, zonder jargon. Als ik "API" zeg, leg ik uit waaróm het belangrijk is voor jouw product.</p>
                 </div>
-                <div class="why-card">
-                    <h3>✅ Topsport mindset → product discipline</h3>
-                    <p>10+ jaar topsport leerde me: focus, resultaat, geen bullshit. We gaan niet "agile experimenten" doen met jouw budget. We bouwen wat werkt.</p>
+                <div class="why-card-v2">
+                    <div class="why-icon">⚡</div>
+                    <h3>Focus op resultaat, niet op proces</h3>
+                    <p>Topsport discipline toegepast op product: shipping > meetings. We bouwen wat werkt, geen eindeloze sprint ceremonies.</p>
                 </div>
-                <div class="why-card">
-                    <h3>✅ Zelf ook maker</h3>
-                    <p>Ik bouw regelmatig eigen products (Sprint Planner, DHGate Monitor). Ik snap wat het kost om iets live te krijgen - niet alleen in theorie.</p>
+                <div class="why-card-v2">
+                    <div class="why-icon">🛠️</div>
+                    <h3>Ik test wat ik adviseer</h3>
+                    <p>Eigen products live (Sprint Planner, DHGate Monitor). Ik geef alleen advies dat ik zelf zou volgen met mijn eigen geld.</p>
                 </div>
             </div>
         </div>
@@ -279,28 +290,43 @@
     <section class="process-section">
         <div class="container">
             <h2>Hoe werkt het?</h2>
-            <p class="section-subtitle">Van intake tot launch in 4 stappen</p>
+            <p class="section-subtitle">Concrete deliverables per week</p>
 
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h3>Intake (gratis, 30 min)</h3>
-                    <p>We checken of we bij elkaar passen. Jij vertelt over je idee. Ik vertel of ik kan helpen (en hoe).</p>
+            <div class="process-timeline">
+                <div class="timeline-step">
+                    <div class="timeline-marker">Week 1</div>
+                    <div class="timeline-content">
+                        <h3>Gratis intake (30 min)</h3>
+                        <p class="timeline-deliverable">→ Je krijgt: Go/no-go advies</p>
+                        <p class="timeline-cost">Kost: €0</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h3>Kickoff</h3>
-                    <p>We duiken in je product. Requirements, doelgroep, concurrentie. Stakeholder alignment.</p>
+
+                <div class="timeline-step">
+                    <div class="timeline-marker">Week 2-3</div>
+                    <div class="timeline-content">
+                        <h3>Deep dive workshops</h3>
+                        <p class="timeline-deliverable">→ Je krijgt: MVP Playbook + Roadmap</p>
+                        <p class="timeline-decision">Beslispunt: ga je bouwen of niet?</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h3>Execution</h3>
-                    <p>Wekelijkse check-ins (Zoom/on-site). Duidelijke deliverables. Geen verrassingen.</p>
+
+                <div class="timeline-step">
+                    <div class="timeline-marker">Week 4-8</div>
+                    <div class="timeline-content">
+                        <h3>Wekelijkse check-ins</h3>
+                        <p class="timeline-deliverable">→ Je krijgt: Quality reports + Risk alerts</p>
+                        <p class="timeline-deliverable">→ Launch readiness check</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h3>Handover</h3>
-                    <p>Knowledge transfer. Documentatie. Support na afloop.</p>
+
+                <div class="timeline-step">
+                    <div class="timeline-marker">Week 9+</div>
+                    <div class="timeline-content">
+                        <h3>Optioneel: Fractional PO</h3>
+                        <p class="timeline-deliverable">→ Schaal je product verder op</p>
+                        <p class="timeline-cost">€7.500/maand, opzegbaar</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -335,6 +361,18 @@
                 <div class="faq-item">
                     <h3>Wat is je beschikbaarheid?</h3>
                     <p>Ik werk naast mijn rol bij ABN AMRO als ZZP'er. Avonden, weekenden, en flexibel inplanbaar.</p>
+                </div>
+                <div class="faq-item faq-highlight">
+                    <h3>Waarom niet gewoon een fulltime PO inhuren?</h3>
+                    <p>6 maanden recruitment + €80-100k salaris + onboarding. Met mij: morgen starten, €7.5k/maand, opzegbaar. Je betaalt voor resultaat, niet voor leercurve.</p>
+                </div>
+                <div class="faq-item faq-highlight">
+                    <h3>Heb je nu capaciteit?</h3>
+                    <p>Ik neem max 2-3 klanten tegelijk aan. Volgende intake mogelijkheden: deze week donderdag 14:00 of vrijdag 10:00.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Wat als ik later meer hulp nodig heb?</h3>
+                    <p>90% van mijn klanten schaalt op naar Fractional PO na het eerste traject. Je betaalt nooit twee keer voor hetzelfde werk - alles wat we leren in fase 1 neem ik mee naar fase 2.</p>
                 </div>
             </div>
         </div>
@@ -447,7 +485,7 @@
             window.location.href = `/${currentLang}`;
         });
 
-        // Package CTA buttons
+        // Package CTA buttons (old style)
         document.querySelectorAll('.package-cta').forEach(button => {
             button.addEventListener('click', function() {
                 const packageCard = this.closest('.package-card');
@@ -463,6 +501,44 @@
                 }
 
                 window.open(`https://wa.me/31657591440?text=${encodeURIComponent(message)}`, '_blank');
+            });
+        });
+
+        // Package CTA buttons (new style)
+        document.querySelectorAll('.package-cta-v2').forEach(button => {
+            button.addEventListener('click', function() {
+                const packageCard = this.closest('.package-card-v2');
+                const packageType = packageCard.dataset.package;
+                let message = '';
+
+                if (packageType === 'mvp') {
+                    message = 'Hey Nathalja, ik wil graag starten met het MVP Builder package';
+                } else if (packageType === 'navigator') {
+                    message = 'Hey Nathalja, ik wil graag starten met het Project Navigator package';
+                } else if (packageType === 'fractional') {
+                    message = 'Hey Nathalja, ik wil graag meer weten over het Fractional PO package';
+                }
+
+                window.open(`https://wa.me/31657591440?text=${encodeURIComponent(message)}`, '_blank');
+            });
+        });
+
+        // Expand/collapse toggle
+        document.querySelectorAll('.expand-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const detailsSection = document.getElementById(targetId);
+                const isExpanded = detailsSection.style.display !== 'none';
+
+                if (isExpanded) {
+                    detailsSection.style.display = 'none';
+                    this.classList.remove('expanded');
+                    this.querySelector('span').textContent = 'Bekijk details';
+                } else {
+                    detailsSection.style.display = 'block';
+                    this.classList.add('expanded');
+                    this.querySelector('span').textContent = 'Verberg details';
+                }
             });
         });
     </script>
