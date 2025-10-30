@@ -176,17 +176,28 @@ function initProjectFiltering() {
         DOM.filterButtons.forEach(btn => btn.classList.remove(CONFIG.CSS_CLASSES.ACTIVE));
         button.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
 
+        // Check if Show More is expanded
+        const showMoreExpanded = DOM.showMoreBtn && DOM.showMoreBtn.getAttribute('aria-expanded') === 'true';
+
         // Filter projects using CSS classes instead of inline styles
         DOM.projectCards.forEach(card => {
             const shouldShow = filter === 'all' || card.getAttribute('data-category') === filter;
+            const isHiddenProject = card.classList.contains('hidden-project');
 
             if (shouldShow) {
                 card.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
                 card.classList.add(CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                // Reveal hidden-project cards when they match a specific filter OR when Show More is expanded
+                if (isHiddenProject && (filter !== 'all' || showMoreExpanded)) {
+                    card.classList.add('revealed');
+                } else if (isHiddenProject && filter === 'all' && !showMoreExpanded) {
+                    // Hide hidden-project cards when showing "all" without Show More
+                    card.classList.remove('revealed', CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                }
             } else {
                 card.classList.add(CONFIG.CSS_CLASSES.FADE_OUT);
                 setTimeout(() => {
-                    card.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE);
+                    card.classList.remove(CONFIG.CSS_CLASSES.FADE_OUT, CONFIG.CSS_CLASSES.CARD_VISIBLE, 'revealed');
                     card.classList.add(CONFIG.CSS_CLASSES.HIDDEN);
                 }, CONFIG.TIMING.FADE_OUT);
             }
