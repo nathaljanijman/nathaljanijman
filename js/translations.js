@@ -139,8 +139,8 @@ const translations = {
         project5LinkDemo: 'Website',
 
         // Contact Section
-        contactTitle: 'Klaar voor de volgende stap?',
-        contactSubtitle: 'Ik help je verder',
+        contactTitle: 'Laten we in contact komen',
+        contactSubtitle: 'Ik sta open voor nieuwe kansen, samenwerkingen en gesprekken',
         contactWhatsApp: 'WhatsApp direct',
         contactWhatsAppTime: 'Antwoord binnen 2 uur',
         contactEmail: 'Email voor uitgebreid gesprek',
@@ -341,8 +341,8 @@ const translations = {
         project5LinkDemo: 'Website',
 
         // Contact Section
-        contactTitle: 'Ready for the next step?',
-        contactSubtitle: 'I\'ll help you move forward',
+        contactTitle: 'Let\'s connect',
+        contactSubtitle: 'I\'m open to new opportunities, collaborations, and conversations',
         contactWhatsApp: 'WhatsApp direct',
         contactWhatsAppTime: 'Response within 2 hours',
         contactEmail: 'Email for detailed discussion',
