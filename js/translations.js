@@ -799,3 +799,114 @@ class LanguageManager {
 document.addEventListener('DOMContentLoaded', () => {
     window.languageManager = new LanguageManager();
 });
+
+// Product Consultancy Page - NL wordt later toegevoegd in de NL sectie
+const consultancyTranslationsNL = {
+    // Urgency Bar
+    consultancyUrgencyText: 'Nog <strong>1 plek beschikbaar</strong> voor Q4 2025 • Volgende intake: Donderdag 14:00 of Vrijdag 10:00',
+    consultancyUrgencyCta: 'Claim je plek →',
+    
+    // Hero
+    consultancyHeroTitle: 'Van idee naar werkend product',
+    consultancyHeroSubtitle: 'Zonder dat je verdwaalt in technische jargon',
+    consultancyHeroCta: 'Plan gratis intake gesprek',
+    consultancyHeroCtaNote: '30 minuten • Geen verplichtingen',
+    
+    // Trust Bar
+    consultancyTrustLabel: 'Ervaring bij',
+    consultancyTrustTestimonial: 'Nathalja vertaalt complexe product vraagstukken naar concrete actie. In 6 weken hadden we een werkend MVP waar we voorheen maanden over discussieerden.',
+    consultancyTrustAuthor: '— Founder, Tech Scale-up',
+    
+    // Package MVP
+    consultancyMvpTitle: 'MVP Builder',
+    consultancyMvpPrice: '€1.850',
+    consultancyMvpPeriod: '• 2 weken',
+    consultancyMvpForWho: 'Je hebt een idee, maar geen plan. Je wil weten wát je moet bouwen voordat je €50k bij een agency neerlegt.',
+    consultancyMvpToggle: 'Bekijk details',
+    consultancyMvpToggleHide: 'Verberg details',
+    consultancyMvpDetailsTitle: 'Wat krijg je:',
+    consultancyMvpFeature1: 'Product discovery workshop',
+    consultancyMvpFeature2: 'Markt & concurrent analyse',
+    consultancyMvpFeature3: 'Feature prioritering (wat moet er in v1.0?)',
+    consultancyMvpFeature4: 'Tech stack advies (zonder technobabble)',
+    consultancyMvpFeature5: 'Budget & tijdlijn (realistische planning)',
+    consultancyMvpFeature6: '<strong>Deliverable:</strong> MVP Playbook + feature roadmap',
+    consultancyMvpCta: 'Kies MVP Builder',
+    
+    // Why Me
+    consultancyWhyTitle: 'Wat maakt dit anders?',
+    consultancyWhy1Title: 'Geen junior experimenten',
+    consultancyWhy1Text: 'Je krijgt 60M+ bezoekers ervaring vanaf dag 1. Geen "laten we dit proberen" - we doen wat bewezen werkt bij enterprise scale.',
+    consultancyWhy2Title: 'Je begrijpt altijd wat er gebeurt',
+    consultancyWhy2Text: 'Vertaling tussen business en tech, zonder jargon. Als ik "API" zeg, leg ik uit waaróm het belangrijk is voor jouw product.',
+    consultancyWhy3Title: 'Focus op resultaat, niet op proces',
+    consultancyWhy3Text: 'Topsport discipline toegepast op product: shipping > meetings. We bouwen wat werkt, geen eindeloze sprint ceremonies.',
+    consultancyWhy4Title: 'Ik test wat ik adviseer',
+    consultancyWhy4Text: 'Eigen products live (Sprint Planner, DHGate Monitor). Ik geef alleen advies dat ik zelf zou volgen met mijn eigen geld.',
+    
+    // Process
+    consultancyProcessTitle: 'Hoe werkt het?',
+    consultancyProcessSubtitle: 'Concrete deliverables per week',
+    
+    // FAQ
+    consultancyFaqTitle: 'Veelgestelde vragen',
+    
+    // Contact
+    consultancyContactTitle: 'Klaar om te starten?',
+    consultancyContactSubtitle: 'Plan een gratis intake gesprek (30 min)'
+};
+
+const consultancyTranslationsEN = {
+    // Urgency Bar
+    consultancyUrgencyText: '<strong>1 spot available</strong> for Q4 2025 • Next intake: Thursday 2:00 PM or Friday 10:00 AM',
+    consultancyUrgencyCta: 'Claim your spot →',
+    
+    // Hero
+    consultancyHeroTitle: 'From idea to working product',
+    consultancyHeroSubtitle: 'Without getting lost in technical jargon',
+    consultancyHeroCta: 'Schedule free intake call',
+    consultancyHeroCtaNote: '30 minutes • No obligations',
+    
+    // Trust Bar
+    consultancyTrustLabel: 'Experience at',
+    consultancyTrustTestimonial: 'Nathalja translates complex product challenges into concrete action. In 6 weeks we had a working MVP where we previously spent months discussing.',
+    consultancyTrustAuthor: '— Founder, Tech Scale-up',
+    
+    // Package MVP
+    consultancyMvpTitle: 'MVP Builder',
+    consultancyMvpPrice: '€1,850',
+    consultancyMvpPeriod: '• 2 weeks',
+    consultancyMvpForWho: 'You have an idea but no plan. You want to know what to build before spending €50k at an agency.',
+    consultancyMvpToggle: 'View details',
+    consultancyMvpToggleHide: 'Hide details',
+    consultancyMvpDetailsTitle: 'What you get:',
+    consultancyMvpFeature1: 'Product discovery workshop',
+    consultancyMvpFeature2: 'Market & competitor analysis',
+    consultancyMvpFeature3: 'Feature prioritization (what goes in v1.0?)',
+    consultancyMvpFeature4: 'Tech stack advice (without technobabble)',
+    consultancyMvpFeature5: 'Budget & timeline (realistic planning)',
+    consultancyMvpFeature6: '<strong>Deliverable:</strong> MVP Playbook + feature roadmap',
+    consultancyMvpCta: 'Choose MVP Builder',
+    
+    // Why Me
+    consultancyWhyTitle: 'What makes this different?',
+    consultancyWhy1Title: 'No junior experiments',
+    consultancyWhy1Text: 'You get 60M+ visitors experience from day 1. No "let\'s try this" - we do what works at enterprise scale.',
+    consultancyWhy2Title: 'You always understand what\'s happening',
+    consultancyWhy2Text: 'Translation between business and tech, without jargon. When I say "API", I explain why it matters for your product.',
+    consultancyWhy3Title: 'Focus on results, not process',
+    consultancyWhy3Text: 'Top athlete discipline applied to product: shipping > meetings. We build what works, no endless sprint ceremonies.',
+    consultancyWhy4Title: 'I test what I advise',
+    consultancyWhy4Text: 'Own products live (Sprint Planner, DHGate Monitor). I only give advice I would follow with my own money.',
+    
+    // Process
+    consultancyProcessTitle: 'How does it work?',
+    consultancyProcessSubtitle: 'Concrete deliverables per week',
+    
+    // FAQ
+    consultancyFaqTitle: 'Frequently asked questions',
+    
+    // Contact
+    consultancyContactTitle: 'Ready to start?',
+    consultancyContactSubtitle: 'Schedule a free intake call (30 min)'
+};
