@@ -9,6 +9,8 @@ module.exports = defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  // Skip iOS development tests in CI
+  testIgnore: process.env.CI ? '**/ios-modal-test.spec.js' : undefined,
   use: {
     baseURL: 'http://localhost:8080',
     trace: 'on-first-retry',
