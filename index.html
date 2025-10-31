@@ -1172,12 +1172,21 @@
                 const response = await fetch('services-decision-tree.html');
                 const html = await response.text();
 
-                // Extract body content
+                // Extract body content and styles
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const content = doc.querySelector('.decision-tree-container');
 
                 if (content) {
+                    // Inject styles first
+                    const styles = doc.querySelectorAll('style');
+                    styles.forEach(style => {
+                        const newStyle = document.createElement('style');
+                        newStyle.textContent = style.textContent;
+                        document.head.appendChild(newStyle);
+                    });
+
+                    // Then inject content
                     document.getElementById('decisionTreeContainer').innerHTML = content.outerHTML;
 
                     // Execute scripts from the loaded content
