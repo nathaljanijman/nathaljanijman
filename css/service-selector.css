@@ -310,9 +310,34 @@
         border-radius: 0;
     }
 
-    .service-selector-container iframe {
+    .service-selector-container iframe,
+    .service-selector-container #decisionTreeContainer {
         height: calc(100vh - 100px);
         height: calc(100dvh - 100px); /* iOS Safari fix */
+    }
+
+    /* Make close button VERY prominent on small mobile */
+    .service-selector-close {
+        top: 12px;
+        right: 12px;
+        width: 56px;
+        height: 56px;
+        font-size: 28px;
+        background: linear-gradient(135deg, #0047AB, #1E5FBF);
+        border: 3px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 71, 171, 0.6);
+        z-index: 10004;
+        font-weight: bold;
+    }
+
+    .service-selector-close:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 10px rgba(0, 71, 171, 0.8);
+    }
+
+    /* Add visible backdrop on mobile */
+    .service-selector-modal .service-selector-backdrop {
+        background: rgba(0, 0, 0, 0.85) !important;
     }
 
     /* Interactive card mobile */
