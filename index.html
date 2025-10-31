@@ -1170,42 +1170,76 @@
 
             try {
                 const response = await fetch('services-decision-tree.html');
+                if (!response.ok) throw new Error('Failed to load');
+
                 const html = await response.text();
 
-                // Extract body content and styles
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const content = doc.querySelector('.decision-tree-container');
+                // iOS Safari-compatible parsing
+                const container = document.getElementById('decisionTreeContainer');
+
+                // Create a temporary container
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+
+                // Extract and inject styles first (iOS needs them in document)
+                const styles = temp.querySelectorAll('style');
+                styles.forEach(styleEl => {
+                    const newStyle = document.createElement('style');
+                    newStyle.textContent = styleEl.textContent;
+                    // Add data attribute for cleanup
+                    newStyle.setAttribute('data-decision-tree-style', 'true');
+                    document.head.appendChild(newStyle);
+                });
+
+                // Extract the main content
+                const content = temp.querySelector('.decision-tree-container');
 
                 if (content) {
-                    // Inject styles first
-                    const styles = doc.querySelectorAll('style');
-                    styles.forEach(style => {
-                        const newStyle = document.createElement('style');
-                        newStyle.textContent = style.textContent;
-                        document.head.appendChild(newStyle);
-                    });
+                    // Clear loading message and inject content
+                    container.innerHTML = '';
+                    container.appendChild(content);
 
-                    // Then inject content
-                    document.getElementById('decisionTreeContainer').innerHTML = content.outerHTML;
+                    // iOS-safe script execution with delay
+                    const scripts = temp.querySelectorAll('script');
+                    let scriptIndex = 0;
 
-                    // Execute scripts from the loaded content
-                    const scripts = doc.querySelectorAll('script');
-                    scripts.forEach(script => {
+                    function executeNextScript() {
+                        if (scriptIndex >= scripts.length) {
+                            decisionTreeLoaded = true;
+                            return;
+                        }
+
+                        const script = scripts[scriptIndex];
                         const newScript = document.createElement('script');
+
                         if (script.src) {
                             newScript.src = script.src;
+                            newScript.onload = () => {
+                                scriptIndex++;
+                                executeNextScript();
+                            };
                         } else {
                             newScript.textContent = script.textContent;
+                            scriptIndex++;
                         }
-                        document.body.appendChild(newScript);
-                    });
 
-                    decisionTreeLoaded = true;
+                        document.body.appendChild(newScript);
+
+                        // If inline script, continue immediately
+                        if (!script.src) {
+                            setTimeout(executeNextScript, 10);
+                        }
+                    }
+
+                    // Start script execution after a small delay (iOS needs this)
+                    setTimeout(executeNextScript, 100);
+                } else {
+                    throw new Error('Content not found');
                 }
             } catch (error) {
+                console.error('Decision tree loading error:', error);
                 document.getElementById('decisionTreeContainer').innerHTML =
-                    '<div style="text-align: center; padding: 40px;"><p>Er is een fout opgetreden. Probeer het opnieuw.</p></div>';
+                    '<div style="text-align: center; padding: 40px; color: #fff;"><p>Er is een fout opgetreden bij het laden.</p><p style="margin-top: 20px;"><button onclick="window.location.href=\'services-decision-tree.html\'" style="background: #0047AB; color: #fff; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer;">Open in nieuwe pagina</button></p></div>';
             }
         }
 
