@@ -1147,18 +1147,15 @@
     <!-- Service Selector Modal -->
     <div class="service-selector-modal" id="serviceSelectorModal">
         <div class="service-selector-backdrop" onclick="closeServiceSelector()"></div>
-        <div class="service-selector-container">
+        <div class="service-selector-container" id="serviceSelectorContent">
             <button class="service-selector-close" onclick="closeServiceSelector()" aria-label="Sluit service selector">
                 ×
             </button>
-            <iframe
-                src="services-decision-tree"
-                width="100%"
-                height="650"
-                frameborder="0"
-                title="Service Selector"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-            </iframe>
+            <div id="decisionTreeContainer" style="width: 100%; min-height: 650px;">
+                <div style="text-align: center; padding: 40px;">
+                    <p>Laden...</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1166,8 +1163,44 @@
     <script>
         // iOS scroll position fix
         let scrollPosition = 0;
+        let decisionTreeLoaded = false;
 
-        function openServiceSelector() {
+        async function loadDecisionTree() {
+            if (decisionTreeLoaded) return;
+
+            try {
+                const response = await fetch('services-decision-tree.html');
+                const html = await response.text();
+
+                // Extract body content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const content = doc.querySelector('.decision-tree-container');
+
+                if (content) {
+                    document.getElementById('decisionTreeContainer').innerHTML = content.outerHTML;
+
+                    // Execute scripts from the loaded content
+                    const scripts = doc.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        if (script.src) {
+                            newScript.src = script.src;
+                        } else {
+                            newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                    });
+
+                    decisionTreeLoaded = true;
+                }
+            } catch (error) {
+                document.getElementById('decisionTreeContainer').innerHTML =
+                    '<div style="text-align: center; padding: 40px;"><p>Er is een fout opgetreden. Probeer het opnieuw.</p></div>';
+            }
+        }
+
+        async function openServiceSelector() {
             const modal = document.getElementById('serviceSelectorModal');
 
             // iOS-specific scroll lock
@@ -1178,6 +1211,9 @@
 
             document.body.classList.add('service-selector-open');
             modal.classList.add('active');
+
+            // Load decision tree content
+            await loadDecisionTree();
         }
 
         function closeServiceSelector() {
