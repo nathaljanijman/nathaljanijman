@@ -17,6 +17,7 @@
             color: #fff;
             font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh; /* iOS Safari dynamic viewport height */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,6 +124,11 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            /* iOS-specific fixes */
+            -webkit-tap-highlight-color: rgba(0, 71, 171, 0.2);
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .option-card::before {
@@ -305,6 +311,11 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            /* iOS-specific fixes */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .btn-primary {
@@ -975,7 +986,11 @@
 
     // Initialize
     document.querySelectorAll('.option-card').forEach(card => {
-        card.addEventListener('click', function() {
+        // iOS-compatible event handler
+        const handleCardClick = function(e) {
+            // Prevent default to avoid double-firing on iOS
+            e.preventDefault();
+
             const next = this.getAttribute('data-next');
             const currentStepEl = document.querySelector('.step.active');
 
@@ -996,7 +1011,11 @@
                 updateProgress();
                 updateStepIndicators();
             }
-        });
+        };
+
+        // Add both touch and click events for iOS compatibility
+        card.addEventListener('touchend', handleCardClick, { passive: false });
+        card.addEventListener('click', handleCardClick);
     });
 
     function updateProgress() {

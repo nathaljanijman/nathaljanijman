@@ -1164,14 +1164,31 @@
 
     <!-- Service Selector JavaScript -->
     <script>
+        // iOS scroll position fix
+        let scrollPosition = 0;
+
         function openServiceSelector() {
             const modal = document.getElementById('serviceSelectorModal');
+
+            // iOS-specific scroll lock
+            scrollPosition = window.pageYOffset;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            document.body.style.width = '100%';
+
             document.body.classList.add('service-selector-open');
             modal.classList.add('active');
         }
 
         function closeServiceSelector() {
             const modal = document.getElementById('serviceSelectorModal');
+
+            // Restore iOS scroll position
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
+
             document.body.classList.remove('service-selector-open');
             modal.classList.remove('active');
         }

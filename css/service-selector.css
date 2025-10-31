@@ -290,11 +290,13 @@
     .service-selector-container {
         width: 100%;
         max-height: 100vh;
+        max-height: 100dvh; /* iOS Safari fix */
         border-radius: 0;
     }
 
     .service-selector-container iframe {
         height: calc(100vh - 100px);
+        height: calc(100dvh - 100px); /* iOS Safari fix */
     }
 
     /* Interactive card mobile */
