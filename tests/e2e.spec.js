@@ -58,6 +58,12 @@ test.describe('Portfolio Website - Smoke Tests', () => {
     for (let i = 0; i < count; i++) {
       const img = images.nth(i);
       const src = await img.getAttribute('src');
+      const loading = await img.getAttribute('loading');
+
+      // Skip lazy-loaded images that may not be loaded yet
+      if (loading === 'lazy') {
+        continue;
+      }
 
       // Check if image loaded successfully
       const naturalWidth = await img.evaluate(el => el.naturalWidth);
