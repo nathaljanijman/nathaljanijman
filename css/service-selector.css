@@ -214,11 +214,21 @@
     font-size: 24px;
     line-height: 1;
     z-index: 10002;
+    /* iOS-specific improvements */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .service-selector-close:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: rotate(90deg);
+}
+
+.service-selector-close:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 /* Animations */
@@ -255,11 +265,17 @@
     }
 
     .service-selector-close {
-        top: 12px;
-        right: 12px;
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
+        top: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        /* Ensure it's always on top and clickable on iOS */
+        z-index: 10003;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     /* Interactive card responsive */
