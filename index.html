@@ -131,6 +131,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <!-- Critical Image Preload - Hero background for faster LCP -->
+    <link rel="preload" href="images/responsive/nathalja-work-800w.webp" as="image"
+          imagesrcset="images/responsive/nathalja-work-400w.webp 400w,
+                       images/responsive/nathalja-work-800w.webp 800w,
+                       images/responsive/nathalja-work-1200w.webp 1200w,
+                       images/responsive/nathalja-work-1920w.webp 1920w"
+          imagesizes="100vw"
+          fetchpriority="high">
+
     <!-- Non-critical CSS - Async loading for below-the-fold content -->
     <link rel="preload" href="components/featured-work.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="components/ticker.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -206,7 +215,18 @@
     <section id="home" class="hero-simple" role="region" aria-label="Nathalja Nijman introduction">
         <!-- Background Image -->
         <div class="hero-background">
-            <img src="images/nathalja-work.webp" alt="Nathalja Nijman - Product Owner" class="hero-bg-image" width="1920" height="2692" fetchpriority="high" decoding="async">
+            <img srcset="images/responsive/nathalja-work-400w.webp 400w,
+                         images/responsive/nathalja-work-800w.webp 800w,
+                         images/responsive/nathalja-work-1200w.webp 1200w,
+                         images/responsive/nathalja-work-1920w.webp 1920w"
+                 sizes="100vw"
+                 src="images/responsive/nathalja-work-800w.webp"
+                 alt="Nathalja Nijman - Product Owner"
+                 class="hero-bg-image"
+                 width="1920"
+                 height="2692"
+                 fetchpriority="high"
+                 decoding="async">
             <div class="hero-overlay"></div>
         </div>
 
@@ -597,7 +617,16 @@
                 <div class="project-card" data-category="product-owner">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-abn-amro.webp" alt="ABN AMRO Website Platform" width="800" height="363" loading="lazy" decoding="async">
+                            <img srcset="images/responsive/project-abn-amro-400w.webp 400w,
+                                         images/responsive/project-abn-amro-600w.webp 600w,
+                                         images/responsive/project-abn-amro-800w.webp 800w"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                 src="images/responsive/project-abn-amro-600w.webp"
+                                 alt="ABN AMRO Website Platform"
+                                 width="800"
+                                 height="363"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -703,7 +732,16 @@
                 <div class="project-card hidden-project" data-category="web">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-sprintplanner.webp" alt="Sprint Planner Interface" width="800" height="449" loading="lazy" decoding="async">
+                            <img srcset="images/responsive/project-sprintplanner-400w.webp 400w,
+                                         images/responsive/project-sprintplanner-600w.webp 600w,
+                                         images/responsive/project-sprintplanner-800w.webp 800w"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                 src="images/responsive/project-sprintplanner-600w.webp"
+                                 alt="Sprint Planner Interface"
+                                 width="800"
+                                 height="449"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -746,7 +784,16 @@
                 <div class="project-card hidden-project" data-category="product-owner">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-balr.webp" alt="BALR. E-Commerce Platform" width="800" height="390" loading="lazy" decoding="async">
+                            <img srcset="images/responsive/project-balr-400w.webp 400w,
+                                         images/responsive/project-balr-600w.webp 600w,
+                                         images/responsive/project-balr-800w.webp 800w"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                 src="images/responsive/project-balr-600w.webp"
+                                 alt="BALR. E-Commerce Platform"
+                                 width="800"
+                                 height="390"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -789,7 +836,16 @@
                 <div class="project-card hidden-project" data-category="web">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-dhgate.webp" alt="DHGate Monitor Dashboard" width="800" height="327" loading="lazy" decoding="async">
+                            <img srcset="images/responsive/project-dhgate-400w.webp 400w,
+                                         images/responsive/project-dhgate-600w.webp 600w,
+                                         images/responsive/project-dhgate-800w.webp 800w"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                 src="images/responsive/project-dhgate-600w.webp"
+                                 alt="DHGate Monitor Dashboard"
+                                 width="800"
+                                 height="327"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
@@ -832,7 +888,16 @@
                 <div class="project-card hidden-project" data-category="entrepreneurship">
                     <div>
                         <div class="project-image">
-                            <img src="images/project-slopez.webp" alt="SLOPEZ Premium Ski Goggles" width="800" height="353" loading="lazy" decoding="async">
+                            <img srcset="images/responsive/project-slopez-400w.webp 400w,
+                                         images/responsive/project-slopez-600w.webp 600w,
+                                         images/responsive/project-slopez-800w.webp 800w"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                 src="images/responsive/project-slopez-600w.webp"
+                                 alt="SLOPEZ Premium Ski Goggles"
+                                 width="800"
+                                 height="353"
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <div class="project-info">
                             <div class="project-meta">
