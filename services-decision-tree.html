@@ -129,6 +129,13 @@
             touch-action: manipulation;
             -webkit-user-select: none;
             user-select: none;
+            /* CRITICAL: Ensure pointer events go to card, not children */
+            pointer-events: auto;
+        }
+
+        /* Prevent child elements from intercepting click events */
+        .option-card * {
+            pointer-events: none;
         }
 
         .option-card::before {

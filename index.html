@@ -139,7 +139,6 @@
     <link rel="preload" href="css/contact-choice-modal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="css/professional-identity.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="css/innovative-services.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/service-selector.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     <noscript>
         <link rel="stylesheet" href="components/featured-work.css">
@@ -149,7 +148,6 @@
         <link rel="stylesheet" href="css/contact-choice-modal.css">
         <link rel="stylesheet" href="css/professional-identity.css">
         <link rel="stylesheet" href="css/innovative-services.css">
-        <link rel="stylesheet" href="css/service-selector.css">
     </noscript>
 
     <!-- Raleway Typography - Standard loading met display=swap -->
@@ -204,7 +202,7 @@
     </header>
 
     <!-- Hero Section -->
-    <main id="main-content">
+    <main id="main-content" role="main">
     <section id="home" class="hero-simple" role="region" aria-label="Nathalja Nijman introduction">
         <!-- Background Image -->
         <div class="hero-background">
@@ -585,8 +583,8 @@
                 <button type="button" class="filter-btn" data-filter="web" data-translate="filterWeb" aria-label="Filter Web Apps projects">Web Apps</button>
                 <button type="button" class="filter-btn" data-filter="entrepreneurship" data-translate="filterEntrepreneurship" aria-label="Filter Entrepreneurship projects">Ondernemerschap</button>
 
-                <!-- Service Selector Sticker -->
-                <button type="button" class="filter-sticker" onclick="openServiceSelector()" aria-label="Open service selector">
+                <!-- Contact Sticker -->
+                <button type="button" class="filter-sticker" onclick="openContactChoiceModal('Ik wil graag mijn project bespreken')" aria-label="Open contact opties">
                     <span data-translate="filterStickerText">Jouw project?</span>
                 </button>
             </div>
@@ -642,8 +640,8 @@
                     </div>
                 </div>
 
-                <!-- Your Project? - Interactive Service Selector Card -->
-                <div class="project-card project-card-interactive" data-category="all" onclick="openServiceSelector()" style="cursor: pointer;">
+                <!-- Your Project? - Interactive Contact Card -->
+                <div class="project-card project-card-interactive" data-category="all" onclick="openContactChoiceModal('Ik heb een projectidee')" style="cursor: pointer;">
                     <div>
                         <div class="project-image project-image-placeholder">
                             <div class="placeholder-content">
@@ -1142,142 +1140,6 @@
             secondary.href = res.secondary.href; secondary.textContent = res.secondary.label;
         }
     })();
-    </script>
-
-    <!-- Service Selector Modal -->
-    <div class="service-selector-modal" id="serviceSelectorModal">
-        <div class="service-selector-backdrop" onclick="closeServiceSelector()"></div>
-        <div class="service-selector-container" id="serviceSelectorContent">
-            <button class="service-selector-close" onclick="closeServiceSelector()" aria-label="Sluit service selector">
-                ×
-            </button>
-            <div id="decisionTreeContainer" style="width: 100%; min-height: 650px;">
-                <div style="text-align: center; padding: 40px;">
-                    <p>Laden...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Service Selector JavaScript -->
-    <script>
-        // iOS scroll position fix
-        let scrollPosition = 0;
-        let decisionTreeLoaded = false;
-
-        async function loadDecisionTree() {
-            if (decisionTreeLoaded) return;
-
-            try {
-                const response = await fetch('services-decision-tree.html');
-                if (!response.ok) throw new Error('Failed to load');
-
-                const html = await response.text();
-
-                // iOS Safari-compatible parsing
-                const container = document.getElementById('decisionTreeContainer');
-
-                // Create a temporary container
-                const temp = document.createElement('div');
-                temp.innerHTML = html;
-
-                // Extract and inject styles first (iOS needs them in document)
-                const styles = temp.querySelectorAll('style');
-                styles.forEach(styleEl => {
-                    const newStyle = document.createElement('style');
-                    newStyle.textContent = styleEl.textContent;
-                    // Add data attribute for cleanup
-                    newStyle.setAttribute('data-decision-tree-style', 'true');
-                    document.head.appendChild(newStyle);
-                });
-
-                // Extract the main content
-                const content = temp.querySelector('.decision-tree-container');
-
-                if (content) {
-                    // Clear loading message and inject content
-                    container.innerHTML = '';
-                    container.appendChild(content);
-
-                    // iOS-safe script execution with delay
-                    const scripts = temp.querySelectorAll('script');
-                    let scriptIndex = 0;
-
-                    function executeNextScript() {
-                        if (scriptIndex >= scripts.length) {
-                            decisionTreeLoaded = true;
-                            return;
-                        }
-
-                        const script = scripts[scriptIndex];
-                        const newScript = document.createElement('script');
-
-                        if (script.src) {
-                            newScript.src = script.src;
-                            newScript.onload = () => {
-                                scriptIndex++;
-                                executeNextScript();
-                            };
-                        } else {
-                            newScript.textContent = script.textContent;
-                            scriptIndex++;
-                        }
-
-                        document.body.appendChild(newScript);
-
-                        // If inline script, continue immediately
-                        if (!script.src) {
-                            setTimeout(executeNextScript, 10);
-                        }
-                    }
-
-                    // Start script execution after a small delay (iOS needs this)
-                    setTimeout(executeNextScript, 100);
-                } else {
-                    throw new Error('Content not found');
-                }
-            } catch (error) {
-                console.error('Decision tree loading error:', error);
-                document.getElementById('decisionTreeContainer').innerHTML =
-                    '<div style="text-align: center; padding: 40px; color: #fff;"><p>Er is een fout opgetreden bij het laden.</p><p style="margin-top: 20px;"><button onclick="window.location.href=\'services-decision-tree.html\'" style="background: #0047AB; color: #fff; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer;">Open in nieuwe pagina</button></p></div>';
-            }
-        }
-
-        async function openServiceSelector() {
-            const modal = document.getElementById('serviceSelectorModal');
-
-            // iOS-specific scroll lock
-            scrollPosition = window.pageYOffset;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollPosition}px`;
-            document.body.style.width = '100%';
-
-            document.body.classList.add('service-selector-open');
-            modal.classList.add('active');
-
-            // Load decision tree content
-            await loadDecisionTree();
-        }
-
-        function closeServiceSelector() {
-            const modal = document.getElementById('serviceSelectorModal');
-
-            // Restore iOS scroll position
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            window.scrollTo(0, scrollPosition);
-
-            document.body.classList.remove('service-selector-open');
-            modal.classList.remove('active');
-        }
-
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && document.getElementById('serviceSelectorModal').classList.contains('active')) {
-                closeServiceSelector();
-            }
-        });
     </script>
 
     <script src="js/error-handler.js"></script>

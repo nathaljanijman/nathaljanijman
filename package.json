@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "echo \"Static site - no build process needed\" && exit 0",
+    "dev": "http-server . -p 8080 -c-1 --proxy http://localhost:8080?",
+    "start": "npm run dev",
     "optimize:images": "node scripts/optimize-images.js",
     "test": "playwright test",
     "test:e2e": "playwright test",

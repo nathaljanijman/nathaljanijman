@@ -312,18 +312,22 @@
 }
 
 .filter-btn {
-    padding: 8px 20px;
+    padding: 12px 24px; /* Increased for 44x44px minimum touch target (WCAG 2.5.5) */
+    min-height: 44px; /* WCAG 2.5.5 Level AAA - minimum touch target */
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: rgba(255, 255, 255, 0.6);
     font-family: var(--font-family-primary);
     font-size: var(--font-size-sm);
     font-weight: 500;
-    border-radius: 20px;
+    border-radius: 22px; /* Adjusted for new padding */
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: capitalize;
     letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .filter-btn:hover {

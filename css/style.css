@@ -42,17 +42,17 @@
     --shadow-large: 0 10px 25px rgba(255, 255, 255, 0.2);
     --shadow-xl: 0 20px 40px rgba(255, 255, 255, 0.25);
 
-    /* 2025 Fluid Typography with Better Contrast */
-    --font-size-xs: clamp(0.7rem, 0.9vw, 0.75rem);
-    --font-size-sm: clamp(0.8rem, 1vw, 0.875rem);
-    --font-size-base: clamp(0.9rem, 1.2vw, 1rem);
-    --font-size-lg: clamp(1rem, 1.4vw, 1.125rem);
-    --font-size-xl: clamp(1.1rem, 1.6vw, 1.25rem);
-    --font-size-2xl: clamp(1.3rem, 2vw, 1.5rem);
-    --font-size-3xl: clamp(1.6rem, 2.5vw, 1.875rem);
-    --font-size-4xl: clamp(2rem, 3vw, 2.25rem);
-    --font-size-5xl: clamp(2.5rem, 4vw, 3rem);
-    --font-size-6xl: clamp(3rem, 5vw, 3.75rem);
+    /* 2025 Fluid Typography with Better Contrast - iOS-safe (min 16px for body text) */
+    --font-size-xs: clamp(0.875rem, 0.9vw, 1rem);      /* Min 14px for labels */
+    --font-size-sm: clamp(1rem, 1vw, 1.125rem);        /* Min 16px - prevents iOS zoom */
+    --font-size-base: clamp(1rem, 1.2vw, 1.125rem);    /* Min 16px - prevents iOS zoom */
+    --font-size-lg: clamp(1.125rem, 1.4vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 1.6vw, 1.375rem);
+    --font-size-2xl: clamp(1.5rem, 2vw, 1.75rem);
+    --font-size-3xl: clamp(1.875rem, 2.5vw, 2.25rem);
+    --font-size-4xl: clamp(2.25rem, 3vw, 2.75rem);
+    --font-size-5xl: clamp(2.75rem, 4vw, 3.5rem);
+    --font-size-6xl: clamp(3.5rem, 5vw, 4.5rem);
 
     /* Spacing */
     --spacing-xs: 0.5rem;

@@ -30,6 +30,9 @@ const CONFIG = {
 // DOM Element Cache
 const DOM = {};
 
+// Global variable for pending contact message
+let pendingContactMessage = '';
+
 // Cache DOM elements once on load
 function cacheDOMElements() {
     DOM.header = document.querySelector('.header');
@@ -301,48 +304,47 @@ function updateShowMoreButtonText(isExpanded) {
     }
 }
 
+// Global function to open contact choice modal (can be called from HTML)
+function openContactChoiceModal(message = '') {
+    if (!DOM.contactChoiceModal) return;
+
+    try {
+        // Store the message
+        pendingContactMessage = message;
+
+        // Show message preview
+        if (DOM.messagePreview && message) {
+            DOM.messagePreview.textContent = `"${message}"`;
+            DOM.messagePreview.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
+        }
+
+        // Show modal
+        DOM.contactChoiceModal.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
+        document.body.style.overflow = 'hidden';
+
+        // Track in analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_choice_modal_open', {
+                event_category: 'Engagement',
+                event_label: message.substring(0, 50)
+            });
+        }
+    } catch (error) {
+        // console.error('Error opening contact modal:', error);
+    }
+}
+
+// Global function to close contact choice modal
+function closeContactChoiceModal() {
+    if (!DOM.contactChoiceModal) return;
+
+    DOM.contactChoiceModal.classList.remove(CONFIG.CSS_CLASSES.ACTIVE);
+    document.body.style.overflow = '';
+    pendingContactMessage = '';
+}
+
 // Hero Conversation Interface
 function initHeroConversation() {
-    let pendingMessage = '';
-
-    // Function to open contact choice modal
-    function openContactChoiceModal(message) {
-        if (!DOM.contactChoiceModal) return;
-
-        try {
-            // Store the message
-            pendingMessage = message;
-
-            // Show message preview
-            if (DOM.messagePreview && message) {
-                DOM.messagePreview.textContent = `"${message}"`;
-                DOM.messagePreview.classList.remove(CONFIG.CSS_CLASSES.HIDDEN);
-            }
-
-            // Show modal
-            DOM.contactChoiceModal.classList.add(CONFIG.CSS_CLASSES.ACTIVE);
-            document.body.style.overflow = 'hidden';
-
-            // Track in analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'contact_choice_modal_open', {
-                    event_category: 'Engagement',
-                    event_label: message.substring(0, 50)
-                });
-            }
-        } catch (error) {
-            // console.error('Error opening contact modal:', error);
-        }
-    }
-
-    // Function to close contact choice modal
-    function closeContactChoiceModal() {
-        if (!DOM.contactChoiceModal) return;
-
-        DOM.contactChoiceModal.classList.remove(CONFIG.CSS_CLASSES.ACTIVE);
-        document.body.style.overflow = '';
-        pendingMessage = '';
-    }
 
     // Function to open conversation dialogue (chat)
     function openConversationDialogue(initialMessage = '') {
@@ -416,7 +418,7 @@ function initHeroConversation() {
 
     if (DOM.chooseWhatsApp) {
         DOM.chooseWhatsApp.addEventListener('click', function() {
-            const whatsappText = encodeURIComponent(`Hi Nathalja! ${pendingMessage}`);
+            const whatsappText = encodeURIComponent(`Hi Nathalja! ${pendingContactMessage}`);
             const whatsappUrl = `https://wa.me/${CONFIG.CONTACT.WHATSAPP}?text=${whatsappText}`;
 
             window.open(whatsappUrl, '_blank');
@@ -425,7 +427,7 @@ function initHeroConversation() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_choice_whatsapp', {
                     event_category: 'Conversion',
-                    event_label: pendingMessage.substring(0, 50)
+                    event_label: pendingContactMessage.substring(0, 50)
                 });
             }
         });
@@ -434,7 +436,7 @@ function initHeroConversation() {
     if (DOM.chooseEmail) {
         DOM.chooseEmail.addEventListener('click', function() {
             const emailSubject = encodeURIComponent('Project aanvraag via portfolio');
-            const emailBody = encodeURIComponent(`Hi Nathalja,\n\n${pendingMessage}\n\nGroet,`);
+            const emailBody = encodeURIComponent(`Hi Nathalja,\n\n${pendingContactMessage}\n\nGroet,`);
             const emailUrl = `mailto:${CONFIG.CONTACT.EMAIL}?subject=${emailSubject}&body=${emailBody}`;
 
             window.location.href = emailUrl;
@@ -443,7 +445,7 @@ function initHeroConversation() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_choice_email', {
                     event_category: 'Conversion',
-                    event_label: pendingMessage.substring(0, 50)
+                    event_label: pendingContactMessage.substring(0, 50)
                 });
             }
         });

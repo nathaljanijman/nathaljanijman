@@ -30,12 +30,13 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    padding: 8px 12px;
+    padding: 12px 16px; /* Increased for 44x44px minimum touch target (WCAG 2.5.5) */
     text-decoration: none;
     color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: 12px;
     min-width: 60px;
+    min-height: 44px; /* WCAG 2.5.5 Level AAA - minimum touch target */
     position: relative;
 }
 
@@ -93,15 +94,16 @@
     }
 }
 
-/* Smaller devices - slightly reduced sizing */
+/* Smaller devices - maintain 44x44px touch targets */
 @media (max-width: 480px) {
     .mobile-bottom-nav {
         padding: 6px 0 max(6px, env(safe-area-inset-bottom));
     }
 
     .mobile-nav-item {
-        padding: 6px 8px;
-        min-width: 50px;
+        padding: 10px 12px; /* Maintain 44x44px minimum */
+        min-width: 56px;
+        min-height: 44px; /* WCAG 2.5.5 - maintain on small screens */
     }
 
     .mobile-nav-icon {
@@ -110,7 +112,7 @@
     }
 
     .mobile-nav-label {
-        font-size: 10px;
+        font-size: 11px; /* Increased from 10px for readability */
     }
 }
 
