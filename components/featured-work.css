@@ -553,3 +553,69 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ============================================
+   Interactive Project Card - Placeholder Styles
+   ============================================ */
+
+/* Project Image Placeholder */
+.project-image-placeholder {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-image-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 71, 171, 0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.placeholder-content {
+    position: relative;
+    z-index: 1;
+}
+
+.placeholder-content svg {
+    stroke: rgba(255, 255, 255, 0.3);
+    filter: drop-shadow(0 0 20px rgba(0, 71, 171, 0.3));
+    transition: all 0.3s ease;
+}
+
+.project-card-interactive:hover .placeholder-content svg {
+    stroke: rgba(0, 71, 171, 0.8);
+    filter: drop-shadow(0 0 30px rgba(0, 71, 171, 0.6));
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Mobile Adjustments for Placeholder */
+@media (max-width: 768px) {
+    .project-image-placeholder {
+        min-height: 240px;
+    }
+
+    .placeholder-content svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .project-card-interactive:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+}
