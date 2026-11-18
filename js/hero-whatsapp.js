@@ -27,6 +27,8 @@ function initConversationalDialogue() {
         typingIndicator: document.getElementById('typingIndicator'),
         quickSuggestions: document.getElementById('quickSuggestions')
     };
+    const { conversationTrigger, conversationDialogue, closeDialogue, mainScreen, chatConversation,
+            chatForm, chatInput, sendButton, typingIndicator, quickSuggestions } = DOM;
 
     let conversationState = 'initial';
     let userMessages = [];
