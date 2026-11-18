@@ -36,91 +36,7 @@
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMLD724KEM"></script>
-    <script>
-        // Comprehensive bot detection
-        function isBot() {
-            const ua = navigator.userAgent.toLowerCase();
-
-            // Bekende bot patterns
-            const botPatterns = [
-                // Search engine bots
-                'googlebot', 'bingbot', 'yandexbot', 'baiduspider', 'duckduckbot',
-                // Social media bots
-                'facebookexternalhit', 'twitterbot', 'linkedinbot', 'slackbot', 'telegrambot',
-                // Monitoring & Analytics
-                'lighthouse', 'gtmetrix', 'pingdom', 'uptimerobot', 'statuscake',
-                'pagespeed', 'speed insights', 'web page test',
-                // Crawlers
-                'crawler', 'spider', 'scraper', 'bot', 'monitoring',
-                // Headless browsers
-                'headless', 'phantom', 'selenium', 'puppeteer', 'playwright',
-                // Other common bots
-                'ahrefsbot', 'semrushbot', 'mj12bot', 'dotbot', 'rogerbot',
-                'screaming frog', 'majestic', 'archive.org_bot'
-            ];
-
-            // Check user agent
-            if (botPatterns.some(pattern => ua.includes(pattern))) {
-                return true;
-            }
-
-            // Check for headless browsers
-            if (navigator.webdriver) {
-                return true;
-            }
-
-            // Check for missing features (common in bots)
-            if (!navigator.language || !navigator.languages) {
-                return true;
-            }
-
-            // Check for Lighthouse specifically
-            if (window.performance && window.performance.getEntriesByType) {
-                const resources = window.performance.getEntriesByType('resource');
-                if (resources.some(r => r.name.includes('lighthouse'))) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        // Check if user has opted out of tracking
-        const gaOptOut = localStorage.getItem('ga-opt-out') === 'true';
-        const detectedBot = isBot();
-
-        // Only load GA if not opted out AND not a bot
-        if (!gaOptOut && !detectedBot) {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-JMLD724KEM');
-        } else if (detectedBot) {
-            console.log('🤖 Bot detected - Analytics disabled');
-        }
-
-        // Admin opt-out function - toegankelijk via console
-        window.gaOptOut = function() {
-            localStorage.setItem('ga-opt-out', 'true');
-            console.log('✅ Google Analytics tracking uitgeschakeld voor deze browser');
-            console.log('⚠️  Refresh de pagina om effect te zien');
-        };
-
-        window.gaOptIn = function() {
-            localStorage.removeItem('ga-opt-out');
-            console.log('✅ Google Analytics tracking ingeschakeld voor deze browser');
-            console.log('⚠️  Refresh de pagina om effect te zien');
-        };
-
-        window.gaStatus = function() {
-            const optOutStatus = localStorage.getItem('ga-opt-out') === 'true';
-            const botStatus = isBot();
-            console.log('Google Analytics Status:');
-            console.log('  Opt-out:', optOutStatus ? '🔴 UIT' : '🟢 AAN');
-            console.log('  Bot detection:', botStatus ? '🤖 BOT DETECTED' : '👤 HUMAN');
-            console.log('  Tracking:', (!optOutStatus && !botStatus) ? '🟢 ACTIEF' : '🔴 INACTIEF');
-        };
-    </script>
+    <script src="js/analytics-init.js"></script>
 
     <!-- Critical CSS - Must load synchronously to prevent FOUC -->
     <link rel="stylesheet" href="css/style.css">
@@ -141,13 +57,13 @@
           fetchpriority="high">
 
     <!-- Non-critical CSS - Async loading for below-the-fold content -->
-    <link rel="preload" href="components/featured-work.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="components/ticker.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="components/about.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="components/contact.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/contact-choice-modal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/professional-identity.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/innovative-services.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="components/featured-work.css" as="style" data-async-css>
+    <link rel="preload" href="components/ticker.css" as="style" data-async-css>
+    <link rel="preload" href="components/about.css" as="style" data-async-css>
+    <link rel="preload" href="components/contact.css" as="style" data-async-css>
+    <link rel="preload" href="css/contact-choice-modal.css" as="style" data-async-css>
+    <link rel="preload" href="css/professional-identity.css" as="style" data-async-css>
+    <link rel="preload" href="css/innovative-services.css" as="style" data-async-css>
 
     <noscript>
         <link rel="stylesheet" href="components/featured-work.css">
@@ -160,8 +76,9 @@
     </noscript>
 
     <!-- Raleway Typography - Async loading to prevent render blocking -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" as="style" data-async-css>
     <noscript><link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></noscript>
+    <script src="js/async-css.js"></script>
 </head>
 <body>
     <!-- Skip Navigation for Accessibility -->
@@ -249,7 +166,7 @@
 
             <!-- Conversational Interface -->
             <div class="hero-conversation">
-                <form class="hero-input-form" id="heroConversationForm" onsubmit="return false;">
+                <form class="hero-input-form" id="heroConversationForm">
                     <div class="input-container">
                         <input
                             type="text"
@@ -605,7 +522,7 @@
                 <button type="button" class="filter-btn" data-filter="entrepreneurship" data-translate="filterEntrepreneurship" aria-label="Filter Entrepreneurship projects">Ondernemerschap</button>
 
                 <!-- Contact Sticker -->
-                <button type="button" class="filter-sticker" onclick="openContactChoiceModal('Ik wil graag mijn project bespreken')" aria-label="Open contact opties">
+                <button type="button" class="filter-sticker" data-contact-message="Ik wil graag mijn project bespreken" aria-label="Open contact opties">
                     <span data-translate="filterStickerText">Jouw project?</span>
                 </button>
             </div>
@@ -671,7 +588,7 @@
                 </div>
 
                 <!-- Your Project? - Interactive Contact Card -->
-                <div class="project-card project-card-interactive" data-category="all" onclick="openContactChoiceModal('Ik heb een projectidee')" style="cursor: pointer;">
+                <div class="project-card project-card-interactive" data-category="all" data-contact-message="Ik heb een projectidee" style="cursor: pointer;">
                     <div>
                         <div class="project-image project-image-placeholder">
                             <div class="placeholder-content">

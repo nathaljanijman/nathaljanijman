@@ -466,3 +466,11 @@ function initHeroConversation() {
         }
     });
 }
+
+// Open the contact modal from elements with data-contact-message
+// (replaces inline onclick handlers so the CSP needs no 'unsafe-inline')
+document.addEventListener('click', function (e) {
+    const el = e.target.closest('[data-contact-message]');
+    if (!el) return;
+    openContactChoiceModal(el.dataset.contactMessage);
+});
