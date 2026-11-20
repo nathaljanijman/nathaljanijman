@@ -326,7 +326,8 @@ function openContactChoiceModal(message = '') {
         if (typeof gtag !== 'undefined') {
             gtag('event', 'contact_choice_modal_open', {
                 event_category: 'Engagement',
-                event_label: message.substring(0, 50)
+                event_label: 'Hero Contact Choice',
+                message_length: message.length
             });
         }
     } catch (error) {
@@ -427,7 +428,7 @@ function initHeroConversation() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_choice_whatsapp', {
                     event_category: 'Conversion',
-                    event_label: pendingContactMessage.substring(0, 50)
+                    event_label: 'Hero Contact Choice'
                 });
             }
         });
@@ -445,7 +446,7 @@ function initHeroConversation() {
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'contact_choice_email', {
                     event_category: 'Conversion',
-                    event_label: pendingContactMessage.substring(0, 50)
+                    event_label: 'Hero Contact Choice'
                 });
             }
         });
@@ -466,3 +467,11 @@ function initHeroConversation() {
         }
     });
 }
+
+// Contact triggers (previously inline onclick attributes)
+document.addEventListener('click', function(e) {
+    const trigger = e.target.closest('[data-contact-message]');
+    if (trigger) {
+        openContactChoiceModal(trigger.dataset.contactMessage);
+    }
+});

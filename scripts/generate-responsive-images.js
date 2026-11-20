@@ -16,8 +16,8 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-    inputDir: path.join(__dirname, '../images'),
-    outputDir: path.join(__dirname, '../images/responsive'),
+    inputDir: path.join(__dirname, '../public/images'),
+    outputDir: path.join(__dirname, '../public/images/responsive'),
 
     // Responsive sizes to generate
     sizes: {

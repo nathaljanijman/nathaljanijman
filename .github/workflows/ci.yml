@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 20
     continue-on-error: true  # Don't block deployment on test failures
     # Only run tests on Pull Requests, skip on main branch for fast deployment
@@ -53,7 +53,7 @@ jobs:
 
   lint-check:
     name: Code Quality Checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 5
 
     steps:
@@ -67,9 +67,9 @@ jobs:
 
       - name: Check for console.log statements (except analytics)
         run: |
-          if grep -r "console\.log" js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"; then
+          if grep -r "console\.log" public/js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"; then
             echo "❌ Found console.log statements in production code"
-            grep -rn "console\.log" js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"
+            grep -rn "console\.log" public/js/*.js | grep -v "analytics.js" | grep -v "//.*console\.log"
             exit 1
           else
             echo "✅ No console.log statements found"
@@ -77,7 +77,7 @@ jobs:
 
       - name: Check for TODO/FIXME comments
         run: |
-          if grep -r "TODO\|FIXME" js/*.js css/*.css; then
+          if grep -r "TODO\|FIXME" public/js/*.js public/css/*.css; then
             echo "⚠️  Found TODO/FIXME comments - review before deploying"
           else
             echo "✅ No TODO/FIXME comments"
@@ -86,7 +86,7 @@ jobs:
 
   functional-check:
     name: Critical Functionality Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 10
     continue-on-error: true  # Don't block deployment on test failures
     # Only run on Pull Requests, skip on main branch for fast deployment
@@ -110,7 +110,7 @@ jobs:
 
       - name: Start local server
         run: |
-          npx http-server . -p 8080 &
+          npx http-server public -p 8080 &
           sleep 3
 
       - name: Run critical path tests only
@@ -122,19 +122,19 @@ jobs:
           echo "Checking for critical functions..."
 
           # Check language switching
-          if ! grep -q "switchLanguage" js/translations.js; then
+          if ! grep -q "switchLanguage" public/js/translations.js; then
             echo "❌ Missing: switchLanguage function"
             exit 1
           fi
 
           # Check project filtering
-          if ! grep -q "initProjectFiltering" js/script.js; then
+          if ! grep -q "initProjectFiltering" public/js/script.js; then
             echo "❌ Missing: initProjectFiltering function"
             exit 1
           fi
 
           # Check hero conversation
-          if ! grep -q "initHeroConversation" js/script.js; then
+          if ! grep -q "initHeroConversation" public/js/script.js; then
             echo "❌ Missing: initHeroConversation function"
             exit 1
           fi
@@ -144,7 +144,7 @@ jobs:
   deployment-ready:
     name: Deployment Ready Check
     needs: [lint-check]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     if: always()  # Run even if tests are skipped
 
     steps:
