@@ -52,8 +52,11 @@ function isBot() {
 const gaOptOut = localStorage.getItem('ga-opt-out') === 'true';
 const detectedBot = isBot();
 
-// Only load GA if not opted out AND not a bot
-if (!gaOptOut && !detectedBot) {
+// Only track on the live site, so staging and preview visits don't pollute GA
+const isProductionHost = ['nathaljanijman.com', 'www.nathaljanijman.com'].includes(window.location.hostname);
+
+// Only load GA on production, if not opted out AND not a bot
+if (isProductionHost && !gaOptOut && !detectedBot) {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -81,5 +84,6 @@ window.gaStatus = function() {
     console.info('Google Analytics Status:');
     console.info('  Opt-out:', optOutStatus ? '🔴 UIT' : '🟢 AAN');
     console.info('  Bot detection:', botStatus ? '🤖 BOT DETECTED' : '👤 HUMAN');
-    console.info('  Tracking:', (!optOutStatus && !botStatus) ? '🟢 ACTIEF' : '🔴 INACTIEF');
+    console.info('  Production host:', isProductionHost ? '🟢 JA' : '🔴 NEE (staging/preview/lokaal)');
+    console.info('  Tracking:', (isProductionHost && !optOutStatus && !botStatus) ? '🟢 ACTIEF' : '🔴 INACTIEF');
 };

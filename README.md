@@ -236,12 +236,32 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 
 ---
 
+## 🚦 Werkwijze: staging → live
+
+| Omgeving | Adres | Branch | Toegang |
+|---|---|---|---|
+| **Live** | https://nathaljanijman.com | `main` | Publiek |
+| **Staging** | https://staging.nathaljanijman.com | `staging` | Wachtwoord |
+| PR-previews | `*.nathaljanijman.pages.dev` | elke andere branch | Wachtwoord |
+
+1. Wijzigingen gaan eerst naar de branch `staging` (direct, of via een PR naar `staging`).
+2. Cloudflare deployt die automatisch naar https://staging.nathaljanijman.com. Check daar alles.
+3. Goed? Open een PR van `staging` naar `main` en merge die. Dán staat het live.
+
+**Hoe de afscherming werkt:** `functions/_middleware.js` vraagt een wachtwoord op elk adres behalve
+`nathaljanijman.com` en `www.nathaljanijman.com`. Het wachtwoord staat in Cloudflare Pages als secret
+`STAGING_PASSWORD` (de gebruikersnaam maakt niet uit). Zonder die secret blijft staging op slot (503).
+Niet-live pagina's krijgen ook `X-Robots-Tag: noindex`, en Google Analytics draait alleen op het live domein.
+
+---
+
 ## 📁 Bestandsstructuur
 
 ```
 nathaljanijman-portfolio/
 ├── README.md                  # Deze file
 ├── wrangler.toml              # Cloudflare Pages: alleen public/ wordt gedeployed
+├── functions/_middleware.js   # Wachtwoord op staging/previews
 ├── scripts/                   # Lokale tools (afbeeldingen optimaliseren) - niet online
 ├── source-images/originals/   # Originele afbeeldingen - niet online
 ├── tests/                     # Playwright tests - niet online
