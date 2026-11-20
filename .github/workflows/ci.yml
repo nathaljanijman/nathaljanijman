@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 20
     continue-on-error: true  # Don't block deployment on test failures
     # Only run tests on Pull Requests, skip on main branch for fast deployment
@@ -53,7 +53,7 @@ jobs:
 
   lint-check:
     name: Code Quality Checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 5
 
     steps:
@@ -86,7 +86,7 @@ jobs:
 
   functional-check:
     name: Critical Functionality Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     timeout-minutes: 10
     continue-on-error: true  # Don't block deployment on test failures
     # Only run on Pull Requests, skip on main branch for fast deployment
@@ -144,7 +144,7 @@ jobs:
   deployment-ready:
     name: Deployment Ready Check
     needs: [lint-check]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 ondersteunt ubuntu-latest (26.04) niet
     if: always()  # Run even if tests are skipped
 
     steps:
