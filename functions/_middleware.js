@@ -50,12 +50,6 @@ export async function onRequest({ request, env, next }) {
         return next();
     }
 
-    // TEMPORARY PROBE: check whether _headers/_redirects still apply after next(). Will be removed.
-    const probePath = new URL(request.url).pathname;
-    if (probePath === '/css/style.css' || probePath === '/nl') {
-        return next();
-    }
-
     const expected = env.STAGING_PASSWORD;
     if (!expected) {
         return new Response('Staging is vergrendeld: STAGING_PASSWORD is niet ingesteld in Cloudflare Pages.', {
