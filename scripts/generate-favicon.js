@@ -20,7 +20,7 @@ const svgTemplate = (size) => `
 `;
 
 async function generateFavicons() {
-    const publicDir = path.join(__dirname, '..');
+    const publicDir = path.join(__dirname, '../public');
 
     console.log('\n🎨 FAVICON GENERATIE GESTART\n');
 

@@ -4,7 +4,7 @@
  * Image Optimization Script using Sharp
  *
  * This script:
- * 1. Backs up original images to images/originals/
+ * 1. Backs up original images to source-images/originals/
  * 2. Optimizes all images (compress + resize)
  * 3. Converts to modern WebP format
  * 4. Generates multiple sizes for responsive images
@@ -18,9 +18,9 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-    inputDir: path.join(__dirname, '../images'),
-    outputDir: path.join(__dirname, '../images'),
-    backupDir: path.join(__dirname, '../images/originals'),
+    inputDir: path.join(__dirname, '../public/images'),
+    outputDir: path.join(__dirname, '../public/images'),
+    backupDir: path.join(__dirname, '../source-images/originals'),
 
     // Image sizes for different use cases
     sizes: {

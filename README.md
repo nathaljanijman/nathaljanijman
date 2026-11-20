@@ -240,8 +240,16 @@ Een moderne, minimalistisch portfolio website gebouwd met vanilla JavaScript, HT
 
 ```
 nathaljanijman-portfolio/
-├── index.html                 # Hoofd HTML bestand
 ├── README.md                  # Deze file
+├── wrangler.toml              # Cloudflare Pages: alleen public/ wordt gedeployed
+├── scripts/                   # Lokale tools (afbeeldingen optimaliseren) - niet online
+├── source-images/originals/   # Originele afbeeldingen - niet online
+├── tests/                     # Playwright tests - niet online
+│
+└── public/                    # ⚠️ Alles hierin is publiek zichtbaar op de website
+├── index.html                 # Hoofd HTML bestand
+├── _headers                   # Security headers (CSP: geen inline scripts toegestaan!)
+├── _redirects
 │
 ├── css/
 │   ├── style.css              # Globale styles, variables, utilities
@@ -260,7 +268,10 @@ nathaljanijman-portfolio/
 │   ├── script.js              # Hoofd JavaScript (nav, scroll, animations)
 │   ├── translations.js        # i18n systeem (NL/EN)
 │   ├── hero-whatsapp.js       # Hero WhatsApp functionaliteit
-│   └── portfolio-offering.js  # Portfolio package pagina
+│   ├── portfolio-offering.js  # Portfolio package pagina
+│   ├── ga-init.js             # Google Analytics + bot-detectie + opt-out
+│   ├── async-css.js           # Laadt niet-kritieke CSS zonder render-blocking
+│   └── services-decision-tree.js
 │
 └── images/
     ├── nathalja-work.jpg      # Hero achtergrond

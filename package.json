@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "echo \"Static site - no build process needed\" && exit 0",
-    "dev": "http-server . -p 8080 -c-1 --proxy http://localhost:8080?",
+    "dev": "http-server public -p 8080 -c-1 --proxy http://localhost:8080?",
     "start": "npm run dev",
     "optimize:images": "node scripts/optimize-images.js",
     "test": "playwright test",
@@ -16,8 +16,8 @@
     "test:report": "playwright show-report",
     "test:smoke": "playwright test tests/e2e.spec.js",
     "precheck": "npm run lint:js && npm run check:functions",
-    "lint:js": "echo '🔍 Checking for console.log...' && ! grep -r 'console\\.log' js/*.js | grep -v 'analytics.js' | grep -v '//' || echo '⚠️  Found console.log statements'",
-    "check:functions": "echo '⚙️  Checking critical functions...' && grep -q 'initProjectFiltering' js/script.js && grep -q 'switchLanguage' js/translations.js && grep -q 'initHeroConversation' js/script.js && echo '✅ All critical functions present' || (echo '❌ Missing critical functions' && exit 1)",
+    "lint:js": "echo '🔍 Checking for console.log...' && ! grep -r 'console\\.log' public/js/*.js | grep -v 'analytics.js' | grep -v '//' || echo '⚠️  Found console.log statements'",
+    "check:functions": "echo '⚙️  Checking critical functions...' && grep -q 'initProjectFiltering' public/js/script.js && grep -q 'switchLanguage' public/js/translations.js && grep -q 'initHeroConversation' public/js/script.js && echo '✅ All critical functions present' || (echo '❌ Missing critical functions' && exit 1)",
     "predeploy": "npm run precheck && npm run test:smoke",
     "deploy": "git push origin main",
     "deploy:safe": "npm run predeploy && npm run deploy"
@@ -36,10 +36,9 @@
   "homepage": "https://github.com/nathaljanijman/nathaljanijman#readme",
   "devDependencies": {
     "@playwright/test": "^1.42.1",
-    "sharp": "^0.34.4"
+    "sharp": "^0.35.5"
   },
   "dependencies": {
-    "dompurify": "^3.3.0",
     "http-server": "^14.1.1"
   }
 }

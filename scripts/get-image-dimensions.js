@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function getImageDimensions() {
-    const imagesDir = path.join(__dirname, '..', 'images');
+    const imagesDir = path.join(__dirname, '..', 'public', 'images');
     const files = fs.readdirSync(imagesDir)
         .filter(file => file.endsWith('.webp'))
         .sort();
